@@ -24,6 +24,53 @@
 -- MAGIC From [Delta Live Tables introduction](https://docs.databricks.com/workflows/delta-live-tables/index.html):
 -- MAGIC 
 -- MAGIC > **Delta Live Tables** is a framework for building (reliable, maintainable, and testable) data processing pipelines. You define the transformations to perform on your data, and Delta Live Tables manages task orchestration, cluster management, monitoring, data quality, and error handling.
+-- MAGIC 
+-- MAGIC In summary, Delta Live Tables is a framework for building data processing pipelines:
+-- MAGIC 
+-- MAGIC * You define transformations of your data
+-- MAGIC * Delta Live Tables takes care of task orchestration, cluster management, monitoring, data quality, and error handling
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC ## DLT Features and Pricing
+-- MAGIC 
+-- MAGIC From [Delta Live Tables introduction](https://learn.microsoft.com/en-us/azure/databricks/workflows/delta-live-tables/):
+-- MAGIC 
+-- MAGIC > DLT is available only in the Premium tier.
+-- MAGIC 
+-- MAGIC From [Azure Databricks pricing](https://azure.microsoft.com/en-us/pricing/details/databricks/):
+-- MAGIC 
+-- MAGIC * Basic Capabilities
+-- MAGIC * Change Data Capture
+-- MAGIC * Data Quality
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC ### Basic Capabilities
+-- MAGIC 
+-- MAGIC Described as **DLT Core** in [Azure Databricks pricing](https://azure.microsoft.com/en-us/pricing/details/databricks/).
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC ### Change Data Capture
+-- MAGIC 
+-- MAGIC Described as **DLT Pro** in [Azure Databricks pricing](https://azure.microsoft.com/en-us/pricing/details/databricks/).
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC ### WIP Data Quality / Expectations
+-- MAGIC 
+-- MAGIC Described as **DLT Advanced** in [Azure Databricks pricing](https://azure.microsoft.com/en-us/pricing/details/databricks/).
+-- MAGIC 
+-- MAGIC Enforce data quality with expectations.
 
 -- COMMAND ----------
 
@@ -99,6 +146,8 @@
 -- MAGIC 
 -- MAGIC * define expected data quality
 -- MAGIC * specify how to handle records that fail those expectations.
+-- MAGIC 
+-- MAGIC Learn more in [Manage data quality with Delta Live Tables](https://learn.microsoft.com/en-us/azure/databricks/workflows/delta-live-tables/delta-live-tables-expectations).
 
 -- COMMAND ----------
 
