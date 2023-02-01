@@ -25,8 +25,30 @@
 
 # COMMAND ----------
 
-# MAGIC %md ## Run other jobs with the new 'Run Job' task
+# MAGIC %md ## Create Job
+# MAGIC 
+# MAGIC [Learn more](https://docs.databricks.com/workflows/jobs/jobs.html#create-a-job)
+
+# COMMAND ----------
+
+# MAGIC %md ### Run other jobs
 # MAGIC 
 # MAGIC By using the new 'Run Job' task in your job, you can orchestrate other jobs. This allows you to reuse generic jobs with parameters, as well as split up large jobs into smaller, modular pieces.
 # MAGIC 
 # MAGIC ![Run Job Task](workflows-run-job-task.png)
+
+# COMMAND ----------
+
+# MAGIC %md ## Schedule Job from Repo
+# MAGIC 
+# MAGIC You can now schedule a job from your repo. Visit Create Job and pick “Git” for the Source field.
+# MAGIC 
+# MAGIC Learn more in [Build Reliable Production Data and ML Pipelines With Git Support for Databricks Workflows](https://www.databricks.com/blog/2022/06/21/build-reliable-production-data-and-ml-pipelines-with-git-support-for-databricks-workflows.html)
+
+# COMMAND ----------
+
+# MAGIC %md ## Increase jobs limit
+# MAGIC 
+# MAGIC In [Databricks administration guide](https://docs.databricks.com/administration-guide/workspace/enable-increased-jobs-limit.html):
+# MAGIC 
+# MAGIC > By default, Databricks limits the number of jobs in a workspace based on the pricing tier.
