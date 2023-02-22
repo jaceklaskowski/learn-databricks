@@ -6,14 +6,41 @@
 -- MAGIC Name | Default Value | Label
 -- MAGIC -----|---------------|-------
 -- MAGIC  `table_name` | workflows_raw_data | Table Name (Raw Data)
+-- MAGIC  `database_name` | jaceklaskowski | Database Name
+-- MAGIC 
+-- MAGIC Unfortunatelly, [notebooks in jobs cannot use widgets](https://docs.databricks.com/notebooks/widgets.html#using-widget-values-in-spark-sql):
+-- MAGIC 
+-- MAGIC > In general, you cannot use widgets (...) if you use Run All or run the notebook as a job.
+-- MAGIC 
+-- MAGIC I thought I'm left with [task values](https://docs.databricks.com/workflows/jobs/how-to-share-task-values.html) only to pass arbitrary parameters between tasks in a Databricks job.
+-- MAGIC 
+-- MAGIC That's not really true as this notebook (and the accompanying Databricks Job) demonstrates.
+-- MAGIC 
+-- MAGIC Simply define 
+
+-- COMMAND ----------
+
+-- MAGIC %python
+-- MAGIC 
+-- MAGIC dbutils.jobs.taskValues.help()
+
+-- COMMAND ----------
+
+-- MAGIC %python
+-- MAGIC 
+-- MAGIC dbutils.jobs.taskValues.help("get")
 
 -- COMMAND ----------
 
 -- MAGIC %python
 -- MAGIC 
 -- MAGIC # Creates a text input widget with a given name and default value.
+-- MAGIC # Notebook Widgets are only for Run all (when executed outside a job)
 -- MAGIC dbutils.widgets.removeAll()
--- MAGIC dbutils.widgets.text(name = "table_name", defaultValue = "workflows_raw_data", label = "Table Name (Raw Data)")
+-- MAGIC dbutils.widgets.text(name = "database_name", defaultValue = "jaceklaskowski", label = "Database Name")
+-- MAGIC dbutils.widgets.text(name = "raw_table_name", defaultValue = "workflows_raw_data", label = "Raw Table Name")
+-- MAGIC dbutils.widgets.text(name = "silver_table_name", defaultValue = "workflows_transform", label = "Silver Table Name")
+-- MAGIC dbutils.widgets.text(name = "gold_table_name", defaultValue = "workflows_aggregates", label = "Gold Table Name")
 
 -- COMMAND ----------
 
@@ -23,8 +50,8 @@
 
 -- COMMAND ----------
 
-CREATE DATABASE IF NOT EXISTS jaceklaskowski;
-USE jaceklaskowski
+CREATE DATABASE IF NOT EXISTS ${database_name};
+USE ${database_name}
 
 -- COMMAND ----------
 
@@ -40,13 +67,13 @@ SHOW TABLES
 
 -- MAGIC %python
 -- MAGIC 
--- MAGIC dbutils.widgets.getArgument("table_name")
+-- MAGIC dbutils.widgets.getArgument("raw_table_name")
 
 -- COMMAND ----------
 
 -- Accessing widget value in SQL
 -- Learn more in https://docs.databricks.com/notebooks/widgets.html
-CREATE OR REPLACE VIEW ${table_name}
+CREATE OR REPLACE VIEW ${raw_table_name}
   (id COMMENT 'Unique identification number', name)
 COMMENT 'Bronze layer'
 AS
@@ -55,4 +82,8 @@ AS
 
 -- COMMAND ----------
 
-SELECT * FROM ${table_name}
+SELECT * FROM ${raw_table_name}
+
+-- COMMAND ----------
+
+

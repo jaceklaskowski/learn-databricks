@@ -184,11 +184,26 @@
 
 # MAGIC %md
 # MAGIC 
+# MAGIC ### News
+# MAGIC 
+# MAGIC 1. [Databricks Workflows: Introducing DAG, Serverless Compute & trigger based flows](https://www.linkedin.com/pulse/databricks-workflows-introducing-dag-serverless-compute-dhondt/)
+# MAGIC 1. [Easier creation and editing of Databricks jobs in the UI](https://docs.databricks.com/release-notes/product/2023/january.html#easier-creation-and-editing-of-databricks-jobs-in-the-ui)
+# MAGIC 1. [Improvements to the Databricks Jobs UI when viewing job runs](https://docs.databricks.com/release-notes/product/2023/january.html#improvements-to-the-databricks-jobs-ui-when-viewing-job-runs)
+# MAGIC 1. [Databricks ❤️ IDEs](https://www.databricks.com/blog/2023/02/14/announcing-a-native-visual-studio-code-experience-for-databricks.html)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC 
 # MAGIC ### Parameterized Notebook Tasks with Input Widgets
 # MAGIC 
-# MAGIC 1. Input widgets allow you to add parameters to your notebooks and dashboards
+# MAGIC 1. Input widgets allow you to add parameters to your notebooks and dashboards.
 # MAGIC 1. Building a notebook or dashboard that is re-executed with different parameters
 # MAGIC 1. `dbutils.widgets.help()`
+# MAGIC 
+# MAGIC Unfortunatelly, [notebooks in jobs cannot use widgets](https://docs.databricks.com/notebooks/widgets.html#using-widget-values-in-spark-sql):
+# MAGIC 
+# MAGIC > In general, you cannot use widgets (...) if you use Run All or run the notebook as a job.
 # MAGIC 
 # MAGIC Learn more:
 # MAGIC 
@@ -202,6 +217,17 @@
 # MAGIC ### Task values
 # MAGIC 
 # MAGIC Learn more in [Share information between tasks in a Databricks job](https://docs.databricks.com/workflows/jobs/how-to-share-task-values.html)
+# MAGIC 
+# MAGIC There are two limitations of [dbutils.jobs.taskValues.get](https://docs.databricks.com/dev-tools/databricks-utils.html#get-command-dbutilsjobstaskvaluesget) command:
+# MAGIC 
+# MAGIC 1. Available only for Python (no SQL variant)
+# MAGIC 1. Gets the contents of the specified task value for the **specified task** in the current job run
+# MAGIC 
+# MAGIC How to pass in arguments to "opening" notebooks in Databricks Jobs? [You can pass parameters for your task](https://docs.databricks.com/workflows/jobs/jobs.html#create-a-job).
+# MAGIC 
+# MAGIC > **Notebook**: Click **Add** and specify the key and value of each parameter to pass to the task. You can override or add additional parameters when you manually run a task using the Run a job with different parameters option. Parameters set the value of the [notebook widget](https://docs.databricks.com/notebooks/widgets.html) specified by the key of the parameter. Use task parameter variables to pass a limited set of dynamic values as part of a parameter value.
+# MAGIC 
+# MAGIC What?! Notebook widgets again?!
 
 # COMMAND ----------
 
