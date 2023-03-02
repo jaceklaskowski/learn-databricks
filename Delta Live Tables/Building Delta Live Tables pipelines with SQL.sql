@@ -13,7 +13,7 @@
 
 -- MAGIC %md ## Introduction
 -- MAGIC 
--- MAGIC * Delta Live Tables supports only SQL and Python (You cannot use JVM libraries in a pipeline)
+-- MAGIC * Delta Live Tables supports only SQL and Python (You cannot use JVM libraries in a DLT pipeline)
 
 -- COMMAND ----------
 
@@ -26,7 +26,7 @@
 
 -- COMMAND ----------
 
--- MAGIC %md ## CREATE LIVE VIEW
+-- MAGIC %md ## CREATE TEMPORARY LIVE VIEW
 -- MAGIC 
 -- MAGIC * `CREATE TEMPORARY [STREAMING] LIVE VIEW view_name`
 
@@ -43,8 +43,8 @@
 
 -- MAGIC %md ## STREAMING
 -- MAGIC 
--- MAGIC * Creates a table that reads an input dataset as a stream
--- MAGIC * Input dataset must be a streaming data source, e.g. [Auto Loader](https://docs.databricks.com/ingestion/auto-loader/index.html) (discussed lated in this notebook) or a `STREAMING LIVE` table.
+-- MAGIC * Creates a table or view that reads an input dataset as a stream
+-- MAGIC * Input dataset must be a streaming data source, e.g. [Auto Loader](https://docs.databricks.com/ingestion/auto-loader/index.html) (discussed lated in this notebook) or a `STREAMING LIVE` table or view.
 
 -- COMMAND ----------
 
@@ -73,7 +73,7 @@
 -- MAGIC 1. make the output data of your pipeline discoverable and available to query by publishing datasets to the Databricks metastore.
 -- MAGIC 1. enter a database name in the Target field when you create a pipeline
 -- MAGIC 1. No support for publishing tables to Unity Catalog. Delta Live Tables supports publishing tables only to the workspace-level Hive metastore.
--- MAGIC 1. only tables and associated metadata are published. Views are not published to the metastore.
+-- MAGIC 1. only tables and associated metadata are published. Views are not published to the metastore (because they are temporary by definition).
 -- MAGIC 1. Use `TEMPORARY` marker to prevent publishing of intermediate tables that are not intended for external consumption
 -- MAGIC     ```sql
 -- MAGIC     CREATE TEMPORARY LIVE TABLE temp_table
@@ -96,6 +96,12 @@ DESCRIBE EXTENDED jaceklaskowski_dlts.dlt_one;
 -- COMMAND ----------
 
 describe history jaceklaskowski_dlts.dlt_one;
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC ## The End
 
 -- COMMAND ----------
 
