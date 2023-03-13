@@ -16,10 +16,10 @@
 
 -- MAGIC %md ## Installation
 -- MAGIC 
--- MAGIC [Installation](https://github.com/databricks/databricks-cli) (Gitbub):
+-- MAGIC [Installation](https://github.com/databricks/databricks-cli) (Github):
 -- MAGIC 
 -- MAGIC * `pip install --upgrade databricks-cli`
--- MAGIC * Set up authentication using username/password or [authentication token](https://docs.databricks.com/dev-tools/api/latest/authentication.html#token-management). Credentials are stored at `~/.databrickscfg`
+-- MAGIC * Set up authentication using username/password or [authentication token](https://docs.databricks.com/dev-tools/api/latest/authentication.html#token-management). Credentials are stored at `~/.databrickscfg` (can be re-configured using an environment variable)
 -- MAGIC 
 -- MAGIC [Databricks CLI setup & documentation](https://docs.databricks.com/dev-tools/cli/index.html)
 
@@ -29,11 +29,48 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md ### Using Conda
+-- MAGIC 
+-- MAGIC [Getting started with conda](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html):
+-- MAGIC 
+-- MAGIC > Conda is a powerful package manager and environment manager that you use with command line commands at the Anaconda Prompt for Windows, or in a terminal window for macOS or Linux.
+-- MAGIC 
+-- MAGIC [Managing environments](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html):
+-- MAGIC 
+-- MAGIC > With conda, you can create, export, list, remove, and update environments that have different versions of Python and/or packages installed in them. Switching or moving between environments is called activating the environment. 
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC [Viewing a list of your environments](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#viewing-a-list-of-your-environments):
+-- MAGIC 
+-- MAGIC ```
+-- MAGIC conda info --envs
+-- MAGIC ```
+
+-- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC 
 -- MAGIC ### Create Conda Environment
 -- MAGIC 
 -- MAGIC [Creating an environment with commands](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-with-commands)
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC ```
+-- MAGIC $ conda create --help
+-- MAGIC usage: conda create [-h] [--clone ENV] (-n ENVIRONMENT | -p PATH) [-c CHANNEL] [--use-local] [--override-channels] [--repodata-fn REPODATA_FNS] [--strict-channel-priority]
+-- MAGIC                     [--no-channel-priority] [--no-deps | --only-deps] [--no-pin] [--copy] [-C] [-k] [--offline] [-d] [--json] [-q] [-v] [-y] [--download-only] [--show-channel-urls]
+-- MAGIC                     [--file FILE] [--no-default-packages] [--solver {classic} | --experimental-solver {classic}] [--dev]
+-- MAGIC                     [package_spec ...]
+-- MAGIC 
+-- MAGIC Create a new conda environment from a list of specified packages. To use the newly-created environment, use 'conda activate envname'. This command requires either the -n NAME or -p PREFIXoption.
+-- MAGIC ...omitted for brevity
+-- MAGIC ```
 
 -- COMMAND ----------
 
@@ -354,16 +391,122 @@
 
 -- COMMAND ----------
 
--- MAGIC %md
+-- MAGIC %md ## Delta Live Tables Settings
 -- MAGIC 
 -- MAGIC [Delta Live Tables settings](https://docs.databricks.com/workflows/delta-live-tables/delta-live-tables-configuration.html), esp. [Parameterize pipelines](https://docs.databricks.com/workflows/delta-live-tables/delta-live-tables-configuration.html#parameterize-pipelines)
+-- MAGIC 
+-- MAGIC * The Python and SQL code that defines your datasets can be parameterized by the pipeline’s settings.
+
+-- COMMAND ----------
+
+-- MAGIC %md ### Compute Advanced Configuration
+-- MAGIC 
+-- MAGIC For a Delta Live Table pipeline, select `Settings` and scroll down to `Compute > Advanced > Configuration` section to define configuration settings (e.g. `param.name`).
+-- MAGIC 
+-- MAGIC Use `${param.name}` to access the value.
+-- MAGIC 
+-- MAGIC Once executed, select a live table that uses setting(s).
+
+-- COMMAND ----------
+
+-- MAGIC %md ### Demo
+-- MAGIC 
+-- MAGIC For `dlt_one`, use `COMMENT` to use `jacek.pipeline.message` setting.
+
+-- COMMAND ----------
+
+-- MAGIC %md ### databricks pipelines edit
+-- MAGIC 
+-- MAGIC ```
+-- MAGIC $ databricks pipelines edit --help
+-- MAGIC Usage: databricks pipelines edit [OPTIONS] [SETTINGS_ARG]
+-- MAGIC 
+-- MAGIC   Edits a pipeline specified by the pipeline settings. The pipeline settings
+-- MAGIC   are a JSON document that defines a Delta Live Tables pipeline on Databricks.
+-- MAGIC   To use a file containing the pipeline settings, pass the file path to the
+-- MAGIC   command as an argument or with the --settings option.
+-- MAGIC 
+-- MAGIC   Specification for the pipeline settings JSON can be found at
+-- MAGIC   https://docs.databricks.com/data-engineering/delta-live-tables/delta-live-
+-- MAGIC   tables-configuration.html
+-- MAGIC 
+-- MAGIC   If another pipeline with the same name exists, pipeline settings will not be
+-- MAGIC   edited. This check can be disabled by adding the --allow-duplicate-names
+-- MAGIC   option.
+-- MAGIC 
+-- MAGIC   Note that if an ID is specified in both the settings and passed with the
+-- MAGIC   --pipeline-id argument, the two ids must be the same, or the command will
+-- MAGIC   fail.
+-- MAGIC 
+-- MAGIC   Usage:
+-- MAGIC 
+-- MAGIC   databricks pipelines edit example.json
+-- MAGIC 
+-- MAGIC   OR
+-- MAGIC 
+-- MAGIC   databricks pipelines edit --settings example.json
+-- MAGIC 
+-- MAGIC Options:
+-- MAGIC   --settings SETTINGS        The path to the pipelines settings file.
+-- MAGIC   --pipeline-id PIPELINE_ID  The pipeline ID.
+-- MAGIC   --allow-duplicate-names    Skip duplicate name check while editing pipeline.
+-- MAGIC   --debug                    Debug Mode. Shows full stack trace on error.
+-- MAGIC   --profile TEXT             CLI connection profile to use. The default
+-- MAGIC                              profile is "DEFAULT".
+-- MAGIC   -h, --help                 Show this message and exit.
+-- MAGIC   ```
 
 -- COMMAND ----------
 
 -- MAGIC %md
 -- MAGIC 
+-- MAGIC It looks like you have to [Get pipeline details](https://docs.databricks.com/workflows/delta-live-tables/delta-live-tables-api-guide.html#get-pipeline-details) first since there are mandatory settings that have to be in the settings file even though they are not modified.
 -- MAGIC 
+-- MAGIC And `pipeline-id` alone is not enough :sad:
+-- MAGIC 
+-- MAGIC ```
+-- MAGIC $ databricks pipelines get --pipeline-id 960da65b-c9df-4cb9-9456-1005ffe103a9 | jq '.spec' > new_settings.json
+-- MAGIC ```
+
+-- COMMAND ----------
+
+-- MAGIC %md
 -- MAGIC 
 -- MAGIC ```text
--- MAGIC databricks pipelines edit --settings edit-pipeline.json
+-- MAGIC databricks pipelines edit --settings new_settings.json --pipeline-id 960da65b-c9df-4cb9-9456-1005ffe103a9
+-- MAGIC ```
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC `databricks pipelines edit` uses `PUT` on [Delta Live Tables REST API](https://docs.databricks.com/workflows/delta-live-tables/delta-live-tables-api-guide.html#edit-a-pipeline) (`/api/2.0/pipelines/`):
+-- MAGIC 
+-- MAGIC > Updates the settings for an existing pipeline.
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Databricks CLI Debugging
+-- MAGIC 
+-- MAGIC Use `--debug` option to enable HTTP debugging.
+-- MAGIC 
+-- MAGIC ```
+-- MAGIC Options:
+-- MAGIC   --settings SETTINGS        The path to the pipelines settings file.
+-- MAGIC   --pipeline-id PIPELINE_ID  The pipeline ID.
+-- MAGIC   --allow-duplicate-names    Skip duplicate name check while editing pipeline.
+-- MAGIC   --debug                    Debug Mode. Shows full stack trace on error.
+-- MAGIC   --profile TEXT             CLI connection profile to use. The default
+-- MAGIC                              profile is "DEFAULT".
+-- MAGIC   -h, --help                 Show this message and exit.
+-- MAGIC ```
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC ```
+-- MAGIC $ databricks pipelines edit --settings settings.json --pipeline-id 960da65b-c9df-4cb9-9456-1005ffe103a9 --debug
+-- MAGIC HTTP debugging enabled
+-- MAGIC ...omitted for brevity
 -- MAGIC ```
