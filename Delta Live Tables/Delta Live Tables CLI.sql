@@ -464,6 +464,8 @@
 -- MAGIC 
 -- MAGIC And `pipeline-id` alone is not enough :sad:
 -- MAGIC 
+-- MAGIC Use `databricks pipelines get` or JSON view in the Delta Live Tables UI.
+-- MAGIC 
 -- MAGIC ```
 -- MAGIC $ databricks pipelines get --pipeline-id 960da65b-c9df-4cb9-9456-1005ffe103a9 | jq '.spec' > new_settings.json
 -- MAGIC ```

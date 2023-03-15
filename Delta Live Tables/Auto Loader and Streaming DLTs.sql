@@ -3,65 +3,6 @@
 
 -- COMMAND ----------
 
--- MAGIC %md ## Before We Start
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC 
--- MAGIC ### Databricks Runtime 12.2 LTS
--- MAGIC 
--- MAGIC [Databricks Runtime 12.2 LTS](https://docs.databricks.com/release-notes/runtime/12.2.html) is out and is the latest LTS with Apache Spark 3.3.2 under the covers.
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC 
--- MAGIC In [Delta Live Tables release notes and the release upgrade process](https://docs.databricks.com/release-notes/delta-live-tables/index.html):
--- MAGIC 
--- MAGIC > Because Delta Live Tables is versionless, both workspace and runtime changes take place automatically.
--- MAGIC 
--- MAGIC > Delta Live Tables is considered to be a versionless product, which means that Databricks automatically upgrades the Delta Live Tables runtime to support enhancements and upgrades to the platform. Databricks recommends limiting external dependencies for Delta Live Tables pipelines.
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC 
--- MAGIC ### Delta Live Tables Release 2023.06
--- MAGIC 
--- MAGIC [Release 2023.06](https://docs.databricks.com/release-notes/delta-live-tables/2023/06/index.html):
--- MAGIC 
--- MAGIC * Databricks Runtime 11.0.12
--- MAGIC 
--- MAGIC There's an inconsistency though as the UI says 11.3 (under [Compute](/#joblist/pipelines)).
-
--- COMMAND ----------
-
--- MAGIC %md ### DLT Pipeline Dependencies
--- MAGIC 
--- MAGIC [Pipeline dependencies](https://docs.databricks.com/release-notes/delta-live-tables/index.html#pipeline-dependencies):
--- MAGIC 
--- MAGIC * Delta Live Tables supports external dependencies in your pipelines;
--- MAGIC     * any Python package using the `%pip install` command
--- MAGIC * Delta Live Tables also supports using global and cluster-scoped [init scripts](https://docs.databricks.com/clusters/init-scripts.html)
--- MAGIC 
--- MAGIC **Recommendation**: [Minimize using init scripts in your pipelines](https://docs.databricks.com/release-notes/delta-live-tables/index.html#pipeline-dependencies)
-
--- COMMAND ----------
-
--- MAGIC %md ### Files in Repos
--- MAGIC 
--- MAGIC [What are workspace files?](https://docs.databricks.com/files/workspace.html):
--- MAGIC 
--- MAGIC * Support for workspace files is in Public Preview.
--- MAGIC * Files in Repos is GA
--- MAGIC * A workspace file is any file in the Databricks workspace that is not a Databricks notebook
--- MAGIC     * But...**you cannot embed images in notebooks** :(
--- MAGIC * Workspace files are enabled everywhere by default for Databricks Runtime 11.2 and above. Files in Repos is enabled by default in Databricks Runtime 11.0 and above, and can be manually disabled or enabled.
--- MAGIC * Did you know that...you can use the command `%sh pwd` in a notebook inside a repo to check if Files in Repos is enabled.
-
--- COMMAND ----------
-
 -- MAGIC %md ## Auto Loader
 
 -- COMMAND ----------
@@ -77,6 +18,7 @@
 -- MAGIC * Auto Loader provides a **Structured Streaming source** called `cloudFiles`
 -- MAGIC * Given an input directory path on the cloud file storage, the `cloudFiles` source automatically processes new files as they arrive, with the option of also processing existing files in that directory.
 -- MAGIC * Auto Loader has support for both Python and SQL in Delta Live Tables
+-- MAGIC * `cloud_files` table-valued function
 -- MAGIC 
 -- MAGIC **Recommendation:**
 -- MAGIC 
@@ -113,10 +55,10 @@
 -- MAGIC 
 -- MAGIC [Using Auto Loader in Delta Live Tables](https://docs.databricks.com/ingestion/auto-loader/dlt.html)
 -- MAGIC 
+-- MAGIC * Delta Live Tables automatically configures and manages the schema and checkpoint directories when using Auto Loader to read files.
 -- MAGIC * No need to provide a schema or checkpoint location because Delta Live Tables automatically manages these settings for your pipelines.
 -- MAGIC * Delta Live Tables provides slightly modified Python syntax for Auto Loader, and adds SQL support for Auto Loader
--- MAGIC     * `cloud_files` a brand new table-valued function (TVF)
--- MAGIC * Delta Live Tables automatically configures and manages the schema and checkpoint directories when using Auto Loader to read files.
+-- MAGIC     * `cloud_files` table-valued function (TVF)
 -- MAGIC 
 -- MAGIC **Recommendation:** Databricks recommends using the automatically configured directories to avoid unexpected side effects during processing.
 
@@ -152,6 +94,10 @@
 -- MAGIC 1. `CREATE OR REFRESH LIVE TABLE customers AS SELECT * FROM cloud_files("/databricks-datasets/retail-org/customers/", "csv")` without `STREAMING` is not an option
 -- MAGIC 1. `readStream` is Spark Structured Streaming but I haven't heard of `STREAM(...)` (!)
 -- MAGIC 1. `cloud_files` marks a table as streaming (_somehow_)
+
+-- COMMAND ----------
+
+DESCRIBE FUNCTION stream
 
 -- COMMAND ----------
 
@@ -343,3 +289,9 @@
 -- MAGIC [Delta Live Tables Announces New Capabilities and Performance Optimizations](https://www.databricks.com/blog/2022/06/29/delta-live-tables-announces-new-capabilities-and-performance-optimizations.html):
 -- MAGIC 
 -- MAGIC > DLT announces it is developing **Enzyme**, a performance optimization purpose-built for ETL workloads, and launches several new capabilities including Enhanced Autoscaling
+
+-- COMMAND ----------
+
+-- MAGIC %md # Table-Valued Functions
+-- MAGIC 
+-- MAGIC Somewhat related <a href="$../Table-Valued Functions">Table-Valued Functions</a> that allow for `cloud_files` Databricks-specific TVF with DLT support.
