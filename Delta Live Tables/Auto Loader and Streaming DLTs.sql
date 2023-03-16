@@ -12,6 +12,7 @@
 -- MAGIC [Auto Loader](https://docs.databricks.com/ingestion/auto-loader/index.html)
 -- MAGIC 
 -- MAGIC * Auto Loader incrementally and efficiently processes new data files as they arrive in cloud storage
+-- MAGIC     * [Compare Auto Loader file detection modes](https://docs.databricks.com/ingestion/auto-loader/file-detection-modes.html)
 -- MAGIC * Auto Loader can load data files from AWS S3 (s3://), Azure Data Lake Storage Gen2 (ADLS Gen2, abfss://), Google Cloud Storage (GCS, gs://), Azure Blob Storage (wasbs://), ADLS Gen1 (adl://), and Databricks File System (DBFS, dbfs:/)
 -- MAGIC * Auto Loader can ingest JSON, CSV, PARQUET, AVRO, ORC, TEXT, and BINARYFILE file formats.
 -- MAGIC     * Just like Spark SQL and Spark Structured Streaming

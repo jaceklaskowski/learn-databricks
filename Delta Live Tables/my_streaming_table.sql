@@ -1,5 +1,5 @@
 -- Databricks notebook source
--- MAGIC %md # auto_loader DLT Table
+-- MAGIC %md # my_streaming_table DLT Table
 
 -- COMMAND ----------
 
@@ -56,11 +56,6 @@
 
 -- COMMAND ----------
 
-CREATE OR REFRESH STREAMING LIVE TABLE customers
-AS SELECT * FROM cloud_files("/databricks-datasets/retail-org/customers/", "csv")
-
--- COMMAND ----------
-
 -- MAGIC %md Make sure that `dbfs:/jaceklaskowski/my_streaming_table` is available before executing a DLT pipeline
 
 -- COMMAND ----------
@@ -71,14 +66,62 @@ AS SELECT * FROM cloud_files("/databricks-datasets/retail-org/customers/", "csv"
 -- MAGIC 
 -- MAGIC ```
 -- MAGIC %fs mkdirs dbfs:/jaceklaskowski/my_streaming_table
--- MAGIC %fs ls dbfs:/jaceklaskowski/my_streaming_table
+-- MAGIC ```
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Schema Inference
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC [Auto Loader](https://docs.databricks.com/workflows/delta-live-tables/delta-live-tables-data-sources.html#auto-loader):
+-- MAGIC 
+-- MAGIC * You can use supported format options with Auto Loader.
+-- MAGIC * Use `map()` function to pass options to `cloud_files()`
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC ```sql
+-- MAGIC CREATE OR REFRESH STREAMING LIVE TABLE <table_name>
+-- MAGIC AS SELECT *
+-- MAGIC   FROM cloud_files(
+-- MAGIC     "<file_path>",
+-- MAGIC     "<file_format>",
+-- MAGIC     map(
+-- MAGIC       "<option_key>", "<option_value",
+-- MAGIC       "<option_key>", "<option_value",
+-- MAGIC       ...
+-- MAGIC     )
+-- MAGIC   )
 -- MAGIC ```
 
 -- COMMAND ----------
 
 -- MAGIC %md
 -- MAGIC 
--- MAGIC Copy files for schema inference.
+-- MAGIC Use `schema` option to specify the schema manually
+-- MAGIC 
+-- MAGIC Mandatory for formats that with no [schema inference](https://docs.databricks.com/ingestion/auto-loader/schema.html)
+-- MAGIC 
+-- MAGIC ```
+-- MAGIC CREATE OR REFRESH STREAMING LIVE TABLE <table_name>
+-- MAGIC AS SELECT *
+-- MAGIC   FROM cloud_files(
+-- MAGIC     "<file_path>",
+-- MAGIC     "<file_format>",
+-- MAGIC     map("schema", "title STRING, id INT, revisionId INT, revisionTimestamp TIMESTAMP, revisionUsername STRING, revisionUsernameId INT, text STRING")
+-- MAGIC   )
+-- MAGIC ```
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC Copy files for schema inference. Optional when used with `map("schema", ...)`
 -- MAGIC 
 -- MAGIC ```console
 -- MAGIC $ databricks fs cp 1.csv dbfs:/jaceklaskowski/my_streaming_table
@@ -88,5 +131,17 @@ AS SELECT * FROM cloud_files("/databricks-datasets/retail-org/customers/", "csv"
 
 -- COMMAND ----------
 
+-- no "header", "true" by default
 CREATE OR REFRESH STREAMING LIVE TABLE my_streaming_table
-AS SELECT * FROM cloud_files("/tmp/my_streaming_table", "csv")
+AS SELECT
+  *
+FROM
+  cloud_files(
+    "/jaceklaskowski/my_streaming_table",
+    "csv",
+    map(
+      "schema", "id INT, name STRING"))
+
+-- COMMAND ----------
+
+

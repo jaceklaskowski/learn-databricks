@@ -56,6 +56,10 @@
 -- MAGIC * Delta Live Tables also supports using global and cluster-scoped [init scripts](https://docs.databricks.com/clusters/init-scripts.html)
 -- MAGIC 
 -- MAGIC **Recommendation**: [Minimize using init scripts in your pipelines](https://docs.databricks.com/release-notes/delta-live-tables/index.html#pipeline-dependencies)
+-- MAGIC 
+-- MAGIC [Can I use Scala or Java libraries in a Delta Live Tables pipeline?](https://docs.databricks.com/workflows/delta-live-tables/delta-live-tables-faqs-issues.html#can-i-use-scala-or-java-libraries-in-a-delta-live-tables-pipeline):
+-- MAGIC 
+-- MAGIC * No, Delta Live Tables supports only SQL and Python. You cannot use JVM libraries in a pipeline.
 
 -- COMMAND ----------
 
@@ -83,6 +87,14 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md ## Does Delta Live Tables only support updating of Delta tables
+-- MAGIC 
+-- MAGIC [Does Delta Live Tables only support updating of Delta tables](https://docs.databricks.com/workflows/delta-live-tables/delta-live-tables-faqs-issues.html#does-delta-live-tables-only-support-updating-of-delta-tables):
+-- MAGIC 
+-- MAGIC > Yes, Delta Live Tables can only be used to update Delta tables.
+
+-- COMMAND ----------
+
 -- MAGIC %md # March 16, 2023
 -- MAGIC 
 -- MAGIC ➡️ [Delta Live Tables CLI cntd., Storage Location and Auto Loader (online)](https://www.meetup.com/warsaw-data-engineering/events/292215944/)
@@ -92,3 +104,4 @@
 -- MAGIC 1. <a href="$Delta Live Tables/Delta Live Tables CLI">Demo: Databricks CLI i Delta Live Tables pipelines</a> ([start here](#notebook/4149416302950404/command/4149416302950416))
 -- MAGIC 1. <a href="$Delta Live Tables/Storage location">Demo: Co kryje się w Storage Location</a>
 -- MAGIC 1. <a href="$Delta Live Tables/Auto Loader and Streaming DLTs">Użycie Auto Loader i STREAMING DLTs</a>
+-- MAGIC 1. <a href="$Delta Live Tables/Full Refresh">Full Refresh</a>
