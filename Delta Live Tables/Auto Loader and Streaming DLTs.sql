@@ -18,7 +18,7 @@
 -- MAGIC * Auto Loader provides a **Structured Streaming source** called `cloudFiles`
 -- MAGIC * Given an input directory path on the cloud file storage, the `cloudFiles` source automatically processes new files as they arrive, with the option of also processing existing files in that directory.
 -- MAGIC * Auto Loader has support for both Python and SQL in Delta Live Tables
--- MAGIC * `cloud_files` table-valued function
+-- MAGIC * `cloud_files` table-valued function (discussed below)
 -- MAGIC 
 -- MAGIC **Recommendation:**
 -- MAGIC 
