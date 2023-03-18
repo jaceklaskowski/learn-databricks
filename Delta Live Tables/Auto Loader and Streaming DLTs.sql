@@ -16,6 +16,7 @@
 -- MAGIC * Auto Loader can load data files from AWS S3 (s3://), Azure Data Lake Storage Gen2 (ADLS Gen2, abfss://), Google Cloud Storage (GCS, gs://), Azure Blob Storage (wasbs://), ADLS Gen1 (adl://), and Databricks File System (DBFS, dbfs:/)
 -- MAGIC * Auto Loader can ingest JSON, CSV, PARQUET, AVRO, ORC, TEXT, and BINARYFILE file formats.
 -- MAGIC     * Just like Spark SQL and Spark Structured Streaming
+-- MAGIC * [Auto Loader relies on Structured Streaming for incremental processing](https://docs.databricks.com/ingestion/auto-loader/unity-catalog.html)
 -- MAGIC * Auto Loader provides a **Structured Streaming source** called `cloudFiles`
 -- MAGIC * Given an input directory path on the cloud file storage, the `cloudFiles` source automatically processes new files as they arrive, with the option of also processing existing files in that directory.
 -- MAGIC * Auto Loader has support for both Python and SQL in Delta Live Tables

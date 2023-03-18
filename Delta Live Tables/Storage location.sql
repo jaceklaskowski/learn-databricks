@@ -30,6 +30,30 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC [Databricks recommends always storing checkpoint and schema evolution information in storage locations managed by Unity Catalog](https://docs.databricks.com/ingestion/auto-loader/unity-catalog.html#specifying-locations-for-auto-loader-resources-for-unity-catalog)
+
+-- COMMAND ----------
+
+-- MAGIC %md ## autoloader
+-- MAGIC 
+-- MAGIC Contains schema evolution information
+
+-- COMMAND ----------
+
+-- MAGIC %fs ls dbfs:/pipelines/960da65b-c9df-4cb9-9456-1005ffe103a9/autoloader
+
+-- COMMAND ----------
+
+-- MAGIC %fs ls dbfs:/pipelines/960da65b-c9df-4cb9-9456-1005ffe103a9/autoloader/schema_1493166085_/_schemas
+
+-- COMMAND ----------
+
+-- MAGIC %fs head dbfs:/pipelines/960da65b-c9df-4cb9-9456-1005ffe103a9/autoloader/schema_1493166085_/_schemas/0
+
+-- COMMAND ----------
+
 -- MAGIC %md ## system
 
 -- COMMAND ----------
