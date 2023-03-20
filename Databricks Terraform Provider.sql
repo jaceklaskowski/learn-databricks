@@ -147,6 +147,16 @@
 -- MAGIC * Deploys Delta Live Table workflows
 -- MAGIC 
 -- MAGIC `terraform apply -auto-approve` to skip interactive approval of plan before applying.
+-- MAGIC 
+-- MAGIC `databricks_pipeline` == `pipelines.ResourcePipeline()` in the code (`provider/provider.go`) that defines the Terraform resource for pipelines
+
+-- COMMAND ----------
+
+-- MAGIC %md # Debugging
+-- MAGIC 
+-- MAGIC ```
+-- MAGIC TF_LOG=DEBUG DATABRICKS_DEBUG_TRUNCATE_BYTES=250000 terraform apply -no-color 2>&1 | tee tf-debug.log
+-- MAGIC ```
 
 -- COMMAND ----------
 
