@@ -9,8 +9,7 @@ CREATE OR REPLACE TABLE generated_columns (
   id BIGINT GENERATED ALWAYS AS IDENTITY,
   name STRING,
   five_by_default INT GENERATED ALWAYS AS (5)
-)
-
+) USING "delta"
 
 -- COMMAND ----------
 

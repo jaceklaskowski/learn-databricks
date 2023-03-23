@@ -64,10 +64,13 @@
 -- MAGIC 
 -- MAGIC [Providers](https://developer.hashicorp.com/terraform/language/providers):
 -- MAGIC 
--- MAGIC * Terraform relies on **plugins** called **providers** to interact with cloud providers, SaaS providers, and other APIs.
+-- MAGIC * Terraform relies on **plugins** called **providers** to interact with remote systems (cloud providers, SaaS providers, and other APIs)
 -- MAGIC * Each provider adds a set of [resource types](https://developer.hashicorp.com/terraform/language/resources) and/or [data sources](https://developer.hashicorp.com/terraform/language/data-sources) that Terraform can manage.
 -- MAGIC * Most providers configure a specific infrastructure platform (either cloud or self-hosted).
 -- MAGIC * The [Terraform Registry](https://registry.terraform.io/browse/providers) is the main directory of publicly available Terraform providers
+-- MAGIC 
+-- MAGIC [Provider Requirements](https://developer.hashicorp.com/terraform/language/providers/requirements):
+-- MAGIC * Each Terraform module must declare which providers it requires in a `required_providers` block (so that Terraform can install and use them)
 
 -- COMMAND ----------
 
@@ -148,15 +151,34 @@
 -- MAGIC 
 -- MAGIC `terraform apply -auto-approve` to skip interactive approval of plan before applying.
 -- MAGIC 
--- MAGIC `databricks_pipeline` == `pipelines.ResourcePipeline()` in the code (`provider/provider.go`) that defines the Terraform resource for pipelines
+-- MAGIC `databricks_pipeline` is `pipelines.ResourcePipeline()` in the code (`provider/provider.go`):
+-- MAGIC 
+-- MAGIC * `ResourcePipeline` defines the Terraform resource for pipelines
 
 -- COMMAND ----------
 
--- MAGIC %md # Debugging
+-- MAGIC %md # Debugging Terraform
+-- MAGIC 
+-- MAGIC [Debugging Terraform](https://developer.hashicorp.com/terraform/internals/debugging) (the page does not seem to be linked in the docs menu)
+-- MAGIC 
+-- MAGIC * Terraform has detailed logs that you can enable by setting the `TF_LOG` environment variable
+-- MAGIC * detailed logs to appear on `stderr`
+-- MAGIC * `TF_LOG` can be one of the log levels (in order of decreasing verbosity) `TRACE`, `DEBUG`, `INFO`, `WARN` or `ERROR`
+-- MAGIC * To disable, either unset `TF_LOG`, or set it to `off`
+-- MAGIC * Logging can be enabled separately for terraform itself and the provider plugins using the `TF_LOG_CORE` or `TF_LOG_PROVIDER` environment variables
+-- MAGIC * `TF_LOG_PATH` to force the log to always be appended to a specific file
 -- MAGIC 
 -- MAGIC ```
 -- MAGIC TF_LOG=DEBUG DATABRICKS_DEBUG_TRUNCATE_BYTES=250000 terraform apply -no-color 2>&1 | tee tf-debug.log
 -- MAGIC ```
+-- MAGIC 
+-- MAGIC [internal/logging/logging.go](https://github.com/hashicorp/terraform/blob/main/internal/logging/logging.go)
+
+-- COMMAND ----------
+
+-- MAGIC %md # Environment Variables
+-- MAGIC 
+-- MAGIC [Environment Variables](https://developer.hashicorp.com/terraform/cli/config/environment-variables)
 
 -- COMMAND ----------
 
