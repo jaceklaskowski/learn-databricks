@@ -11,7 +11,7 @@
 -- MAGIC 
 -- MAGIC Terraform creates and manages resources on cloud platforms and other services through their application programming interfaces (APIs).
 -- MAGIC 
--- MAGIC Create a Terraform configuration file (`.tf` file)
+-- MAGIC Create a Terraform configuration file (`.tf` file) and use `terraform` commands:
 -- MAGIC 
 -- MAGIC * `terraform init`
 -- MAGIC * `terraform fmt`
@@ -20,6 +20,7 @@
 -- MAGIC * `terraform plan`
 -- MAGIC * `terraform apply`
 -- MAGIC * `terraform refresh`
+-- MAGIC * _there are more_
 
 -- COMMAND ----------
 
@@ -60,13 +61,19 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md ## Oh My Zsh
+-- MAGIC 
+-- MAGIC [Terraform plugin](https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/terraform/README.md)
+
+-- COMMAND ----------
+
 -- MAGIC %md ## Providers
 -- MAGIC 
 -- MAGIC [Providers](https://developer.hashicorp.com/terraform/language/providers):
 -- MAGIC 
 -- MAGIC * Terraform relies on **plugins** called **providers** to interact with remote systems (cloud providers, SaaS providers, and other APIs)
--- MAGIC * Each provider adds a set of [resource types](https://developer.hashicorp.com/terraform/language/resources) and/or [data sources](https://developer.hashicorp.com/terraform/language/data-sources) that Terraform can manage.
--- MAGIC * Most providers configure a specific infrastructure platform (either cloud or self-hosted).
+-- MAGIC * Most providers configure a specific infrastructure platform (either cloud or self-hosted)
+-- MAGIC * Each provider adds a set of [resource types](https://developer.hashicorp.com/terraform/language/resources) and/or [data sources](https://developer.hashicorp.com/terraform/language/data-sources) that Terraform can manage
 -- MAGIC * The [Terraform Registry](https://registry.terraform.io/browse/providers) is the main directory of publicly available Terraform providers
 -- MAGIC 
 -- MAGIC [Provider Requirements](https://developer.hashicorp.com/terraform/language/providers/requirements):
