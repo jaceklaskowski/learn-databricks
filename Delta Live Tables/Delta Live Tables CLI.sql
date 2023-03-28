@@ -391,6 +391,20 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md ### Delete All Pipelines
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC ```console
+-- MAGIC databricks pipelines list | \
+-- MAGIC jq '.[].pipeline_id' | \
+-- MAGIC xargs -L1 databricks pipelines delete --pipeline-id
+-- MAGIC ```
+
+-- COMMAND ----------
+
 -- MAGIC %md ## Delta Live Tables Settings
 -- MAGIC 
 -- MAGIC [Delta Live Tables settings](https://docs.databricks.com/workflows/delta-live-tables/delta-live-tables-configuration.html), esp. [Parameterize pipelines](https://docs.databricks.com/workflows/delta-live-tables/delta-live-tables-configuration.html#parameterize-pipelines)
@@ -511,4 +525,38 @@
 -- MAGIC $ databricks pipelines edit --settings settings.json --pipeline-id 960da65b-c9df-4cb9-9456-1005ffe103a9 --debug
 -- MAGIC HTTP debugging enabled
 -- MAGIC ...omitted for brevity
+-- MAGIC ```
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Updating Databricks CLI
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC If at any point you'd like to update all the packages in a conda environment (e.g., `databricks-cli`), use `conda update`.
+-- MAGIC 
+-- MAGIC ```
+-- MAGIC $ conda update --help
+-- MAGIC usage: conda update [-h] [-n ENVIRONMENT | -p PATH] [-c CHANNEL] [--use-local] [--override-channels] [--repodata-fn REPODATA_FNS] [--strict-channel-priority] [--no-channel-priority]
+-- MAGIC                     [--no-deps | --only-deps] [--no-pin] [--copy] [-C] [-k] [--offline] [-d] [--json] [-q] [-v] [-y] [--download-only] [--show-channel-urls] [--file FILE]
+-- MAGIC                     [--solver {classic} | --experimental-solver {classic}] [--force-reinstall] [--freeze-installed | --update-deps | -S | --update-all | --update-specs] [--clobber]
+-- MAGIC                     [package_spec ...]
+-- MAGIC 
+-- MAGIC Updates conda packages to the latest compatible version.
+-- MAGIC 
+-- MAGIC This command accepts a list of package names and updates them to the latest
+-- MAGIC versions that are compatible with all other packages in the environment.
+-- MAGIC 
+-- MAGIC Conda attempts to install the newest versions of the requested packages. To
+-- MAGIC accomplish this, it may update some packages that are already installed, or
+-- MAGIC install additional packages. To prevent existing packages from updating,
+-- MAGIC use the --no-update-deps option. This may force conda to install older
+-- MAGIC versions of the requested packages, and it does not prevent additional
+-- MAGIC dependency packages from being installed.
+-- MAGIC ```
+-- MAGIC 
+-- MAGIC ```
+-- MAGIC conda update --all --yes -c conda-forge --name databricks
 -- MAGIC ```
