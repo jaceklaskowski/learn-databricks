@@ -132,12 +132,12 @@
 -- COMMAND ----------
 
 -- no "header", "true" by default
-CREATE OR REFRESH STREAMING LIVE TABLE my_streaming_table
+CREATE OR REFRESH STREAMING LIVE TABLE raw_streaming_table
 AS SELECT
   *
 FROM
   cloud_files(
-    "/jaceklaskowski/my_streaming_table",
+    "/Users/jacek@japila.pl/delta-live-tables-demo-input",
     "csv",
     map(
       "schema", "id INT, name STRING"))
