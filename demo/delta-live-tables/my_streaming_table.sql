@@ -133,7 +133,9 @@
 
 -- no "header", "true" by default
 CREATE OR REFRESH STREAMING LIVE TABLE raw_streaming_table
-AS SELECT
+CONSTRAINT my_constraint EXPECT ($"id" > 5)
+AS
+SELECT
   *
 FROM
   cloud_files(
