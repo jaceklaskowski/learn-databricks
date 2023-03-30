@@ -36,7 +36,7 @@
 
 -- COMMAND ----------
 
--- MAGIC %md ## autoloader
+-- MAGIC %md ## Autoloader Directory
 -- MAGIC 
 -- MAGIC Contains schema evolution information
 
@@ -54,7 +54,7 @@
 
 -- COMMAND ----------
 
--- MAGIC %md ## system
+-- MAGIC %md ## System Directory
 
 -- COMMAND ----------
 
@@ -66,8 +66,56 @@
 
 -- COMMAND ----------
 
--- MAGIC %md ## events Delta Table
+-- MAGIC %md ## Events Delta Table
 
 -- COMMAND ----------
 
-SELECT * FROM delta.`dbfs:/pipelines/960da65b-c9df-4cb9-9456-1005ffe103a9/system/events`
+SELECT * FROM delta.`dbfs:/pipelines/a02952e6-7197-44a4-a072-5ea5124d7bce/system/events`
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Data Quality Checks
+
+-- COMMAND ----------
+
+-- MAGIC %python
+-- MAGIC 
+-- MAGIC pipelines = spark.createDataFrame(data = dbutils.fs.ls("dbfs:/pipelines/"))
+-- MAGIC path = pipelines.orderBy(pipelines["modificationTime"].desc()).select("path").head().path
+-- MAGIC spark.conf.set("pipeline.path", path)
+-- MAGIC print(spark.conf.get('pipeline.path'))
+
+-- COMMAND ----------
+
+SELECT '${pipeline.path}' path
+
+-- COMMAND ----------
+
+DESCRIBE delta.`${pipeline.path}/system/events`
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC Inspired by [this article](https://www.linkedin.com/pulse/delta-live-tables-how-build-pipeline-run-data-quality-mathias-weber/) and feeling a bit adventurous to use some advanced "tools":
+-- MAGIC 
+-- MAGIC * [Common Table Expression (CTE)](https://spark.apache.org/docs/latest/sql-ref-syntax-qry-select-cte.html)
+-- MAGIC * [JSON path expression](https://docs.databricks.com/sql/language-manual/sql-ref-json-path-expression.html)
+
+-- COMMAND ----------
+
+WITH data_quality AS (
+  WITH details AS (
+    SELECT
+      id update_id,
+      details:flow_progress:data_quality:expectations
+    FROM delta.`dbfs:/pipelines/05740fff-c03e-4366-8061-2680f9e9ce48/system/events`
+    WHERE event_type = 'flow_progress'
+  )
+  SELECT
+    update_id,
+    explode(from_json(expectations, "array<struct<name: string, dataset: string, passed_records: int, failed_records: int>>")) expectations
+  FROM details
+  WHERE expectations IS NOT NULL
+)
+SELECT update_id, expectations.* FROM data_quality
