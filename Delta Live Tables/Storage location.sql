@@ -36,7 +36,7 @@
 
 -- COMMAND ----------
 
--- MAGIC %md ## autoloader
+-- MAGIC %md ## Autoloader Directory
 -- MAGIC 
 -- MAGIC Contains schema evolution information
 
@@ -54,7 +54,7 @@
 
 -- COMMAND ----------
 
--- MAGIC %md ## system
+-- MAGIC %md ## System Directory
 
 -- COMMAND ----------
 
@@ -66,8 +66,24 @@
 
 -- COMMAND ----------
 
--- MAGIC %md ## events Delta Table
+-- MAGIC %md ## Events Delta Table
 
 -- COMMAND ----------
 
-SELECT * FROM delta.`dbfs:/pipelines/960da65b-c9df-4cb9-9456-1005ffe103a9/system/events`
+SELECT * FROM delta.`dbfs:/pipelines/a02952e6-7197-44a4-a072-5ea5124d7bce/system/events`
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Data Quality Checks
+
+-- COMMAND ----------
+
+DESCRIBE delta.`dbfs:/pipelines/a02952e6-7197-44a4-a072-5ea5124d7bce/system/events`
+
+-- COMMAND ----------
+
+SELECT details FROM delta.`dbfs:/pipelines/a02952e6-7197-44a4-a072-5ea5124d7bce/system/events` WHERE event_type = 'flow_progress'
+
+-- COMMAND ----------
+
+
