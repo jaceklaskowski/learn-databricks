@@ -14,7 +14,7 @@ tfa -auto-approve
 
 Create an input directory for the pipeline to load data from.
 
-**FIXME** Terraform?
+**FIXME** Use Terraform
 
 ```console
 databricks fs mkdirs dbfs:/FileStore/jacek_laskowski/delta-live-tables-demo-input
@@ -35,8 +35,11 @@ storage = "dbfs:/pipelines/0bff248c-71a3-44dd-a1a3-474dc609aeee"
 ```
 
 ```console
-$ databricks pipelines list | jq '.[].name'
-"EXPECT Clause Demo"
+$ databricks pipelines list | jq '.[] | { name, pipeline_id }'
+{
+  "name": "EXPECT Clause Demo",
+  "pipeline_id": "a02952e6-7197-44a4-a072-5ea5124d7bce"
+}
 ```
 
 **FIXME** Get rid of the quotes to use `$(tfo pipeline_id)` right after `--pipeline-id`.
@@ -45,12 +48,16 @@ $ databricks pipelines list | jq '.[].name'
 echo $(tfo pipeline_id) | xargs databricks pipelines start --pipeline-id
 ```
 
-Observe Data quality section of the `raw_streaming_table` streaming live table.
+Wait until the pipeline finishes. Select (click) the `raw_streaming_table` streaming live table and review the **Data quality** section.
 
-Upload data again.
+Upload data again and re-run the pipeline.
 
 ```console
 databricks fs cp input-data/2.csv dbfs:/FileStore/jacek_laskowski/delta-live-tables-demo-input
+```
+
+```console
+echo $(tfo pipeline_id) | xargs databricks pipelines start --pipeline-id
 ```
 
 Enjoy!
