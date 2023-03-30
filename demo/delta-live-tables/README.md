@@ -10,6 +10,16 @@ Terraform has been successfully initialized!
 tfa -auto-approve
 ```
 
+Check out the pipeline. This step is completely optional.
+
+```console
+$ databricks pipelines list | jq '.[] | { name, pipeline_id }'
+{
+  "name": "EXPECT Clause Demo",
+  "pipeline_id": "a02952e6-7197-44a4-a072-5ea5124d7bce"
+}
+```
+
 **IMPORTANT** Every push to the repo is not reflected (`git pull`) by the repo after `tfa` so you have to `tfd`.
 
 Create an input directory for the pipeline to load data from.
@@ -26,21 +36,7 @@ Upload data.
 databricks fs cp input-data/1.csv dbfs:/FileStore/jacek_laskowski/delta-live-tables-demo-input
 ```
 
-Run the pipeline. Use `tfo` to know the pipeline ID.
-
-```console
-$ tfo
-pipeline_id = "0bff248c-71a3-44dd-a1a3-474dc609aeee"
-storage = "dbfs:/pipelines/0bff248c-71a3-44dd-a1a3-474dc609aeee"
-```
-
-```console
-$ databricks pipelines list | jq '.[] | { name, pipeline_id }'
-{
-  "name": "EXPECT Clause Demo",
-  "pipeline_id": "a02952e6-7197-44a4-a072-5ea5124d7bce"
-}
-```
+Run the pipeline.
 
 **FIXME** Get rid of the quotes to use `$(tfo pipeline_id)` right after `--pipeline-id`.
 
@@ -48,7 +44,18 @@ $ databricks pipelines list | jq '.[] | { name, pipeline_id }'
 echo $(tfo pipeline_id) | xargs databricks pipelines start --pipeline-id
 ```
 
-Wait until the pipeline finishes. Select (click) the `raw_streaming_table` streaming live table and review the **Data quality** section.
+Wait until the pipeline finishes (until `IDLE` comes up from the following command).
+
+```console
+while (true)
+do
+  echo $(tfo pipeline_id) | xargs databricks pipelines get --pipeline-id | jq '.state'
+done
+```
+
+Once `IDLE`, Ctrl+C.
+
+Switch to the DLT UI. Select (_click_) the `raw_streaming_table` streaming live table and review the **Data quality** section.
 
 Upload data again and re-run the pipeline.
 
@@ -60,4 +67,14 @@ databricks fs cp input-data/2.csv dbfs:/FileStore/jacek_laskowski/delta-live-tab
 echo $(tfo pipeline_id) | xargs databricks pipelines start --pipeline-id
 ```
 
-Enjoy!
+Review the events delta table (use [Storage location](../../Delta%20Live%20Tables/Storage%20location.sql) notebook).
+
+## Clean Up
+
+```console
+tfd -auto-approve
+```
+
+```console
+databricks fs rm -r dbfs:/FileStore/jacek_laskowski/delta-live-tables-demo-input
+```
