@@ -67,7 +67,7 @@ databricks fs cp input-data/2.csv dbfs:/FileStore/jacek_laskowski/delta-live-tab
 echo $(tfo pipeline_id) | xargs databricks pipelines start --pipeline-id
 ```
 
-Review the events delta table (use [Storage location](../../Delta%20Live%20Tables/Storage%20location.sql) notebook).
+Review the events delta table (use **Data Quality Checks** cell in [Storage location](../../Delta%20Live%20Tables/Storage%20location.sql) notebook).
 
 ## Clean Up
 
