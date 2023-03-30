@@ -132,14 +132,13 @@
 -- COMMAND ----------
 
 -- no "header", "true" by default
-CREATE OR REFRESH STREAMING LIVE TABLE raw_streaming_table
-CONSTRAINT my_constraint EXPECT ($"id" > 5)
-AS
-SELECT
-  *
-FROM
+CREATE OR REFRESH STREAMING LIVE TABLE raw_streaming_table(
+  CONSTRAINT names_at_least_5_char_long EXPECT (name IS NOT NULL AND len(name) >= 5),
+  CONSTRAINT ids_only_even EXPECT (id % 2 = 0)
+)
+AS SELECT * FROM
   cloud_files(
-    "/Users/jacek@japila.pl/delta-live-tables-demo-input",
+    "dbfs:/FileStore/jacek_laskowski/delta-live-tables-demo-input",
     "csv",
     map(
       "schema", "id INT, name STRING"))
