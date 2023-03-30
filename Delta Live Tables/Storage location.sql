@@ -81,7 +81,7 @@ SELECT * FROM delta.`dbfs:/pipelines/a02952e6-7197-44a4-a072-5ea5124d7bce/system
 -- MAGIC %python
 -- MAGIC 
 -- MAGIC pipelines = spark.createDataFrame(data = dbutils.fs.ls("dbfs:/pipelines/"))
--- MAGIC path = pipelines.orderBy(pipelines["modificationTime"].asc()).select("path").head().path
+-- MAGIC path = pipelines.orderBy(pipelines["modificationTime"].desc()).select("path").head().path
 -- MAGIC spark.conf.set("pipeline.path", path)
 -- MAGIC print(spark.conf.get('pipeline.path'))
 
