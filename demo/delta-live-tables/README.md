@@ -22,20 +22,6 @@ $ databricks pipelines list | jq '.[] | { name, pipeline_id }'
 
 **IMPORTANT** Every push to the repo is not reflected (`git pull`) by the repo after `tfa` so you have to `tfd`.
 
-Create an input directory for the pipeline to load data from.
-
-**FIXME** Use Terraform
-
-```console
-databricks fs mkdirs dbfs:/FileStore/jacek_laskowski/delta-live-tables-demo-input
-```
-
-Upload data.
-
-```console
-databricks fs cp input-data/1.csv dbfs:/FileStore/jacek_laskowski/delta-live-tables-demo-input
-```
-
 Run the pipeline.
 
 ```console
@@ -47,7 +33,13 @@ Wait until the pipeline finishes (until `IDLE` comes up from the following comma
 ```console
 while (true)
 do
-  databricks pipelines get --pipeline-id $(tfo -raw pipeline_id) | jq '.state'
+  state=$(databricks pipelines get --pipeline-id $(tfo -raw pipeline_id) | jq --raw-output '.state')
+  if [[ $state =~ "IDLE" ]]; then
+    echo "Pipeline stopped (state: $state)"
+    break;
+  fi
+  echo "Waiting for the pipeline to stop (state: $state)"
+  sleep 5
 done
 ```
 
@@ -56,7 +48,7 @@ Switch to the DLT UI. Select (_click_) the `raw_streaming_table` streaming live 
 Upload data again and re-run the pipeline.
 
 ```console
-databricks fs cp input-data/2.csv dbfs:/FileStore/jacek_laskowski/delta-live-tables-demo-input
+databricks fs cp input-data/2.csv dbfs:$(tfo -raw input_dir)
 ```
 
 ```console

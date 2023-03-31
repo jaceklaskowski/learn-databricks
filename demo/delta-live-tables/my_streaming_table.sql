@@ -56,20 +56,6 @@
 
 -- COMMAND ----------
 
--- MAGIC %md Make sure that `dbfs:/jaceklaskowski/my_streaming_table` is available before executing a DLT pipeline
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC 
--- MAGIC Execute the following in separate cells or using `databricks` CLI.
--- MAGIC 
--- MAGIC ```
--- MAGIC %fs mkdirs dbfs:/jaceklaskowski/my_streaming_table
--- MAGIC ```
-
--- COMMAND ----------
-
 -- MAGIC %md ## Schema Inference
 
 -- COMMAND ----------
@@ -119,18 +105,6 @@
 
 -- COMMAND ----------
 
--- MAGIC %md
--- MAGIC 
--- MAGIC Copy files for schema inference. Optional when used with `map("schema", ...)`
--- MAGIC 
--- MAGIC ```console
--- MAGIC $ databricks fs cp 1.csv dbfs:/jaceklaskowski/my_streaming_table
--- MAGIC $ databricks fs ls dbfs:/jaceklaskowski/my_streaming_table
--- MAGIC 1.csv
--- MAGIC ```
-
--- COMMAND ----------
-
 -- no "header", "true" by default
 CREATE OR REFRESH STREAMING LIVE TABLE raw_streaming_table(
   CONSTRAINT names_at_least_5_char_long EXPECT (name IS NOT NULL AND len(name) >= 5),
@@ -138,11 +112,9 @@ CREATE OR REFRESH STREAMING LIVE TABLE raw_streaming_table(
 )
 AS SELECT * FROM
   cloud_files(
-    "dbfs:/FileStore/jacek_laskowski/delta-live-tables-demo-input",
+    "${cloud_files_input_path}",
     "csv",
     map(
-      "schema", "id INT, name STRING"))
-
--- COMMAND ----------
-
-
+      "schema", "id INT, name STRING"
+    )
+  )
