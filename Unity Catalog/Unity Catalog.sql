@@ -2,18 +2,8 @@
 -- MAGIC %md # Unity Catalog
 -- MAGIC 
 -- MAGIC Unified Data Governance on Databricks Platform (for Data, Analytics and AI)
-
--- COMMAND ----------
-
--- MAGIC %md ## ⛔️ DISCLAIMER
 -- MAGIC 
--- MAGIC Until this cell disappears, consider this notebook a very very **Work in Progress**.
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC 
--- MAGIC * Supported on Databricks Runtime 11.3 LTS or above
+-- MAGIC Databricks Runtime 11.3 LTS or above
 
 -- COMMAND ----------
 
@@ -86,7 +76,7 @@
 -- MAGIC     * Workspace name: [learn-databricks](https://3717620220420370.0.gcp.databricks.com)
 -- MAGIC     * Region: `europe-west3` (Frankfurt)
 -- MAGIC     * Google cloud project ID: `databricks-unity-catalog`
--- MAGIC 1. Configure a GCS bucket for Unity Catalog (e.g., [databricks-unity-catalog-demo](https://console.cloud.google.com/storage/browser/databricks-unity-catalog-demo))
+-- MAGIC 1. ~~Configure a GCS bucket for Unity Catalog (e.g., [databricks-unity-catalog-demo](https://console.cloud.google.com/storage/browser/databricks-unity-catalog-demo))~~
 -- MAGIC 1. Create a metastore
 -- MAGIC     * A metastore is the top-level container for data in Unity Catalog
 -- MAGIC     * Within a metastore, Unity Catalog provides a 3-level namespace for organizing data: catalogs, schemas (_databases_), and tables / views. [Learn More](https://docs.gcp.databricks.com/data-governance/unity-catalog/index.html#metastores)
@@ -104,7 +94,7 @@
 -- MAGIC 1. Add users, groups, and service principals
 -- MAGIC     * manage access to assets in Databricks
 -- MAGIC     * `group_one`
--- MAGIC 1. Create and grant access to catalogs, schemas, and tables
+-- MAGIC 1. Create and `GRANT` access to catalogs, schemas, and tables
 
 -- COMMAND ----------
 
@@ -181,11 +171,11 @@
 -- MAGIC A [securable object](https://docs.databricks.com/sql/language-manual/sql-ref-privileges.html#securable-objects) is an object in a Unity Catalog metastore on which privileges can be `GRANT`ed to or `REVOKE`d from a principal.
 -- MAGIC 
 -- MAGIC * `CATALOG` [ catalog_name ]
--- MAGIC * `SCHEMA` schema_name (also `DATABASE`)
--- MAGIC * `EXTERNAL LOCATION` location_name
+-- MAGIC * `EXTERNAL LOCATION` location_name (Delta Sharing)
 -- MAGIC * `FUNCTION` function_name
 -- MAGIC * `METASTORE`
--- MAGIC * `SHARE` share_name
+-- MAGIC * `SHARE` share_name (Delta Sharing)
+-- MAGIC * `SCHEMA` schema_name (also `DATABASE`)
 -- MAGIC * `STORAGE CREDENTIAL` credential_name
 -- MAGIC * [ `TABLE` ] table_name
 -- MAGIC * `VIEW` view_name
@@ -210,6 +200,25 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC # Information schema
+-- MAGIC 
+-- MAGIC [Information schema](https://docs.databricks.com/sql/language-manual/sql-ref-information-schema.html)
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC The `INFORMATION_SCHEMA` is a SQL standard based schema, provided in every catalog created on Unity Catalog.
+
+-- COMMAND ----------
+
+SELECT *
+FROM system.information_schema.schemata
+
+-- COMMAND ----------
+
 -- MAGIC %md # SQL DCLs
 -- MAGIC 
 -- MAGIC DCL commands are used to enforce metastore security. There are two types of DCL commands:
@@ -228,6 +237,17 @@
 -- MAGIC %md ## REVOKE
 -- MAGIC 
 -- MAGIC [REVOKE](https://docs.databricks.com/sql/language-manual/security-revoke.html)
+-- MAGIC 
+-- MAGIC ```sql
+-- MAGIC REVOKE privilege_types
+-- MAGIC ON securable_object
+-- MAGIC FROM principal
+-- MAGIC ```
+-- MAGIC 
+-- MAGIC where `privilege_types` are:
+-- MAGIC 
+-- MAGIC * `ALL PRIVILEGES`
+-- MAGIC * Comma-separated privilege types
 
 -- COMMAND ----------
 
@@ -247,7 +267,15 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md ### Current User
+
+-- COMMAND ----------
+
 SELECT current_user()
+
+-- COMMAND ----------
+
+-- MAGIC %md ### Create Table
 
 -- COMMAND ----------
 
@@ -264,6 +292,14 @@ INSERT INTO main.default.department (name) VALUES ("it works!")
 
 -- COMMAND ----------
 
+DESC EXTENDED main.default.department
+
+-- COMMAND ----------
+
+-- MAGIC %md ### Grant privilege
+
+-- COMMAND ----------
+
 GRANT SELECT ON main.default.department TO `jacek@japila.pl`;
 
 -- COMMAND ----------
@@ -272,11 +308,19 @@ SHOW GRANTS ON main.default.department
 
 -- COMMAND ----------
 
+SELECT * FROM main.information_schema.table_privileges
+
+-- COMMAND ----------
+
 GRANT SELECT ON main.default.department TO `eljotpl@gmail.com`;
 
 -- COMMAND ----------
 
 SHOW GRANTS ON main.default.department
+
+-- COMMAND ----------
+
+-- MAGIC %md ### Revoke All Privileges
 
 -- COMMAND ----------
 
@@ -295,6 +339,38 @@ REVOKE ALL PRIVILEGES ON main.default.department FROM `eljotpl@gmail.com`
 -- COMMAND ----------
 
 SHOW GRANTS ON main.default.department
+
+-- COMMAND ----------
+
+REVOKE ALL PRIVILEGES ON main.default.department FROM `jacek@japila.pl`
+
+-- COMMAND ----------
+
+SELECT * FROM main.default.department
+
+-- COMMAND ----------
+
+-- MAGIC %md ### Alter Table Owner
+
+-- COMMAND ----------
+
+ALTER TABLE main.default.department SET OWNER TO `eljotpl@gmail.com`
+
+-- COMMAND ----------
+
+SELECT * FROM main.default.department
+
+-- COMMAND ----------
+
+-- MAGIC %md ### Revoke All From All
+-- MAGIC 
+-- MAGIC How to revoke all privileges from all workspace users?
+
+-- COMMAND ----------
+
+-- users special principal cannot be used with securable objects in Unity Catalog
+-- users is a Hive Metastore principal
+REVOKE ALL PRIVILEGES ON main.default.department FROM `account users`;
 
 -- COMMAND ----------
 
@@ -388,25 +464,6 @@ USE jacek_laskowski_catalog.jacek_laskowski_schema
 
 -- https://docs.databricks.com/sql/language-manual/sql-ref-syntax-aux-show-databases.html
 SHOW SCHEMAS LIKE '*jacek_laskowski*'
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC 
--- MAGIC ## Information schema
--- MAGIC 
--- MAGIC [Information schema](https://docs.databricks.com/sql/language-manual/sql-ref-information-schema.html)
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC 
--- MAGIC The `INFORMATION_SCHEMA` is a SQL standard based schema, provided in every catalog created on Unity Catalog.
-
--- COMMAND ----------
-
-SELECT *
-FROM system.information_schema.schemata
 
 -- COMMAND ----------
 
