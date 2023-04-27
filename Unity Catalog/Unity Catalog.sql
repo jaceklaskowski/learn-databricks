@@ -17,9 +17,13 @@
 
 -- COMMAND ----------
 
--- MAGIC %md # Get started with Unity Catalog
+-- MAGIC %md # Introduction to Unity Catalog
 -- MAGIC 
--- MAGIC * Unity Catalog is a fine-grained goverance solution for data and AI on the Lakehouse
+-- MAGIC * **Unity Catalog** is a unified governance solution for data, analytics and AI on the lakehouse
+-- MAGIC * An enterprise-wide **data catalog** for data & governance teams
+-- MAGIC * A centralized **metadata layer** to catalog data assets across your lakehouse
+-- MAGIC * A Unity Catalog metastore
+-- MAGIC * A single interface to manage permissions, centralize auditing, and share data across platforms, clouds and regions
 -- MAGIC * An account admin can create and administer a metastore
 -- MAGIC     * Add specific workspaces to this metastore
 -- MAGIC     * A metastore and assigned workspaces must all be in the same region
@@ -29,9 +33,27 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC [What is Unity Catalog?](https://docs.gcp.databricks.com/data-governance/unity-catalog/index.html)
+-- MAGIC 
+-- MAGIC * Unity Catalog provides centralized access control, auditing, and data discovery capabilities **across Databricks workspaces**
+-- MAGIC * Define once, secure everywhere
+-- MAGIC     * a single place to administer data access policies that apply across all workspaces and personas.
+-- MAGIC * Standards-compliant security model
+-- MAGIC     * Unity Catalog’s security model is based on standard **ANSI SQL**
+-- MAGIC     * `GRANT` permissions at the level of catalogs, databases (also called schemas), tables, and views
+-- MAGIC * Auditing
+-- MAGIC     * captures user-level audit logs that record access to your data
+-- MAGIC * Data Discovery
+-- MAGIC     * lets you tag and document data assets
+-- MAGIC     * provides a search interface to help data consumers find data.
+
+-- COMMAND ----------
+
 -- MAGIC %md # Databricks Workspace
 -- MAGIC 
--- MAGIC Databricks workspace hosted on [Google Cloud Platform](https://console.cloud.google.com/) (other platforms supported yet not verified by the author so YMMV 😉)
+-- MAGIC A Databricks workspace hosted on [Google Cloud Platform](https://console.cloud.google.com/) (other platforms supported yet not verified by the author so YMMV 😉)
 -- MAGIC 
 -- MAGIC [Databricks Account Console](https://accounts.gcp.databricks.com/)
 
@@ -119,25 +141,7 @@
 
 -- COMMAND ----------
 
--- MAGIC %md ## What is Unity Catalog?
--- MAGIC 
--- MAGIC [What is Unity Catalog?](https://docs.gcp.databricks.com/data-governance/unity-catalog/index.html)
--- MAGIC 
--- MAGIC * Unity Catalog provides centralized access control, auditing, and data discovery capabilities **across Databricks workspaces**
--- MAGIC * Define once, secure everywhere
--- MAGIC     * a single place to administer data access policies that apply across all workspaces and personas.
--- MAGIC * Standards-compliant security model
--- MAGIC     * Unity Catalog’s security model is based on standard **ANSI SQL**
--- MAGIC     * `GRANT` permissions at the level of catalogs, databases (also called schemas), tables, and views
--- MAGIC * Auditing
--- MAGIC     * captures user-level audit logs that record access to your data
--- MAGIC * Data Discovery
--- MAGIC     * lets you tag and document data assets
--- MAGIC     * provides a search interface to help data consumers find data.
-
--- COMMAND ----------
-
--- MAGIC %md ## The Unity Catalog object model
+-- MAGIC %md # The Unity Catalog object model
 -- MAGIC 
 -- MAGIC [The Unity Catalog object model](https://docs.gcp.databricks.com/data-governance/unity-catalog/index.html#the-unity-catalog-object-model)
 -- MAGIC 
@@ -150,10 +154,6 @@
 
 -- COMMAND ----------
 
--- MAGIC %md # Key Concepts
-
--- COMMAND ----------
-
 -- MAGIC %md ## Metastore
 -- MAGIC 
 -- MAGIC A **metastore** is the top-level container for data in Unity Catalog.
@@ -163,6 +163,138 @@
 -- MAGIC * catalogs
 -- MAGIC * schemas (_databases_)
 -- MAGIC * tables and views
+
+-- COMMAND ----------
+
+-- MAGIC %md # Privileges
+-- MAGIC 
+-- MAGIC A **privilege** is a right granted to a **principal** to operate on a **securable object** in a metastore.
+-- MAGIC 
+-- MAGIC Securable objects in Unity Catalog are hierarchical, and privileges are inherited downward.
+-- MAGIC * `GRANT`ing a privilege on a catalog automatically grants the privilege to all the current and future schemas in the catalog
+-- MAGIC * Privileges `GRANT`ed on a schema are inherited by all the current and future tables and views in that schema
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Securable objects
+-- MAGIC 
+-- MAGIC A [securable object](https://docs.databricks.com/sql/language-manual/sql-ref-privileges.html#securable-objects) is an object in a Unity Catalog metastore on which privileges can be `GRANT`ed to or `REVOKE`d from a principal.
+-- MAGIC 
+-- MAGIC * `CATALOG` [ catalog_name ]
+-- MAGIC * `SCHEMA` schema_name (also `DATABASE`)
+-- MAGIC * `EXTERNAL LOCATION` location_name
+-- MAGIC * `FUNCTION` function_name
+-- MAGIC * `METASTORE`
+-- MAGIC * `SHARE` share_name
+-- MAGIC * `STORAGE CREDENTIAL` credential_name
+-- MAGIC * [ `TABLE` ] table_name
+-- MAGIC * `VIEW` view_name
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Principals
+-- MAGIC 
+-- MAGIC [Principals](https://docs.databricks.com/sql/language-manual/sql-ref-principal.html):
+-- MAGIC 
+-- MAGIC * Users
+-- MAGIC * Service principals
+-- MAGIC * Groups
+-- MAGIC 
+-- MAGIC Principals can be `GRANT`ed or `REVOKE`d privileges and may own (be the owner of) securable objects.
+-- MAGIC 
+-- MAGIC * `<user>@<domain-name>` (an individual user back-ticked due to `@`)
+-- MAGIC * `<sp-application-id>` (a service principal back-ticked due to `-`s)
+-- MAGIC * group_name
+-- MAGIC * `USERS` (all users in a workspace)
+-- MAGIC * `ACCOUNT USERS` (all users in an account)
+
+-- COMMAND ----------
+
+-- MAGIC %md # SQL DCLs
+-- MAGIC 
+-- MAGIC DCL commands are used to enforce metastore security. There are two types of DCL commands:
+-- MAGIC 
+-- MAGIC * [GRANT](https://docs.databricks.com/sql/language-manual/security-grant.html)
+-- MAGIC * [REVOKE](https://docs.databricks.com/sql/language-manual/security-revoke.html)
+
+-- COMMAND ----------
+
+-- MAGIC %md ## GRANT
+-- MAGIC 
+-- MAGIC [GRANT](https://docs.databricks.com/sql/language-manual/security-grant.html)
+
+-- COMMAND ----------
+
+-- MAGIC %md ## REVOKE
+-- MAGIC 
+-- MAGIC [REVOKE](https://docs.databricks.com/sql/language-manual/security-revoke.html)
+
+-- COMMAND ----------
+
+-- MAGIC %md ## SHOW GRANTS
+-- MAGIC 
+-- MAGIC [SHOW GRANTS](https://docs.databricks.com/sql/language-manual/security-show-grant.html)
+-- MAGIC 
+-- MAGIC * Not really a DCL but important to mention while discussing ACLs
+-- MAGIC 
+-- MAGIC ```sql
+-- MAGIC SHOW GRANTS [ principal ] ON securable_object
+-- MAGIC ```
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Demo
+
+-- COMMAND ----------
+
+SELECT current_user()
+
+-- COMMAND ----------
+
+DROP TABLE IF EXISTS main.default.department
+
+-- COMMAND ----------
+
+CREATE TABLE IF NOT EXISTS main.default.department (
+  id BIGINT GENERATED ALWAYS AS IDENTITY,
+  name STRING NOT NULL
+)
+USING delta;
+INSERT INTO main.default.department (name) VALUES ("it works!")
+
+-- COMMAND ----------
+
+GRANT SELECT ON main.default.department TO `jacek@japila.pl`;
+
+-- COMMAND ----------
+
+SHOW GRANTS ON main.default.department
+
+-- COMMAND ----------
+
+GRANT SELECT ON main.default.department TO `eljotpl@gmail.com`;
+
+-- COMMAND ----------
+
+SHOW GRANTS ON main.default.department
+
+-- COMMAND ----------
+
+REVOKE ALL PRIVILEGES ON main.default.department FROM `eljotpl@gmail.com`
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC 
+-- MAGIC Executing `SELECT * FROM main.default.department` as `eljotpl@gmail.com` will fail with the following exception:
+-- MAGIC 
+-- MAGIC ```
+-- MAGIC AnalysisException: User does not have SELECT on Table 'main.default.department'.
+-- MAGIC ```
+
+-- COMMAND ----------
+
+SHOW GRANTS ON main.default.department
 
 -- COMMAND ----------
 
@@ -289,20 +421,3 @@ FROM system.information_schema.schemata
 
 CREATE TABLE IF NOT EXISTS t1
 AS SELECT * FROM VALUES (0, 'zero'), (1, 'one') t(id, name)
-
--- COMMAND ----------
-
--- MAGIC %md # SQL DCLs
--- MAGIC 
--- MAGIC DCL commands are used to enforce metastore security. There are two types of DCL commands:
--- MAGIC 
--- MAGIC * GRANT
--- MAGIC * REVOKE
-
--- COMMAND ----------
-
--- MAGIC %md ## GRANT
-
--- COMMAND ----------
-
-GRANT SELECT ON main.default.department TO `data-consumers`;
