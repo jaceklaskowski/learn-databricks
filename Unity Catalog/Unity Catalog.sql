@@ -242,6 +242,152 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md # Demo
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Current User
+
+-- COMMAND ----------
+
+SELECT current_user()
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Create Catalog
+
+-- COMMAND ----------
+
+-- https://docs.databricks.com/sql/language-manual/sql-ref-syntax-ddl-drop-catalog.html
+DROP CATALOG IF EXISTS demo_catalog CASCADE;
+
+-- https://docs.databricks.com/sql/language-manual/sql-ref-syntax-ddl-create-catalog.html
+CREATE CATALOG demo_catalog
+COMMENT 'For Unity Catalog demo purposes';
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Create Schema
+
+-- COMMAND ----------
+
+-- https://docs.databricks.com/sql/language-manual/sql-ref-syntax-ddl-create-schema.html
+CREATE SCHEMA IF NOT EXISTS demo_catalog.demo_schema;
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Create Table
+
+-- COMMAND ----------
+
+USE SCHEMA demo_schema;
+CREATE TABLE IF NOT EXISTS names (
+  id BIGINT GENERATED ALWAYS AS IDENTITY,
+  name STRING NOT NULL
+)
+USING delta;
+INSERT INTO names (name) VALUES ("it works!");
+
+-- COMMAND ----------
+
+DESC EXTENDED names
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Grant Privileges
+
+-- COMMAND ----------
+
+GRANT SELECT ON demo_catalog.demo_schema.names TO `jacek@japila.pl`;
+
+-- COMMAND ----------
+
+SHOW GRANTS ON demo_catalog.demo_schema.names
+
+-- COMMAND ----------
+
+SELECT * FROM demo_catalog.information_schema.table_privileges
+WHERE table_name = 'names'
+
+-- COMMAND ----------
+
+GRANT USE CATALOG ON CATALOG demo_catalog TO `eljotpl@gmail.com`;
+GRANT USE SCHEMA ON SCHEMA demo_schema TO `eljotpl@gmail.com`;
+
+-- COMMAND ----------
+
+GRANT SELECT ON names TO `eljotpl@gmail.com`;
+
+-- COMMAND ----------
+
+SHOW GRANTS ON demo_catalog.demo_schema.names
+
+-- COMMAND ----------
+
+-- MAGIC %md ## SELECT as Non Table Owner
+-- MAGIC
+-- MAGIC Execute `SELECT * FROM demo_catalog.demo_schema.names` as the other user (i.e., `eljotpl@gmail.com`).
+-- MAGIC
+-- MAGIC It should work fine.
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Revoke All Privileges
+
+-- COMMAND ----------
+
+REVOKE ALL PRIVILEGES ON demo_catalog.demo_schema.names FROM `eljotpl@gmail.com`
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC Executing `SELECT * FROM demo_catalog.demo_schema.names` as the other user (i.e., `eljotpl@gmail.com`) will fail with the following exception:
+-- MAGIC
+-- MAGIC > AnalysisException: User does not have SELECT on Table 'demo_catalog.demo_schema.names'.
+
+-- COMMAND ----------
+
+SHOW GRANTS ON demo_catalog.demo_schema.names
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC The owner should be fine to execute `SELECT` statements.
+
+-- COMMAND ----------
+
+SELECT * FROM demo_catalog.demo_schema.names
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Alter Table Owner
+
+-- COMMAND ----------
+
+ALTER TABLE demo_catalog.demo_schema.names SET OWNER TO `eljotpl@gmail.com`
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC Executing `SELECT * FROM demo_catalog.demo_schema.names` as the other user (i.e., eljotpl@gmail.com) will no longer fail since it's the owner of the table.
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Revoke All From All
+-- MAGIC
+-- MAGIC Revoke all privileges from all workspace users (except the owner).
+
+-- COMMAND ----------
+
+-- users special principal cannot be used with securable objects in Unity Catalog
+-- users is a Hive Metastore principal
+REVOKE ALL PRIVILEGES ON demo_catalog.demo_schema.names FROM `account users`;
+
+-- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC
 -- MAGIC # Administration
@@ -393,117 +539,6 @@ FROM system.information_schema.schemata
 -- MAGIC ```sql
 -- MAGIC SHOW GRANTS [ principal ] ON securable_object
 -- MAGIC ```
-
--- COMMAND ----------
-
--- MAGIC %md ## Demo
-
--- COMMAND ----------
-
--- MAGIC %md ### Current User
-
--- COMMAND ----------
-
-SELECT current_user()
-
--- COMMAND ----------
-
--- MAGIC %md ### Create Table
-
--- COMMAND ----------
-
-DROP TABLE IF EXISTS main.default.department
-
--- COMMAND ----------
-
-CREATE TABLE IF NOT EXISTS main.default.department (
-  id BIGINT GENERATED ALWAYS AS IDENTITY,
-  name STRING NOT NULL
-)
-USING delta;
-INSERT INTO main.default.department (name) VALUES ("it works!")
-
--- COMMAND ----------
-
-DESC EXTENDED main.default.department
-
--- COMMAND ----------
-
--- MAGIC %md ### Grant privilege
-
--- COMMAND ----------
-
-GRANT SELECT ON main.default.department TO `jacek@japila.pl`;
-
--- COMMAND ----------
-
-SHOW GRANTS ON main.default.department
-
--- COMMAND ----------
-
-SELECT * FROM main.information_schema.table_privileges
-
--- COMMAND ----------
-
-GRANT SELECT ON main.default.department TO `eljotpl@gmail.com`;
-
--- COMMAND ----------
-
-SHOW GRANTS ON main.default.department
-
--- COMMAND ----------
-
--- MAGIC %md ### Revoke All Privileges
-
--- COMMAND ----------
-
-REVOKE ALL PRIVILEGES ON main.default.department FROM `eljotpl@gmail.com`
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC
--- MAGIC Executing `SELECT * FROM main.default.department` as `eljotpl@gmail.com` will fail with the following exception:
--- MAGIC
--- MAGIC ```
--- MAGIC AnalysisException: User does not have SELECT on Table 'main.default.department'.
--- MAGIC ```
-
--- COMMAND ----------
-
-SHOW GRANTS ON main.default.department
-
--- COMMAND ----------
-
-REVOKE ALL PRIVILEGES ON main.default.department FROM `jacek@japila.pl`
-
--- COMMAND ----------
-
-SELECT * FROM main.default.department
-
--- COMMAND ----------
-
--- MAGIC %md ### Alter Table Owner
-
--- COMMAND ----------
-
-ALTER TABLE main.default.department SET OWNER TO `eljotpl@gmail.com`
-
--- COMMAND ----------
-
-SELECT * FROM main.default.department
-
--- COMMAND ----------
-
--- MAGIC %md ### Revoke All From All
--- MAGIC
--- MAGIC How to revoke all privileges from all workspace users?
-
--- COMMAND ----------
-
--- users special principal cannot be used with securable objects in Unity Catalog
--- users is a Hive Metastore principal
-REVOKE ALL PRIVILEGES ON main.default.department FROM `account users`;
 
 -- COMMAND ----------
 
