@@ -38,15 +38,16 @@
 -- MAGIC     * decision tree algorithms
 -- MAGIC     * ranking
 -- MAGIC     * classification
--- MAGIC * Support of parallel, distributed, and GPU learning
--- MAGIC     * Excellent for Apache Spark ❤️
+-- MAGIC * Support for parallel, distributed, and GPU learning
+-- MAGIC     * Distributed and GPU learning can speed up model training
 -- MAGIC * [3 distributed learning algorithms](https://lightgbm.readthedocs.io/en/latest/Parallel-Learning-Guide.html#choose-appropriate-parallel-algorithm)
 -- MAGIC     * Data parallel (`tree_learner=data`)
 -- MAGIC     * Feature parallel (`tree_learner=feature`)
 -- MAGIC     * Voting parallel (`tree_learner=voting`)
 -- MAGIC * LightGBM models can be incorporated into existing SparkML Pipelines, and used for batch, streaming, and serving workloads
 -- MAGIC * Distributed learning experiments show that LightGBM can achieve a linear speed-up by using multiple machines for training in specific settings
--- MAGIC     * Excellent for Apache Spark ❤️
+-- MAGIC
+-- MAGIC Support for distributed and GPU learning fits Apache Spark nicely (_pun intended_) ❤️
 -- MAGIC
 -- MAGIC ### Python Binding
 -- MAGIC
@@ -81,7 +82,7 @@
 -- MAGIC
 -- MAGIC ## LightGBM in SynapseML
 -- MAGIC
--- MAGIC Notable Classes:
+-- MAGIC Spark MLlib Estimators to use LightGBM (for distributed and GPU training):
 -- MAGIC
 -- MAGIC * `LightGBMClassifier` for building **classification models**
 -- MAGIC     * Predicting whether a company will bankrupt or not (a binary classification)
@@ -130,9 +131,9 @@
 -- MAGIC * `com.microsoft.azure.synapse.ml.lightgbm` package
 -- MAGIC * The base Spark MLlib `Estimator` (to _fit models to data_)
 -- MAGIC * The parent of the following LightGBM estimators:
+-- MAGIC     * `LightGBMClassifier`
 -- MAGIC     * `LightGBMRanker`
 -- MAGIC     * `LightGBMRegressor`
--- MAGIC     * `LightGBMClassifier`
 -- MAGIC * Trains (_fits_) a LightGBM model
 -- MAGIC * `LightGBMUtils.initializeNativeLibrary`
 -- MAGIC * Can be single- or multi-batch
