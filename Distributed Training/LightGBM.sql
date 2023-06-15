@@ -169,6 +169,29 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md
+-- MAGIC
+-- MAGIC # XGBoost and LightGBM
+-- MAGIC
+-- MAGIC [XGBoost](https://xgboost.readthedocs.io/en/stable/) is an optimized **distributed gradient boosting library**
+-- MAGIC * Machine learning algorithms under the [Gradient Boosting](https://en.wikipedia.org/wiki/Gradient_boosting) framework
+-- MAGIC * Provides a parallel tree boosting (also known as GBDT, GBM) that solve many data science problems in a fast and accurate way
+-- MAGIC * Runs on major distributed environment (Hadoop, SGE, MPI) and can solve problems beyond billions of examples
+-- MAGIC
+-- MAGIC Thus, at a high-enough level XGBoost looks like LightGBM, does it?! But...
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## Apache Spark Support
+-- MAGIC
+-- MAGIC XGBoost comes with its own [JVM Package](https://xgboost.readthedocs.io/en/latest/jvm/index.html) and Apache Spark is supported using [XGBoost4J-Spark](https://xgboost.readthedocs.io/en/latest/jvm/xgboost4j_spark_tutorial.html) (with and without GPU support).
+-- MAGIC
+-- MAGIC On the other hand, LightGBM does not support Apache Spark out of the box (only through SynapseML).
+
+-- COMMAND ----------
+
 -- MAGIC %md # Possible Continuations
 -- MAGIC
 -- MAGIC ...and ways to learn even more 🔥
@@ -181,15 +204,22 @@
 -- MAGIC
 -- MAGIC 1. A talk about [Gradient boosting](https://en.wikipedia.org/wiki/Gradient_boosting)
 -- MAGIC 1. Regression and classification (tasks) using Apache Spark and SynapseML (incl. Databricks)
+-- MAGIC 1. XGBoost vs LightGBM
 
 -- COMMAND ----------
 
 -- MAGIC %md
 -- MAGIC
--- MAGIC ## Contribute to SynapseML
+-- MAGIC ## Open Source Contributor
 -- MAGIC
--- MAGIC 1. Contribute to [SynapseML](https://github.com/microsoft/SynapseML) (for Apache Spark devs)
--- MAGIC     * Start with the docs (due to [Documentation is very very thin](https://github.com/microsoft/SynapseML/issues/1956#issuecomment-1557879940))
--- MAGIC     * Search the [Issues](https://github.com/microsoft/SynapseML/issues) to work on (e.g. with [good first issue](https://github.com/microsoft/SynapseML/labels/good%20first%20issue), [area/2Fdocumentation](https://github.com/microsoft/SynapseML/labels/area%2Fdocumentation) or even [area/lightgbm](https://github.com/microsoft/SynapseML/labels/area%2Flightgbm) labels)
+-- MAGIC If you've ever wanted to become an open source contributor, this is your chance 🫵
 -- MAGIC
--- MAGIC In the end, present the result to the audience at our meetups ❤️
+-- MAGIC Contribute to [SynapseML](https://github.com/microsoft/SynapseML) (for Apache Spark devs)
+-- MAGIC * Start with the docs (due to [Documentation is very very thin](https://github.com/microsoft/SynapseML/issues/1956#issuecomment-1557879940))
+-- MAGIC * Search the [Issues](https://github.com/microsoft/SynapseML/issues) to work on (e.g. with [good first issue](https://github.com/microsoft/SynapseML/labels/good%20first%20issue), [area/2Fdocumentation](https://github.com/microsoft/SynapseML/labels/area%2Fdocumentation) or even [area/lightgbm](https://github.com/microsoft/SynapseML/labels/area%2Flightgbm) labels)
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Conference Speaker
+-- MAGIC
+-- MAGIC In the end, present the talks and demos and open source contributions to a wider audience at our meetups or even at conferences ❤️
