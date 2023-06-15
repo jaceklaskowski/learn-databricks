@@ -27,6 +27,12 @@
 
 -- MAGIC %md
 -- MAGIC
+-- MAGIC Nie zapomnij o demo z https://books.japila.pl/apache-spark-internals/barrier-execution-mode/#demo
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
 -- MAGIC # LightGBM
 -- MAGIC
 -- MAGIC [LightGBM](https://github.com/Microsoft/LightGBM):
@@ -44,7 +50,7 @@
 -- MAGIC     * Data parallel (`tree_learner=data`)
 -- MAGIC     * Feature parallel (`tree_learner=feature`)
 -- MAGIC     * Voting parallel (`tree_learner=voting`)
--- MAGIC * LightGBM models can be incorporated into existing SparkML Pipelines, and used for batch, streaming, and serving workloads
+-- MAGIC * ~~LightGBM models can be incorporated into existing SparkML Pipelines, and used for batch, streaming, and serving workloads~~
 -- MAGIC * Distributed learning experiments show that LightGBM can achieve a linear speed-up by using multiple machines for training in specific settings
 -- MAGIC
 -- MAGIC Support for distributed and GPU learning fits Apache Spark nicely (_pun intended_) ❤️
@@ -55,6 +61,7 @@
 -- MAGIC * `pip install lightgbm` or `conda install -c conda-forge lightgbm` (not maintained by LightGBM maintainers)
 -- MAGIC * Supports both GPU and CPU versions out of the box
 -- MAGIC * available only for Windows and Linux
+-- MAGIC     * No macOS?!
 -- MAGIC * To use GPU version, install OpenCL Runtime libraries
 -- MAGIC     * For NVIDIA and AMD GPUs they are included in the ordinary drivers for your graphics card, so no action is required
 -- MAGIC     * If you would like your AMD or Intel CPU to act like a GPU (for testing and debugging), install AMD APP SDK on Windows and PoCL on Linux
@@ -69,10 +76,12 @@
 -- MAGIC * Simple and Distributed Machine Learning
 -- MAGIC * Formely known as **MMLSpark**
 -- MAGIC * Among the provided machine learning algorithms is...yup, you have guessed it right...[LightGBM](https://microsoft.github.io/SynapseML/docs/features/lightgbm/about/)
+-- MAGIC * Scale ML workloads to hundreds of machines on your **Apache Spark** clusters
 -- MAGIC
--- MAGIC From [Distributed Learning Guide](https://lightgbm.readthedocs.io/en/latest/Parallel-Learning-Guide.html):
+-- MAGIC From [Distributed Learning Guide](https://lightgbm.readthedocs.io/en/latest/Parallel-Learning-Guide.html) (a LightGBM perspective):
 -- MAGIC
 -- MAGIC * Apache Spark users can use [SynapseML](https://github.com/microsoft/SynapseML) for machine learning workflows with LightGBM
+-- MAGIC * SynapseML = a bridge between LightGBM and Apache Spark
 -- MAGIC * SynapseML is not maintained by LightGBM's maintainers
 -- MAGIC * SynapseML requires Scala 2.12, Spark 3.2+, and Python 3.8+
 
@@ -124,7 +133,7 @@
 
 -- MAGIC %md
 -- MAGIC
--- MAGIC # Code Walkthrough
+-- MAGIC # Code Walkthrough (SynapseML)
 -- MAGIC
 -- MAGIC Let's have a quick look at the source code of `LightGBMBase`...🔍
 -- MAGIC
@@ -216,7 +225,7 @@
 -- MAGIC
 -- MAGIC Contribute to [SynapseML](https://github.com/microsoft/SynapseML) (for Apache Spark devs)
 -- MAGIC * Start with the docs (due to [Documentation is very very thin](https://github.com/microsoft/SynapseML/issues/1956#issuecomment-1557879940))
--- MAGIC * Search the [Issues](https://github.com/microsoft/SynapseML/issues) to work on (e.g. with [good first issue](https://github.com/microsoft/SynapseML/labels/good%20first%20issue), [area/2Fdocumentation](https://github.com/microsoft/SynapseML/labels/area%2Fdocumentation) or even [area/lightgbm](https://github.com/microsoft/SynapseML/labels/area%2Flightgbm) labels)
+-- MAGIC * Search the [Issues](https://github.com/microsoft/SynapseML/issues) to work on (e.g. with [good first issue](https://github.com/microsoft/SynapseML/labels/good%20first%20issue), [area/documentation](https://github.com/microsoft/SynapseML/labels/area%2Fdocumentation) or even [area/lightgbm](https://github.com/microsoft/SynapseML/labels/area%2Flightgbm) labels)
 
 -- COMMAND ----------
 
