@@ -127,18 +127,18 @@
 
 -- MAGIC %md
 -- MAGIC
--- MAGIC # Code Walkthrough (SynapseML)
+-- MAGIC # Demo SynapseML Code Walkthrough
 -- MAGIC
--- MAGIC Let's have a quick look at the source code of `LightGBMBase`...🔍
+-- MAGIC Let's have a look at the source code of [LightGBMBase](https://github.com/microsoft/SynapseML/blob/master/lightgbm/src/main/scala/com/microsoft/azure/synapse/ml/lightgbm/LightGBMBase.scala) 🔍
 -- MAGIC
--- MAGIC * `com.microsoft.azure.synapse.ml.lightgbm` package
+-- MAGIC * Part of `com.microsoft.azure.synapse.ml.lightgbm` package
 -- MAGIC * The base Spark MLlib `Estimator` (to _fit models to data_)
 -- MAGIC * The parent of the following LightGBM estimators:
 -- MAGIC     * `LightGBMClassifier`
 -- MAGIC     * `LightGBMRanker`
 -- MAGIC     * `LightGBMRegressor`
 -- MAGIC * Trains (_fits_) a LightGBM model
--- MAGIC * `LightGBMUtils.initializeNativeLibrary`
+-- MAGIC * `LightGBMUtils.initializeNativeLibrary` is where LightGBM native libraries are loaded into JVM (using JNI)
 -- MAGIC * Can be single- or multi-batch
 -- MAGIC     * splits data into separate batches during training
 -- MAGIC     * `numBatches` parameter
@@ -154,21 +154,24 @@
 -- MAGIC     * `useBarrierExecutionMode` - Barrier execution mode which uses a barrier stage, disabled (`false`) by default
 -- MAGIC * Show how `useBarrierExecutionMode` argument is used in `NetworkManager`
 -- MAGIC * Show the scaladoc of `LightGBMBase.prepareDataframe` (very informatory)
--- MAGIC
--- MAGIC ---
--- MAGIC
--- MAGIC The gist of Barrier Execution in SynapseML LightGBM is `LightGBMBase.executePartitionTasks` with the following line:
--- MAGIC
--- MAGIC ```scala
--- MAGIC dataframe.rdd.barrier().mapPartitions(mapPartitionsFunc).collect()
--- MAGIC ```
--- MAGIC     
 
 -- COMMAND ----------
 
 -- MAGIC %md
 -- MAGIC
--- MAGIC # XGBoost and LightGBM
+-- MAGIC ## Barrier Execution
+-- MAGIC
+-- MAGIC The gist of [Barrier Execution](https://books.japila.pl/apache-spark-internals/barrier-execution-mode/) in SynapseML LightGBM is `LightGBMBase.executePartitionTasks` with the following line:
+-- MAGIC
+-- MAGIC ```scala
+-- MAGIC dataframe.rdd.barrier().mapPartitions(mapPartitionsFunc).collect()
+-- MAGIC ```
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC # LightGBM vs XGBoost
 -- MAGIC
 -- MAGIC [XGBoost](https://xgboost.readthedocs.io/en/stable/) is an optimized **distributed gradient boosting library**
 -- MAGIC * Machine learning algorithms under the [Gradient Boosting](https://en.wikipedia.org/wiki/Gradient_boosting) framework
@@ -191,7 +194,7 @@
 
 -- MAGIC %md # Possible Continuations
 -- MAGIC
--- MAGIC ...and ways to learn even more 🔥
+-- MAGIC ...and ways to learn even more about LightGBM, SynapseML, Apache Spark and others 🔥
 
 -- COMMAND ----------
 
@@ -201,7 +204,7 @@
 -- MAGIC
 -- MAGIC 1. A talk about [Gradient boosting](https://en.wikipedia.org/wiki/Gradient_boosting)
 -- MAGIC 1. Regression and classification (tasks) using Apache Spark and SynapseML (incl. Databricks)
--- MAGIC 1. XGBoost vs LightGBM
+-- MAGIC 1. LightGBM vs XGBoost
 
 -- COMMAND ----------
 
