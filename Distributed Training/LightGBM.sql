@@ -52,6 +52,12 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md ## Learn More
+-- MAGIC
+-- MAGIC 1. [Understanding LightGBM Parameters (and How to Tune Them)](https://neptune.ai/blog/lightgbm-parameters-guide) gives a nice introduction to Gradient boosting and alike
+
+-- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC
 -- MAGIC # Distributed Learning in LightGBM
@@ -75,7 +81,7 @@
 -- MAGIC ## Internals
 -- MAGIC
 -- MAGIC [Optimization in Distributed Learning](https://lightgbm.readthedocs.io/en/latest/Features.html#optimization-in-distributed-learning) explains the internals of the three supported parallel algorithms in LightGBM
--- MAGIC * `tree_learner` configuration option
+-- MAGIC * [tree_learner](https://lightgbm.readthedocs.io/en/latest/Parameters.html#tree_learner) parameter
 
 -- COMMAND ----------
 
@@ -167,6 +173,15 @@
 -- MAGIC ```scala
 -- MAGIC dataframe.rdd.barrier().mapPartitions(mapPartitionsFunc).collect()
 -- MAGIC ```
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC # (FIXME) Demo
+-- MAGIC
+-- MAGIC 1. SynapseML in Action
+-- MAGIC 1. Use the real-life dataset from [Santander Customer Transaction Prediction](https://www.kaggle.com/competitions/santander-customer-transaction-prediction/data)
 
 -- COMMAND ----------
 
