@@ -27,12 +27,6 @@
 
 -- MAGIC %md
 -- MAGIC
--- MAGIC Nie zapomnij o demo z https://books.japila.pl/apache-spark-internals/barrier-execution-mode/#demo
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC
 -- MAGIC # LightGBM
 -- MAGIC
 -- MAGIC [LightGBM](https://github.com/Microsoft/LightGBM):
@@ -50,7 +44,6 @@
 -- MAGIC     * Data parallel (`tree_learner=data`)
 -- MAGIC     * Feature parallel (`tree_learner=feature`)
 -- MAGIC     * Voting parallel (`tree_learner=voting`)
--- MAGIC * ~~LightGBM models can be incorporated into existing SparkML Pipelines, and used for batch, streaming, and serving workloads~~
 -- MAGIC * Distributed learning experiments show that LightGBM can achieve a linear speed-up by using multiple machines for training in specific settings
 -- MAGIC
 -- MAGIC Support for distributed and GPU learning fits Apache Spark nicely (_pun intended_) ❤️
@@ -77,6 +70,7 @@
 -- MAGIC * Formely known as **MMLSpark**
 -- MAGIC * Among the provided machine learning algorithms is...yup, you have guessed it right...[LightGBM](https://microsoft.github.io/SynapseML/docs/features/lightgbm/about/)
 -- MAGIC * Scale ML workloads to hundreds of machines on your **Apache Spark** clusters
+-- MAGIC * LightGBM models can be used in existing Spark MLlib Pipelines, and used for batch, streaming, and serving workloads
 -- MAGIC
 -- MAGIC From [Distributed Learning Guide](https://lightgbm.readthedocs.io/en/latest/Parallel-Learning-Guide.html) (a LightGBM perspective):
 -- MAGIC
@@ -169,12 +163,6 @@
 -- MAGIC dataframe.rdd.barrier().mapPartitions(mapPartitionsFunc).collect()
 -- MAGIC ```
 -- MAGIC     
-
--- COMMAND ----------
-
--- MAGIC %scala
--- MAGIC
--- MAGIC import com.microsoft.azure.synapse.ml.lightgbm.LightGBMBase
 
 -- COMMAND ----------
 
