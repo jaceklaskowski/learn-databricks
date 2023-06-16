@@ -4,11 +4,11 @@ terraform {
   required_providers {
     databricks = {
       source  = "databricks/databricks"
-      version = "1.13.0"
+      version >= "1.19.0"
     }
   }
 
-  required_version = ">= 1.4.0"
+  required_version = ">= 1.5.0"
 }
 
 # https://developer.hashicorp.com/terraform/language/providers/configuration#default-provider-configurations
