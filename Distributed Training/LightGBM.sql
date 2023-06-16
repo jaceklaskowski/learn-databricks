@@ -73,15 +73,13 @@
 -- MAGIC     * LightGBM CLI (socket and MPI)
 -- MAGIC     * Ray
 -- MAGIC     * [Mars](https://mars-project.readthedocs.io/en/latest/) (never heard of this project before 🤔)
-
--- COMMAND ----------
-
--- MAGIC %md
 -- MAGIC
--- MAGIC ## Internals
+-- MAGIC [3 distributed learning algorithms](https://lightgbm.readthedocs.io/en/latest/Parallel-Learning-Guide.html#choose-appropriate-parallel-algorithm) (based on [tree_learner](https://lightgbm.readthedocs.io/en/latest/Parameters.html#tree_learner) parameter):
+-- MAGIC   * Data parallel (`tree_learner=data`)
+-- MAGIC   * Feature parallel (`tree_learner=feature`)
+-- MAGIC   * Voting parallel (`tree_learner=voting`)
 -- MAGIC
--- MAGIC [Optimization in Distributed Learning](https://lightgbm.readthedocs.io/en/latest/Features.html#optimization-in-distributed-learning) explains the internals of the three supported parallel algorithms in LightGBM
--- MAGIC * [tree_learner](https://lightgbm.readthedocs.io/en/latest/Parameters.html#tree_learner) parameter
+-- MAGIC [Optimization in Distributed Learning](https://lightgbm.readthedocs.io/en/latest/Features.html#optimization-in-distributed-learning) explains the internals of the three supported parallel algorithms in LightGBM.
 
 -- COMMAND ----------
 
