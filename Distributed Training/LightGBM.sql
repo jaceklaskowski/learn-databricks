@@ -31,8 +31,13 @@
 -- MAGIC
 -- MAGIC [LightGBM](https://github.com/Microsoft/LightGBM):
 -- MAGIC
--- MAGIC * An open-source, distributed, high-performance gradient boosting (GBDT, GBRT, GBM, or MART) framework that uses tree-based learning algorithms
 -- MAGIC * Light Gradient Boosting Machine
+-- MAGIC * An open-source, distributed, high-performance [Gradient boosting](https://en.wikipedia.org/wiki/Gradient_boosting) framework
+-- MAGIC     * Uses tree-based learning algorithms
+-- MAGIC     * Support for GBDT, GBRT, GBM, or MART methods ([boosting](https://lightgbm.readthedocs.io/en/latest/Parameters.html#boosting) parameter)
+-- MAGIC         * `gbdt` - traditional Gradient Boosting Decision Tree
+-- MAGIC         * `dart` - Dropouts meet Multiple Additive Regression Trees
+-- MAGIC         * `rf` - Random Forest
 -- MAGIC * Specializes in creating high-quality and GPU-enabled decision tree models for ranking, classification, and many other machine learning tasks
 -- MAGIC     * GPU-enabled
 -- MAGIC     * decision tree algorithms
@@ -40,61 +45,20 @@
 -- MAGIC     * classification
 -- MAGIC * Support for parallel, distributed, and GPU learning
 -- MAGIC     * Distributed and GPU learning can speed up model training
--- MAGIC * [3 distributed learning algorithms](https://lightgbm.readthedocs.io/en/latest/Parallel-Learning-Guide.html#choose-appropriate-parallel-algorithm)
--- MAGIC     * Data parallel (`tree_learner=data`)
--- MAGIC     * Feature parallel (`tree_learner=feature`)
--- MAGIC     * Voting parallel (`tree_learner=voting`)
 -- MAGIC * Distributed learning experiments show that LightGBM can achieve a linear speed-up by using multiple machines for training in specific settings
 -- MAGIC
--- MAGIC Support for distributed and GPU learning fits Apache Spark nicely (_pun intended_) ❤️
+-- MAGIC **NOTE** Support for distributed and GPU learning fits Apache Spark nicely (_pun intended_) ❤️
+
+-- COMMAND ----------
+
+-- MAGIC %md
 -- MAGIC
--- MAGIC ### Python Binding
+-- MAGIC ### Python Support
 -- MAGIC
--- MAGIC [LightGBM/python-package](https://github.com/microsoft/LightGBM/tree/master/python-package):
+-- MAGIC LightGBM project offers support for Python using [python-package](https://github.com/microsoft/LightGBM/tree/master/python-package).
+-- MAGIC
 -- MAGIC * `pip install lightgbm` or `conda install -c conda-forge lightgbm` (not maintained by LightGBM maintainers)
--- MAGIC * Supports both GPU and CPU versions out of the box
--- MAGIC * available only for Windows and Linux
--- MAGIC     * No macOS?!
--- MAGIC * To use GPU version, install OpenCL Runtime libraries
--- MAGIC     * For NVIDIA and AMD GPUs they are included in the ordinary drivers for your graphics card, so no action is required
--- MAGIC     * If you would like your AMD or Intel CPU to act like a GPU (for testing and debugging), install AMD APP SDK on Windows and PoCL on Linux
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC
--- MAGIC # SynapseML
--- MAGIC
--- MAGIC [SynapseML](https://microsoft.github.io/SynapseML/):
--- MAGIC * Simple and Distributed Machine Learning
--- MAGIC * Formely known as **MMLSpark**
--- MAGIC * Among the provided machine learning algorithms is...yup, you have guessed it right...[LightGBM](https://microsoft.github.io/SynapseML/docs/features/lightgbm/about/)
--- MAGIC * Scale ML workloads to hundreds of machines on your **Apache Spark** clusters
--- MAGIC * LightGBM models can be used in existing Spark MLlib Pipelines, and used for batch, streaming, and serving workloads
--- MAGIC
--- MAGIC From [Distributed Learning Guide](https://lightgbm.readthedocs.io/en/latest/Parallel-Learning-Guide.html) (a LightGBM perspective):
--- MAGIC
--- MAGIC * Apache Spark users can use [SynapseML](https://github.com/microsoft/SynapseML) for machine learning workflows with LightGBM
--- MAGIC * SynapseML = a bridge between LightGBM and Apache Spark
--- MAGIC * SynapseML is not maintained by LightGBM's maintainers
--- MAGIC * SynapseML requires Scala 2.12, Spark 3.2+, and Python 3.8+
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC
--- MAGIC ## LightGBM in SynapseML
--- MAGIC
--- MAGIC Spark MLlib Estimators to use LightGBM (for distributed and GPU training):
--- MAGIC
--- MAGIC * `LightGBMClassifier` for building **classification models**
--- MAGIC     * Predicting whether a company will bankrupt or not (a binary classification)
--- MAGIC * `LightGBMRegressor` for building **regression models**
--- MAGIC     * Predicting future house prices
--- MAGIC * `LightGBMRanker` for building **ranking models**
--- MAGIC     * Predicting website searching result relevance
--- MAGIC
--- MAGIC Learn more in [LightGBM - Overview](https://microsoft.github.io/SynapseML/docs/features/lightgbm/LightGBM%20-%20Overview/).
+-- MAGIC * Supports both GPU and CPU versions
 
 -- COMMAND ----------
 
@@ -122,6 +86,48 @@
 -- MAGIC
 -- MAGIC [Optimization in Distributed Learning](https://lightgbm.readthedocs.io/en/latest/Features.html#optimization-in-distributed-learning) explains the internals of the three supported parallel algorithms in LightGBM
 -- MAGIC * `tree_learner` configuration option
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC # LightGBM on Apache Spark
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## SynapseML
+-- MAGIC
+-- MAGIC [SynapseML](https://microsoft.github.io/SynapseML/):
+-- MAGIC * Simple and Distributed Machine Learning
+-- MAGIC * Formely known as **MMLSpark**
+-- MAGIC * [LightGBM](https://microsoft.github.io/SynapseML/docs/features/lightgbm/about/) is among the supported machine learning frameworks
+-- MAGIC * Aims to scale ML workloads using **Apache Spark**
+-- MAGIC * LightGBM models can be used in existing Spark MLlib Pipelines, and used for batch, streaming, and serving workloads
+-- MAGIC * SynapseML requires Scala 2.12, Spark 3.2+, and Python 3.8+
+-- MAGIC
+-- MAGIC From LightGBM's [Distributed Learning Guide](https://lightgbm.readthedocs.io/en/latest/Parallel-Learning-Guide.html):
+-- MAGIC
+-- MAGIC * Apache Spark users can use [SynapseML](https://github.com/microsoft/SynapseML) for machine learning workflows with LightGBM
+-- MAGIC * SynapseML is not maintained by LightGBM's maintainers
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## LightGBM in SynapseML
+-- MAGIC
+-- MAGIC Spark MLlib Estimators to use LightGBM (for distributed and GPU training):
+-- MAGIC
+-- MAGIC * `LightGBMClassifier` for building **classification models**
+-- MAGIC     * Predicting whether a company will bankrupt or not (a binary classification)
+-- MAGIC * `LightGBMRegressor` for building **regression models**
+-- MAGIC     * Predicting future house prices
+-- MAGIC * `LightGBMRanker` for building **ranking models**
+-- MAGIC     * Predicting website searching result relevance
+-- MAGIC
+-- MAGIC Learn more in [LightGBM - Overview](https://microsoft.github.io/SynapseML/docs/features/lightgbm/LightGBM%20-%20Overview/).
 
 -- COMMAND ----------
 
