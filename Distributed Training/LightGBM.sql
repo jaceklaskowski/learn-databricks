@@ -17,16 +17,6 @@
 
 -- MAGIC %md
 -- MAGIC
--- MAGIC ## Fun Facts
--- MAGIC
--- MAGIC 1. [The same team that maintains SynapseML was also working on the major release of Microsoft Fabric, announced today at Microsoft //Build](https://github.com/microsoft/SynapseML/issues/1956#issuecomment-1560294005)
--- MAGIC     * flushing out some SynapseML issues for our major 1.0 release
--- MAGIC     * SynapseML will be a part of Fabric, so we are definitely not abandoning this project
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC
 -- MAGIC # LightGBM
 -- MAGIC
 -- MAGIC [LightGBM](https://github.com/Microsoft/LightGBM):
@@ -106,6 +96,11 @@
 -- MAGIC * Aims to scale ML workloads using **Apache Spark**
 -- MAGIC * LightGBM models can be used in existing Spark MLlib Pipelines, and used for batch, streaming, and serving workloads
 -- MAGIC * SynapseML requires Scala 2.12, Spark 3.2+, and Python 3.8+
+-- MAGIC
+-- MAGIC As a side note, [The same team that maintains SynapseML was also working on the major release of Microsoft Fabric, announced today at Microsoft //Build](https://github.com/microsoft/SynapseML/issues/1956#issuecomment-1560294005)
+-- MAGIC
+-- MAGIC * flushing out some SynapseML issues for our major 1.0 release
+-- MAGIC * SynapseML will be a part of Fabric, so we are definitely not abandoning this project
 -- MAGIC
 -- MAGIC From LightGBM's [Distributed Learning Guide](https://lightgbm.readthedocs.io/en/latest/Parallel-Learning-Guide.html):
 -- MAGIC
@@ -211,6 +206,7 @@
 -- MAGIC 1. A talk about [Gradient boosting](https://en.wikipedia.org/wiki/Gradient_boosting)
 -- MAGIC 1. Regression and classification (tasks) using Apache Spark and SynapseML (incl. Databricks)
 -- MAGIC 1. LightGBM vs XGBoost
+-- MAGIC 1. MLflow
 
 -- COMMAND ----------
 
