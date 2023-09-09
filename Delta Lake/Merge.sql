@@ -3,6 +3,16 @@
 
 -- COMMAND ----------
 
+-- MAGIC %scala
+-- MAGIC
+-- MAGIC println(s"""
+-- MAGIC   |Spark version: ${sc.version}
+-- MAGIC   |runtime_commit: ${org.apache.spark.BuildInfo.gitHash}
+-- MAGIC   |universe_commit: ${com.databricks.BuildInfo.gitHash}
+-- MAGIC """.stripMargin)
+
+-- COMMAND ----------
+
 -- MAGIC %md ## Examples
 
 -- COMMAND ----------
