@@ -15,6 +15,32 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md ## A bit of History (Context)
+-- MAGIC
+-- MAGIC * Back then Apache Hive used Hadoop MapReduce and HDFS
+-- MAGIC * Back then cloud was not a thing. Hive deployments mostly on-prem(ise)
+-- MAGIC * Spark SQL tries to move people off of Apache Hive
+-- MAGIC * Deployments move to the cloud. Cloud adoption grows
+-- MAGIC * Many Managed Spark in Cloud offerings by various vendors
+-- MAGIC * One of the main competitors of Databricks, Snowflake offers [Snowpark](https://www.snowflake.com/en/data-cloud/snowpark/)
+-- MAGIC
+-- MAGIC ---
+-- MAGIC
+-- MAGIC * [Why is Spark SQL so obsessed with Hive?! (after just a single day with Hive)](https://jaceklaskowski.medium.com/why-is-spark-sql-so-obsessed-with-hive-after-just-a-single-day-with-hive-289e75fa6f2b)
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## Open Questions / TODOs
+-- MAGIC
+-- MAGIC 1. How to access Unity Catalog's Access log?
+-- MAGIC 1. How is Unity Catalog mapped to catalogs in Catalog view in a Databricks workspace? When does table data land in the underlying bucket?
+-- MAGIC 1. Is it possible to attach multiple Uniy Catalog's metastores to a single Databricks workspace?
+-- MAGIC
+
+-- COMMAND ----------
+
 -- MAGIC %md # Introduction to Unity Catalog
 -- MAGIC
 -- MAGIC * **Unity Catalog** is a unified governance solution for data, analytics and AI on the lakehouse
@@ -99,7 +125,7 @@
 
 -- COMMAND ----------
 
--- MAGIC %md # Unity Catalog Setup
+-- MAGIC %md # Unity Catalog Setup (Databricks on GCP)
 -- MAGIC
 -- MAGIC [How do I set up Unity Catalog for my organization?](https://docs.gcp.databricks.com/data-governance/unity-catalog/index.html#how-do-i-set-up-unity-catalog-for-my-organization)
 
@@ -107,7 +133,7 @@
 
 -- MAGIC %md ## Create Databricks Workspace
 -- MAGIC
--- MAGIC 1. Open up [Databricks Account Console](https://accounts.gcp.databricks.com)
+-- MAGIC 1. Open up Databricks Account Console ([GCP](https://accounts.gcp.databricks.com), [Azure](https://accounts.azuredatabricks.net/))
 -- MAGIC 1. Click [Workspaces](https://accounts.gcp.databricks.com/workspaces) and then click [Create workspace](https://accounts.gcp.databricks.com/workspaces/create) button
 -- MAGIC 1. [Create a Databricks Workspace](https://accounts.gcp.databricks.com/workspaces/create)
 -- MAGIC     * Workspace name: `learn-databricks`
