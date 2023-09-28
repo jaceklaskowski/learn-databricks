@@ -7,16 +7,32 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md
+-- MAGIC
+-- MAGIC > ⚠️ **DISCLAIMER**
+-- MAGIC >
+-- MAGIC > What's included in the notebook is still mainly a bunch of excerpts from the official Databricks documentation for the supported cloud providere (mainly [Google Cloud Platform](https://docs.gcp.databricks.com/index.html) and [Azure Databricks](https://learn.microsoft.com/en-us/azure/databricks/)).
+
+-- COMMAND ----------
+
 -- MAGIC %md # Introduction to Unity Catalog
 -- MAGIC
 -- MAGIC * **Unity Catalog** is a unified governance solution for data, analytics and AI on the lakehouse
 -- MAGIC * An enterprise-wide **data catalog** for data & governance teams
 -- MAGIC * A centralized **metadata layer** to catalog data assets across your lakehouse
 -- MAGIC * A Unity Catalog metastore
+-- MAGIC     * A metastore is the top-level container for data in Unity Catalog.
+-- MAGIC     * A metastore exposes a 3-level namespace (`catalog.schema.table`) by which data can be organized
+-- MAGIC     * A schema is also known as a database
 -- MAGIC * A single interface to manage permissions, centralize auditing, and share data across platforms, clouds and regions
 -- MAGIC * An account admin can create and administer a metastore
--- MAGIC     * Add specific workspaces to this metastore
+-- MAGIC     * Add specific Databricks workspaces to this metastore
+-- MAGIC     * You can share a single metastore across multiple Databricks workspaces in an account
 -- MAGIC     * A metastore and assigned workspaces must all be in the same region
+-- MAGIC * Multiple Databricks workspaces and a single shared Unity Catalog
+-- MAGIC     * Create one metastore per region and attach it to any number of workspaces in that region
+-- MAGIC     * Each linked workspace has the same view of the data in the metastore
+-- MAGIC     * Manage data access control across workspaces
 -- MAGIC * Setting up Unity Catalog
 -- MAGIC     1. Create a metastore
 -- MAGIC     1. Add users and groups
@@ -41,6 +57,16 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md
+-- MAGIC
+-- MAGIC [About enabling workspaces for Unity Catalog](https://learn.microsoft.com/en-us/azure/databricks/data-governance/unity-catalog/enable-workspaces)
+-- MAGIC
+-- MAGIC * To enable an Azure Databricks workspace for Unity Catalog, you assign the workspace to a Unity Catalog metastore.
+-- MAGIC * Users in that workspace can potentially access the same data that users in other workspaces in your account can access, and data stewards can manage that data access centrally, across workspaces
+-- MAGIC * Identity federation is enabled for the workspace, allowing admins to manage identities centrally using the account console and other account-level interfaces. This includes assigning users to workspaces.
+
+-- COMMAND ----------
+
 -- MAGIC %md # Enable Workspace for Unity Catalog
 -- MAGIC
 -- MAGIC Assigning the metastore will update workspaces to use Unity Catalog, meaning that:
@@ -50,7 +76,9 @@
 -- MAGIC
 -- MAGIC ## Learn More
 -- MAGIC
--- MAGIC * [Enable a workspace for Unity Catalog](https://docs.gcp.databricks.com/data-governance/unity-catalog/enable-workspaces.html)
+-- MAGIC * [Azure Databricks](https://learn.microsoft.com/en-us/azure/databricks/data-governance/unity-catalog/enable-workspaces)
+-- MAGIC * [Databricks on Google Cloud](https://docs.gcp.databricks.com/data-governance/unity-catalog/enable-workspaces.html)
+-- MAGIC
 
 -- COMMAND ----------
 

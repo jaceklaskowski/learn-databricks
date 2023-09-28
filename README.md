@@ -4,6 +4,7 @@ This repository contains notebooks to learn [Databricks Lakehouse Platform](http
 
 1. [Delta Live Tables](Delta%20Live%20Tables/)
 1. [Workflow Jobs](Workflow%20Jobs/)
+1. [Unity Catalog](Unity%20Catalog/)
 
 ## Databricks Workshop
 
