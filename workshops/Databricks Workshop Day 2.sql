@@ -1,7 +1,7 @@
 -- Databricks notebook source
 -- MAGIC %md # Databricks Workshop Day 2
 -- MAGIC
--- MAGIC Duration: 4 hours
+-- MAGIC Duration: 4.5 hours (9:30-14:00)
 
 -- COMMAND ----------
 
