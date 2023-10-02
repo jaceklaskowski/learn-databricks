@@ -1,4 +1,8 @@
 -- Databricks notebook source
+-- MAGIC %md # Deep Dive into DLTs
+
+-- COMMAND ----------
+
 show tables in jaceklaskowski
 
 -- COMMAND ----------
