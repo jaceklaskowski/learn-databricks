@@ -78,7 +78,7 @@
 -- MAGIC
 -- MAGIC In [Delta Live Tables quickstart](https://docs.databricks.com/workflows/delta-live-tables/delta-live-tables-quickstart.html), you:
 -- MAGIC
--- MAGIC * Create a new notebook and add the code to implement the pipeline.
+-- MAGIC * Create a new notebook and add some DLT-specific code to implement the pipeline.
 -- MAGIC * Create a new pipeline job using the notebook.
 -- MAGIC * Start an update of the pipeline job.
 -- MAGIC * View results of the pipeline job.
