@@ -1,59 +1,89 @@
 # Databricks notebook source
 # MAGIC %md # Databricks Jobs
-# MAGIC 
+# MAGIC
 # MAGIC This notebook is based on the [Data Engineer Learning Path by Databricks Academy](https://github.com/databricks-academy/data-engineer-learning-path) (specifically, [05 - Workflow Jobs](https://github.com/databricks-academy/data-engineer-learning-path/tree/published/05%20-%20Workflow%20Jobs)).
-# MAGIC 
+# MAGIC
 # MAGIC Following on the naming convention in [Create, run, and manage Databricks Jobs](https://docs.databricks.com/workflows/jobs/jobs.html), this notebook uses **Databricks Jobs** as the name of the Databricks Workflows feature to be discussed.
 
 # COMMAND ----------
 
 # MAGIC %md ## Databricks Lakehouse
-# MAGIC 
+# MAGIC
 # MAGIC **Databricks Lakehouse** (also known as **Databricks Platform** or simply **Databricks**) is a SaaS-based data processing and AI platform solution with a hosted environment with Apache Spark (**Databricks Spark**), Delta Lake, MLflow.
-# MAGIC 
+# MAGIC
 # MAGIC Also, Databricks Lakehouse is a fully-managed, cloud-native data lakehouse service.
-# MAGIC 
+# MAGIC
 # MAGIC Google says: **SaaS** is a method of software delivery and licensing in which software is accessed online via a subscription (rather than bought and installed on individual computers).
-# MAGIC 
+# MAGIC
 # MAGIC For the purpose of this presentation (and perhaps in general), SaaS is the **cloud** (computing facilities providing remote data storage and processing services via the internet).
 
 # COMMAND ----------
 
 # MAGIC %md ## Databricks Workflows
-# MAGIC 
+# MAGIC
 # MAGIC * a fully-managed, cloud-based, general-purpose task orchestration (workflow) service
-# MAGIC     * There are two task orchestration services: **Workflow Jobs (Workflows)** and **Delta Live Tables (DLT)**
+# MAGIC     * There are two task orchestration services: **Workflow Jobs (Workflows)** and **Delta Live Tables (DLTs)**
 # MAGIC     * DLTs can be a task in Workflows
 # MAGIC * Data pipelines without managing any infrastructure
 # MAGIC * a service for data engineers, data scientists and analysts to build reliable data, analytics and AI workflows on any cloud.
 # MAGIC * enables all data teams to orchestrate any combination of tasks, such as notebooks, SQL, ML models and python code
-# MAGIC * Part of the Databricks platform with data governance and monitoring services
+# MAGIC * Part of the Databricks platform with data governance (Unity Catalog) and monitoring services
+
+# COMMAND ----------
+
+# MAGIC %md ## What Assistant Says about Databricks Jobs
+# MAGIC
+# MAGIC This is what the Assistant told me when I asked:
+# MAGIC
+# MAGIC > What are Databricks jobs?
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
+# MAGIC Databricks Jobs is a workflow feature in Databricks that provides a way to automate the execution of notebooks, scripts, jars, Python modules, and data pipelines.
+# MAGIC
+# MAGIC With Databricks Jobs, you can parallelize data processing using Apache Spark clusters without the need to build and maintain a separate workflow service.
+# MAGIC
+# MAGIC You can schedule jobs to run periodically so that you can automate your batch processing workflows.
+# MAGIC
+# MAGIC Jobs in Databricks can be managed and monitored using the Databricks UI or REST APIs.
 
 # COMMAND ----------
 
 # MAGIC %md ## Naming Conventions
-# MAGIC 
+# MAGIC
 # MAGIC From [Jan van der Vegt](https://www.linkedin.com/in/jan-van-der-vegt/), a PM working on Databricks Workflows:
-# MAGIC 
+# MAGIC
 # MAGIC > the product itself is now called **Databricks Workflows** and the DAGs are the **jobs**
-# MAGIC 
+# MAGIC
 # MAGIC > For referencing an instance we just use "Job". When talking about the product we say "Databricks Workflows".
 
 # COMMAND ----------
 
 # MAGIC %md ## Features
-# MAGIC 
+# MAGIC
 # MAGIC From [Create, run, and manage Databricks Jobs](https://docs.databricks.com/workflows/jobs/jobs.html):
-# MAGIC 
+# MAGIC
 # MAGIC 1. **A job** is a way to run a non-interactive code on a Databricks cluster (e.g. scheduled ETLs)
 # MAGIC 1. Create and run jobs using the UI, the [Jobs CLI](https://docs.databricks.com/dev-tools/cli/jobs-cli.html), or by invoking the [Jobs API](https://docs.databricks.com/dev-tools/api/latest/jobs.html)
-# MAGIC 1. Repair and re-run a failed or canceled job using the UI or API
+# MAGIC 1. Repair and re-run failed or canceled jobs using the UI or API
 # MAGIC 1. Monitor job run results using the UI, CLI, API, and notifications (for example, email, webhook destination, or Slack notifications)
 
 # COMMAND ----------
 
+# MAGIC %md # Demo
+# MAGIC
+# MAGIC 1. Using parameters
+# MAGIC     * Notebook Widgets
+# MAGIC     * Parameters are displayed in Run parameters column in Job runs
+# MAGIC     * `Workers: Standard_DS3_v2 · 0 workers` why 0 workers?!
+# MAGIC
+
+# COMMAND ----------
+
 # MAGIC %md ## Job 101
-# MAGIC 
+# MAGIC
 # MAGIC 1. job can consist of a single task or can be a large, multi-task workflow with complex dependencies
 # MAGIC     * A job graph is a DAG
 # MAGIC 1. Databricks manages the task orchestration, cluster management, monitoring, and error reporting
@@ -70,14 +100,14 @@
 # COMMAND ----------
 
 # MAGIC %md ### New Job split-view authoring experience
-# MAGIC 
+# MAGIC
 # MAGIC Similarly to DLT UI, Jobs UI allows for editing your task while seeing your workflow.
 
 # COMMAND ----------
 
 # DBTITLE 1,Example DAG
 # MAGIC %md ### Example DAG
-# MAGIC 
+# MAGIC
 # MAGIC ```json
 # MAGIC {
 # MAGIC     "name": "My Job",
@@ -177,15 +207,15 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC 
+# MAGIC
 # MAGIC ## Share information between tasks in a Databricks job
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC 
+# MAGIC
 # MAGIC ### News
-# MAGIC 
+# MAGIC
 # MAGIC 1. [Databricks Workflows: Introducing DAG, Serverless Compute & trigger based flows](https://www.linkedin.com/pulse/databricks-workflows-introducing-dag-serverless-compute-dhondt/)
 # MAGIC 1. [Easier creation and editing of Databricks jobs in the UI](https://docs.databricks.com/release-notes/product/2023/january.html#easier-creation-and-editing-of-databricks-jobs-in-the-ui)
 # MAGIC 1. [Improvements to the Databricks Jobs UI when viewing job runs](https://docs.databricks.com/release-notes/product/2023/january.html#improvements-to-the-databricks-jobs-ui-when-viewing-job-runs)
@@ -194,73 +224,71 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC 
+# MAGIC
 # MAGIC ### Parameterized Notebook Tasks with Input Widgets
-# MAGIC 
+# MAGIC
 # MAGIC 1. Input widgets allow you to add parameters to your notebooks and dashboards.
 # MAGIC 1. Building a notebook or dashboard that is re-executed with different parameters
 # MAGIC 1. `dbutils.widgets.help()`
-# MAGIC 
+# MAGIC
 # MAGIC Unfortunatelly, [notebooks in jobs cannot use widgets](https://docs.databricks.com/notebooks/widgets.html#using-widget-values-in-spark-sql):
-# MAGIC 
+# MAGIC
 # MAGIC > In general, you cannot use widgets (...) if you use Run All or run the notebook as a job.
-# MAGIC 
+# MAGIC
 # MAGIC Learn more:
-# MAGIC 
+# MAGIC
 # MAGIC * [Databricks widgets](https://docs.databricks.com/notebooks/widgets.html)
 # MAGIC * [Databricks Widgets in SQL Notebook](https://pub.towardsai.net/databricks-widgets-in-sql-notebook-6c7cdbe47402)
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC 
+# MAGIC
 # MAGIC ### Task values
-# MAGIC 
+# MAGIC
 # MAGIC Learn more in [Share information between tasks in a Databricks job](https://docs.databricks.com/workflows/jobs/how-to-share-task-values.html)
-# MAGIC 
+# MAGIC
 # MAGIC There are two limitations of [dbutils.jobs.taskValues.get](https://docs.databricks.com/dev-tools/databricks-utils.html#get-command-dbutilsjobstaskvaluesget) command:
-# MAGIC 
+# MAGIC
 # MAGIC 1. Available only for Python (no SQL variant)
 # MAGIC 1. Gets the contents of the specified task value for the **specified task** in the current job run
-# MAGIC 
+# MAGIC
 # MAGIC How to pass in arguments to "opening" notebooks in Databricks Jobs? [You can pass parameters for your task](https://docs.databricks.com/workflows/jobs/jobs.html#create-a-job).
-# MAGIC 
+# MAGIC
 # MAGIC > **Notebook**: Click **Add** and specify the key and value of each parameter to pass to the task. You can override or add additional parameters when you manually run a task using the Run a job with different parameters option. Parameters set the value of the [notebook widget](https://docs.databricks.com/notebooks/widgets.html) specified by the key of the parameter. Use task parameter variables to pass a limited set of dynamic values as part of a parameter value.
-# MAGIC 
+# MAGIC
 # MAGIC What?! Notebook widgets again?!
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC 
+# MAGIC
 # MAGIC ## Run Job Task
-# MAGIC 
+# MAGIC
 # MAGIC By using the new 'Run Job' task in your job, you can orchestrate other jobs. This allows you to reuse generic jobs with parameters, as well as split up large jobs into smaller, modular pieces.
-# MAGIC 
+# MAGIC
 # MAGIC ![Run Job Task](workflows-run-job-task.png)
 
 # COMMAND ----------
 
 # MAGIC %md ## Schedule Job from Repo
-# MAGIC 
+# MAGIC
 # MAGIC You can now schedule a job from your repo. Visit Create Job and pick “Git” for the Source field.
-# MAGIC 
+# MAGIC
 # MAGIC Learn more in [Build Reliable Production Data and ML Pipelines With Git Support for Databricks Workflows](https://www.databricks.com/blog/2022/06/21/build-reliable-production-data-and-ml-pipelines-with-git-support-for-databricks-workflows.html)
 
 # COMMAND ----------
 
 # MAGIC %md ## Increase jobs limit
-# MAGIC 
+# MAGIC
 # MAGIC In [Databricks administration guide](https://docs.databricks.com/administration-guide/workspace/enable-increased-jobs-limit.html):
-# MAGIC 
+# MAGIC
 # MAGIC > By default, Databricks limits the number of jobs in a workspace based on the pricing tier.
 
 # COMMAND ----------
 
 # MAGIC %md ## Competition
-
-# COMMAND ----------
-
-# MAGIC %md ### Azure Data Factory
-# MAGIC 
-# MAGIC [Introducing 'Managed Airflow' in Azure Data Factory](https://techcommunity.microsoft.com/t5/azure-data-factory-blog/introducing-managed-airflow-in-azure-data-factory/ba-p/3730151)
+# MAGIC
+# MAGIC * [Apache Airflow](https://airflow.apache.org/)
+# MAGIC * [Azure Data Factory](https://azure.microsoft.com/en-us/products/data-factory)
+# MAGIC     * [Introducing 'Managed Airflow' in Azure Data Factory](https://techcommunity.microsoft.com/t5/azure-data-factory-blog/introducing-managed-airflow-in-azure-data-factory/ba-p/3730151)
