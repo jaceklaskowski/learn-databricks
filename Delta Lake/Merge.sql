@@ -3,16 +3,6 @@
 
 -- COMMAND ----------
 
--- MAGIC %scala
--- MAGIC
--- MAGIC println(s"""
--- MAGIC   |Spark version: ${sc.version}
--- MAGIC   |runtime_commit: ${org.apache.spark.BuildInfo.gitHash}
--- MAGIC   |universe_commit: ${com.databricks.BuildInfo.gitHash}
--- MAGIC """.stripMargin)
-
--- COMMAND ----------
-
 -- MAGIC %md ## Examples
 
 -- COMMAND ----------
@@ -21,12 +11,12 @@
 
 -- COMMAND ----------
 
-DROP TABLE source;
-DROP TABLE target;
+DROP TABLE IF EXISTS source;
+DROP TABLE IF EXISTS target;
 
 -- COMMAND ----------
 
-CREATE TABLE IF NOT EXISTS source
+CREATE TABLE source
 USING delta
 AS VALUES
   (0, 0),
