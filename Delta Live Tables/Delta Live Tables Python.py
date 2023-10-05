@@ -17,7 +17,11 @@
 
 # MAGIC %md ## @dlt.table Decorator
 # MAGIC
-# MAGIC Used to define materialized views and streaming tables
+# MAGIC Used to define tables (incl. streaming tables)
+
+# COMMAND ----------
+
+# MAGIC %md ## @dlt.view Decorator
 
 # COMMAND ----------
 
@@ -25,7 +29,7 @@
 # MAGIC
 # MAGIC ## How Dataflow Graph is Rendered
 # MAGIC
-# MAGIC * The Python `table` and `view` functions must return a DataFrame
+# MAGIC * The Python `table` and `view` methods must return either a Spark or Koalas `DataFrame`
 # MAGIC * DataFrame transformations are executed **after** the full dataflow graph has been resolved
 # MAGIC * Non-`table` or `view` functions are executed once at the graph initialization phase
 
