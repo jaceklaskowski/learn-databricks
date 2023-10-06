@@ -25,12 +25,19 @@
 # COMMAND ----------
 
 # MAGIC %md ## Parametrized Queries
+# MAGIC
+# MAGIC [Query parameters](https://docs.databricks.com/en/sql/user/queries/query-parameters.html)
 
 # COMMAND ----------
 
 # MAGIC %md
 # MAGIC
 # MAGIC 1. Queries can be parameterized with curly brackets (`{{ table_pattern }}`)
+# MAGIC 1. Substitute values into a query at runtime
+# MAGIC 1. A widget appears above the results pane
+# MAGIC 1. Query parameters are more flexible than query filters, and should only be used in cases where query filters are not sufficient
+# MAGIC 1. `Cmd + I` to define a query parameter at the text caret
+# MAGIC 1. Click **Apply Changes** to run a query with a parameter value
 
 # COMMAND ----------
 

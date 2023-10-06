@@ -152,6 +152,13 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md ## Parameterized Pipelines
+-- MAGIC
+-- MAGIC [Parameterize pipelines](https://docs.databricks.com/en/delta-live-tables/settings.html#parameterize-pipelines)
+-- MAGIC
+
+-- COMMAND ----------
+
 -- MAGIC %md ## Monitoring
 
 -- COMMAND ----------
@@ -169,4 +176,4 @@
 -- MAGIC
 -- MAGIC # Data Engineering with Databricks Course
 -- MAGIC
--- MAGIC [Data Engineering with Databricks](https://github.com/databricks-academy/data-engineering-with-databricks-english) (DEWD) course in "08 - Delta Live Tables" presents Delta Live Tables.
+-- MAGIC [Data Engineering with Databricks](https://www.databricks.com/learn/training/catalog/data-engineering) (DEWD) course in "Delta Live Tables" presents Delta Live Tables.

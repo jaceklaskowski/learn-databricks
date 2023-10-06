@@ -1,9 +1,9 @@
 # Databricks notebook source
 # MAGIC %md # Databricks Workshop » Agenda
 # MAGIC
-# MAGIC This notebook is a sample Databricks workshop agenda that can be used as a guidance for a customized one.
+# MAGIC This notebook is a sample agenda of a Databricks workshop that can be used as a guidance for further customization.
 # MAGIC
-# MAGIC This agenda has been used in a 2-day workshop format for a mixture of data engineers, architects, data analysts and testers (with automation skills).
+# MAGIC This agenda has been used in a 2-day workshop format for a group of data engineers, architects, data analysts and testers (with some automation skills).
 # MAGIC
 # MAGIC Duration: 2 days (8 hours / day)
 # MAGIC
@@ -12,6 +12,30 @@
 # COMMAND ----------
 
 # MAGIC %md ## Agenda
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
+# MAGIC The idea is to go over all the different types of artifacts that can be built using "New" menu:
+# MAGIC
+# MAGIC 1. Notebook
+# MAGIC 1. Repo
+# MAGIC 1. Data
+# MAGIC     * File upload
+# MAGIC     * Add data
+# MAGIC 1. Compute
+# MAGIC     * Cluster
+# MAGIC     * SQL Warehouse
+# MAGIC 1. SQL
+# MAGIC     * Query
+# MAGIC     * Dashoboard
+# MAGIC     * Lakeview Dashboard
+# MAGIC     * Alert
+# MAGIC 1. Data Engineering
+# MAGIC     * Job
+# MAGIC     * DLT Pipeline
+# MAGIC 1. Machine Learning (not covered)
 
 # COMMAND ----------
 
