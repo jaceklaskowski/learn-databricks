@@ -1,0 +1,14 @@
+# The main pipeline for delta_live_tables_demo
+resources:
+  pipelines:
+    delta_live_tables_demo_pipeline:
+      name: delta_live_tables_demo_pipeline
+      target: delta_live_tables_demo_${bundle.environment}
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
+    meetup_pipeline:
+      name: dlt_pipeline_v${bundle.git.commit}
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
