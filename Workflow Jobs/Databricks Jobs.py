@@ -1,8 +1,6 @@
 # Databricks notebook source
 # MAGIC %md # Databricks Jobs
 # MAGIC
-# MAGIC This notebook is based on the [Data Engineer Learning Path by Databricks Academy](https://github.com/databricks-academy/data-engineer-learning-path) (specifically, [05 - Workflow Jobs](https://github.com/databricks-academy/data-engineer-learning-path/tree/published/05%20-%20Workflow%20Jobs)).
-# MAGIC
 # MAGIC Following on the naming convention in [Create, run, and manage Databricks Jobs](https://docs.databricks.com/workflows/jobs/jobs.html), this notebook uses **Databricks Jobs** as the name of the Databricks Workflows feature to be discussed.
 
 # COMMAND ----------
@@ -23,7 +21,7 @@
 # MAGIC
 # MAGIC * a fully-managed, cloud-based, general-purpose task orchestration (workflow) service
 # MAGIC     * There are two task orchestration services: **Workflow Jobs (Workflows)** and **Delta Live Tables (DLTs)**
-# MAGIC     * DLTs can be a task in Workflows
+# MAGIC     * DLT pipelines can be tasks in Workflows
 # MAGIC * Data pipelines without managing any infrastructure
 # MAGIC * a service for data engineers, data scientists and analysts to build reliable data, analytics and AI workflows on any cloud.
 # MAGIC * enables all data teams to orchestrate any combination of tasks, such as notebooks, SQL, ML models and python code
