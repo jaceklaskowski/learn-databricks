@@ -1,39 +1,54 @@
 -- Databricks notebook source
 -- MAGIC %md # Load Raw Data
--- MAGIC 
+-- MAGIC
 -- MAGIC This notebook uses an input parameter (using [Databricks widgets](https://docs.databricks.com/notebooks/widgets.html)).
--- MAGIC 
+-- MAGIC
 -- MAGIC Name | Default Value | Label
 -- MAGIC -----|---------------|-------
 -- MAGIC  `table_name` | workflows_raw_data | Table Name (Raw Data)
 -- MAGIC  `database_name` | jaceklaskowski | Database Name
--- MAGIC 
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC **NOTE**:
+-- MAGIC
+-- MAGIC > Do not use `Run all` button to run all the cells.
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC [Databricks widgets](https://docs.databricks.com/notebooks/widgets.html) describes how to access widgets values in Spark SQL.
+-- MAGIC
+-- MAGIC
 -- MAGIC Unfortunatelly, [notebooks in jobs cannot use widgets](https://docs.databricks.com/notebooks/widgets.html#using-widget-values-in-spark-sql):
--- MAGIC 
+-- MAGIC
 -- MAGIC > In general, you cannot use widgets (...) if you use Run All or run the notebook as a job.
--- MAGIC 
--- MAGIC I thought I'm left with [task values](https://docs.databricks.com/workflows/jobs/how-to-share-task-values.html) only to pass arbitrary parameters between tasks in a Databricks job.
--- MAGIC 
--- MAGIC That's not really true as this notebook (and the accompanying Databricks Job) demonstrates.
--- MAGIC 
--- MAGIC Simply define 
+-- MAGIC
+-- MAGIC There are a couple of issues to keep in mind, esp. while doing a demo:
+-- MAGIC
+-- MAGIC 1. In general, you cannot use widgets to pass arguments between different languages within a notebook
+-- MAGIC 1. You can create a widget `arg1` in a Python cell and use it in a SQL or Scala cell only if you run one cell at a time.
+-- MAGIC 1. Using widget values between different languages does not work if you use **Run All** or run the notebook as a job
 
 -- COMMAND ----------
 
 -- MAGIC %python
--- MAGIC 
+-- MAGIC
 -- MAGIC dbutils.jobs.taskValues.help()
 
 -- COMMAND ----------
 
 -- MAGIC %python
--- MAGIC 
+-- MAGIC
 -- MAGIC dbutils.jobs.taskValues.help("get")
 
 -- COMMAND ----------
 
 -- MAGIC %python
--- MAGIC 
+-- MAGIC
 -- MAGIC # Creates a text input widget with a given name and default value.
 -- MAGIC # Notebook Widgets are only for Run all (when executed outside a job)
 -- MAGIC dbutils.widgets.removeAll()
@@ -50,6 +65,8 @@
 
 -- COMMAND ----------
 
+-- Accessing widget value in SQL
+-- Learn more in 
 CREATE DATABASE IF NOT EXISTS ${database_name};
 USE ${database_name}
 
@@ -60,19 +77,17 @@ SHOW TABLES
 -- COMMAND ----------
 
 -- MAGIC %md ## Create Raw Table
--- MAGIC 
+-- MAGIC
 -- MAGIC Learn more in [CREATE VIEW](https://docs.databricks.com/sql/language-manual/sql-ref-syntax-ddl-create-view.html)
 
 -- COMMAND ----------
 
 -- MAGIC %python
--- MAGIC 
+-- MAGIC
 -- MAGIC dbutils.widgets.getArgument("raw_table_name")
 
 -- COMMAND ----------
 
--- Accessing widget value in SQL
--- Learn more in https://docs.databricks.com/notebooks/widgets.html
 CREATE OR REPLACE VIEW ${raw_table_name}
   (id COMMENT 'Unique identification number', name)
 COMMENT 'Bronze layer'
@@ -83,7 +98,3 @@ AS
 -- COMMAND ----------
 
 SELECT * FROM ${raw_table_name}
-
--- COMMAND ----------
-
-

@@ -14,15 +14,16 @@
 # MAGIC 1. reusability
 # MAGIC     * define common shared steps in a job once and then reuse that as a child job in different parent workflows
 # MAGIC     * With parameters, reused tasks can be made more flexible to fit the needs of different parent workflows
-# MAGIC
+# MAGIC 1. Creates a modular workflow
 
 # COMMAND ----------
 
 # MAGIC %md ## Run Job
 # MAGIC
-# MAGIC 1. A new task type called "Run Job"
+# MAGIC 1. A new task type **Run Job**
+# MAGIC     * Requires a job to trigger
 # MAGIC 1. Calls a job to be run by the task
-# MAGIC 1. Creates a modular workflow
+# MAGIC 1. Jobs triggered by a Run Job task use their own cluster configuration
 
 # COMMAND ----------
 
@@ -42,7 +43,6 @@
 # MAGIC
 # MAGIC 1. A workspace is limited to 1000 concurrent task runs. A 429 Too Many Requests response is returned when you request a run that cannot start immediately.
 # MAGIC 1. The number of jobs a workspace can create in an hour is limited to 10000 (includes “runs submit”). This limit also affects jobs created by the REST API and notebook workflows.
-# MAGIC 1. 
 
 # COMMAND ----------
 
