@@ -65,8 +65,6 @@
 
 -- COMMAND ----------
 
--- Accessing widget value in SQL
--- Learn more in 
 CREATE DATABASE IF NOT EXISTS ${database_name};
 USE ${database_name}
 
