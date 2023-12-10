@@ -33,3 +33,16 @@ WHERE version = 1;
 -- MAGIC )
 -- MAGIC WHERE version = 1;""")
 -- MAGIC q.explain(extended = true)
+
+-- COMMAND ----------
+
+-- MAGIC %md ## DESCRIBE HISTORY Command
+-- MAGIC
+-- MAGIC A little about the internals of [DESCRIBE HISTORY Command](https://books.japila.pl/delta-lake-internals/commands/describe-history/)
+-- MAGIC
+-- MAGIC * a mere wrapper around `DeltaHistoryManager` to access the history of a delta table
+-- MAGIC * Possible Cost Optimization on Microsoft Azure using `spark.databricks.delta.history.maxKeysPerList` configuration property
+
+-- COMMAND ----------
+
+SET spark.databricks.delta.history.maxKeysPerList
