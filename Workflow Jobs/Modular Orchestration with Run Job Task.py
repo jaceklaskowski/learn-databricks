@@ -24,6 +24,7 @@
 # MAGIC     * Requires a job to trigger
 # MAGIC 1. Calls a job to be run by the task
 # MAGIC 1. Jobs triggered by a Run Job task use their own cluster configuration
+# MAGIC     * [Trigger a new job run](https://docs.databricks.com/api/workspace/jobs/runnow)
 
 # COMMAND ----------
 
