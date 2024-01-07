@@ -1,0 +1,138 @@
+-- Databricks notebook source
+-- MAGIC %md # LangChain
+-- MAGIC
+-- MAGIC > **Note**
+-- MAGIC >
+-- MAGIC > (Jul, 20) I put LangChain on hold until I figure how to use "Databricks LLMs" (cf. [Databricks + MosaicML](https://www.databricks.com/blog/databricks-mosaicml)).
+-- MAGIC
+-- MAGIC [LangChain](https://python.langchain.com) is a framework for developing applications powered by language models (LLMs) through composability.
+-- MAGIC Using LangChain will usually require integrations with one or more model providers, data stores, APIs, etc.
+-- MAGIC
+-- MAGIC * [Installation](https://python.langchain.com/docs/get_started/installation.html)
+-- MAGIC
+-- MAGIC ```shell
+-- MAGIC $ conda create --name langchain --yes
+-- MAGIC $ conda activate langchain
+-- MAGIC ```
+-- MAGIC
+-- MAGIC ```shell
+-- MAGIC $ sandbox && mkdir langchain && cd langchain
+-- MAGIC ```
+-- MAGIC
+-- MAGIC > **Note**
+-- MAGIC >
+-- MAGIC > At this point, it's worth creating `.env` file in the directory so it is sourced every time you switch to it (using [autoenv](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/autoenv) plugin) and activate the conda environment.
+-- MAGIC
+-- MAGIC **UPDATE** (7/15): langchain development cycle is quite fast (with releases every couple of days) and conda-forge is outdated.
+-- MAGIC
+-- MAGIC ```shell
+-- MAGIC $ pip install https://github.com/hwchase17/langchain/releases/download/v0.0.234/langchain-0.0.234-py3-none-any.whl
+-- MAGIC ...
+-- MAGIC Installing collected packages: langchain
+-- MAGIC   Attempting uninstall: langchain
+-- MAGIC     Found existing installation: langchain 0.0.233
+-- MAGIC     Uninstalling langchain-0.0.233:
+-- MAGIC       Successfully uninstalled langchain-0.0.233
+-- MAGIC Successfully installed langchain-0.0.234
+-- MAGIC ```
+-- MAGIC
+-- MAGIC ---
+-- MAGIC
+-- MAGIC (Don't use `pip install 'langchain[all]'` as it downgrades langchain)
+-- MAGIC
+-- MAGIC ```console
+-- MAGIC $ pip install 'langchain[all]'
+-- MAGIC ...
+-- MAGIC Successfully installed MarkupSafe-2.1.3 SQLAlchemy-1.4.49 beautifulsoup4-4.12.2 blis-0.7.9 catalogue-2.0.8 click-8.1.5 confection-0.1.0 cymem-2.0.7 dill-0.3.6 elastic-transport-8.4.0 elasticsearch-8.8.2 faiss-cpu-1.7.4 filelock-3.12.2 fsspec-2023.6.0 huggingface_hub-0.16.4 jinja2-3.1.2 joblib-1.3.1 langchain-0.0.39 langcodes-3.3.0 manifest-ml-0.0.1 murmurhash-1.0.9 nltk-3.8.1 pathy-0.10.2 preshed-3.0.8 redis-4.6.0 regex-2023.6.3 safetensors-0.3.1 smart-open-6.3.0 soupsieve-2.4.1 spacy-3.6.0 spacy-legacy-3.0.12 spacy-loggers-1.0.4 sqlitedict-2.1.0 srsly-2.4.6 thinc-8.1.10 tiktoken-0.4.0 tokenizers-0.13.3 transformers-4.30.2 typer-0.9.0 urllib3-1.26.16 wasabi-1.1.2 wikipedia-1.4.0
+-- MAGIC ```
+-- MAGIC
+-- MAGIC > **Note**
+-- MAGIC >
+-- MAGIC > FIXME `langchain-0.0.39`?! The latest is [0.0.190](https://anaconda.org/conda-forge/langchain) (!)
+-- MAGIC
+-- MAGIC ---
+-- MAGIC
+-- MAGIC ```console
+-- MAGIC $ pip list | grep langchain
+-- MAGIC langchain               0.0.234
+-- MAGIC ```
+-- MAGIC
+-- MAGIC The above does not seem to work either! 😢
+-- MAGIC
+-- MAGIC ```shell
+-- MAGIC $ pip show langchain
+-- MAGIC Name: langchain
+-- MAGIC Version: 0.0.234
+-- MAGIC Summary: Building applications with LLMs through composability
+-- MAGIC Home-page: https://www.github.com/hwchase17/langchain
+-- MAGIC Author:
+-- MAGIC Author-email:
+-- MAGIC License: MIT
+-- MAGIC Location: /usr/local/Caskroom/miniconda/base/envs/langchain/lib/python3.11/site-packages
+-- MAGIC Requires: aiohttp, dataclasses-json, langsmith, numexpr, numpy, openapi-schema-pydantic, pydantic, PyYAML, requests, SQLAlchemy, tenacity
+-- MAGIC Required-by:
+-- MAGIC ```
+-- MAGIC
+-- MAGIC ### openai
+-- MAGIC
+-- MAGIC ```console
+-- MAGIC $ conda install -c conda-forge -n langchain --yes openai
+-- MAGIC ```
+-- MAGIC
+-- MAGIC ```console
+-- MAGIC $ pip show openai
+-- MAGIC Name: openai
+-- MAGIC Version: 0.27.8
+-- MAGIC Summary: Python client library for the OpenAI API
+-- MAGIC Home-page: https://github.com/openai/openai-python
+-- MAGIC Author: OpenAI
+-- MAGIC Author-email: support@openai.com
+-- MAGIC License:
+-- MAGIC Location: /usr/local/Caskroom/miniconda/base/envs/langchain/lib/python3.11/site-packages
+-- MAGIC Requires: aiohttp, requests, tqdm
+-- MAGIC Required-by:
+-- MAGIC ```
+-- MAGIC
+-- MAGIC ### Install From Github
+-- MAGIC
+-- MAGIC ```console
+-- MAGIC $ pip install https://github.com/hwchase17/langchain/releases/download/v0.0.233/langchain-0.0.233-py3-none-any.whl
+-- MAGIC ...
+-- MAGIC Installing collected packages: langsmith, langchain
+-- MAGIC   Attempting uninstall: langchain
+-- MAGIC     Found existing installation: langchain 0.0.190
+-- MAGIC     Uninstalling langchain-0.0.190:
+-- MAGIC       Successfully uninstalled langchain-0.0.190
+-- MAGIC Successfully installed langchain-0.0.39 langsmith-0.0.5
+-- MAGIC ```
+-- MAGIC
+-- MAGIC ```console
+-- MAGIC $ pip show langchain
+-- MAGIC Name: langchain
+-- MAGIC Version: 0.0.39
+-- MAGIC Summary: Building applications with LLMs through composability
+-- MAGIC Home-page: https://www.github.com/hwchase17/langchain
+-- MAGIC Author:
+-- MAGIC Author-email:
+-- MAGIC License: MIT
+-- MAGIC Location: /usr/local/Caskroom/miniconda/base/envs/langchain/lib/python3.11/site-packages
+-- MAGIC Requires: numpy, pydantic, PyYAML, requests, SQLAlchemy
+-- MAGIC Required-by:
+-- MAGIC ```
+-- MAGIC
+-- MAGIC **Version: 0.0.39** What?!
+-- MAGIC
+-- MAGIC ### Deactivate Conda Environment
+-- MAGIC
+-- MAGIC ```shell
+-- MAGIC $ conda deactivate
+-- MAGIC ```
+-- MAGIC
+-- MAGIC ### Quickstart
+-- MAGIC
+-- MAGIC * [Quickstart](https://python.langchain.com/docs/get_started/quickstart)
+-- MAGIC
+
+-- COMMAND ----------
+
+
