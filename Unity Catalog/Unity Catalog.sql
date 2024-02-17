@@ -11,7 +11,7 @@
 -- MAGIC
 -- MAGIC > ⚠️ **DISCLAIMER**
 -- MAGIC >
--- MAGIC > What's included in the notebook is still mainly a bunch of excerpts from the official Databricks documentation for the supported cloud providere (mainly [Google Cloud Platform](https://docs.gcp.databricks.com/index.html) and [Azure Databricks](https://learn.microsoft.com/en-us/azure/databricks/)).
+-- MAGIC > What's included in the notebook is still mainly a bunch of excerpts from the official Databricks documentation for the supported cloud provider (mainly [Google Cloud Platform](https://docs.gcp.databricks.com/index.html) and [Azure Databricks](https://learn.microsoft.com/en-us/azure/databricks/)).
 
 -- COMMAND ----------
 
@@ -36,7 +36,7 @@
 -- MAGIC
 -- MAGIC 1. How to access Unity Catalog's Access log?
 -- MAGIC 1. How is Unity Catalog mapped to catalogs in Catalog view in a Databricks workspace? When does table data land in the underlying bucket?
--- MAGIC 1. Is it possible to attach multiple Uniy Catalog's metastores to a single Databricks workspace?
+-- MAGIC 1. Is it possible to attach multiple Unity Catalog's metastores to a single Databricks workspace?
 -- MAGIC
 
 -- COMMAND ----------
@@ -46,10 +46,6 @@
 -- MAGIC * **Unity Catalog** is a unified governance solution for data, analytics and AI on the lakehouse
 -- MAGIC * An enterprise-wide **data catalog** for data & governance teams
 -- MAGIC * A centralized **metadata layer** to catalog data assets across your lakehouse
--- MAGIC * A Unity Catalog metastore
--- MAGIC     * A metastore is the top-level container for data in Unity Catalog.
--- MAGIC     * A metastore exposes a 3-level namespace (`catalog.schema.table`) by which data can be organized
--- MAGIC     * A schema is also known as a database
 -- MAGIC * A single interface to manage permissions, centralize auditing, and share data across platforms, clouds and regions
 -- MAGIC * An account admin can create and administer a metastore
 -- MAGIC     * Add specific Databricks workspaces to this metastore
@@ -59,6 +55,8 @@
 -- MAGIC     * Create one metastore per region and attach it to any number of workspaces in that region
 -- MAGIC     * Each linked workspace has the same view of the data in the metastore
 -- MAGIC     * Manage data access control across workspaces
+-- MAGIC     * A metastore in UC should have the same region as your bucket and workspace
+-- MAGIC     * It's a common practice to have 1 metastore per region (with many workspaces attached)
 -- MAGIC * Setting up Unity Catalog
 -- MAGIC     1. Create a metastore
 -- MAGIC     1. Add users and groups
@@ -74,7 +72,9 @@
 -- MAGIC     * a single place to administer data access policies that apply across all workspaces and personas.
 -- MAGIC * Standards-compliant security model
 -- MAGIC     * Unity Catalog’s security model is based on standard **ANSI SQL**
+-- MAGIC     * **Data Control Language** ([DCL](https://en.wikipedia.org/wiki/Data_control_language))
 -- MAGIC     * `GRANT` permissions at the level of catalogs, databases (also called schemas), tables, and views
+-- MAGIC     * `REVOKE` permissions
 -- MAGIC * Auditing
 -- MAGIC     * captures user-level audit logs that record access to your data
 -- MAGIC * Data Discovery
@@ -93,7 +93,19 @@
 
 -- COMMAND ----------
 
--- MAGIC %md # Enable Workspace for Unity Catalog
+-- MAGIC %md
+-- MAGIC
+-- MAGIC # Unity Catalog Metastore
+-- MAGIC
+-- MAGIC * The top-level container for data in Unity Catalog
+-- MAGIC * Uses a 3-level namespace (`catalog.schema.table`) by which data can be organized
+-- MAGIC * A schema is formerly known as a database
+
+-- COMMAND ----------
+
+-- MAGIC %md ## Assign Metastore to Workspaces
+-- MAGIC
+-- MAGIC Also known as **Enable Workspaces for Unity Catalog**
 -- MAGIC
 -- MAGIC Assigning the metastore will update workspaces to use Unity Catalog, meaning that:
 -- MAGIC * Data can be governed and accessed across workspaces
@@ -105,6 +117,33 @@
 -- MAGIC * [Azure Databricks](https://learn.microsoft.com/en-us/azure/databricks/data-governance/unity-catalog/enable-workspaces)
 -- MAGIC * [Databricks on Google Cloud](https://docs.gcp.databricks.com/data-governance/unity-catalog/enable-workspaces.html)
 -- MAGIC
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## Metastore Admin
+-- MAGIC
+-- MAGIC * Only admins can create catalogs
+-- MAGIC * Assign a group to be a metastore admin
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## Metastore Owner
+-- MAGIC
+-- MAGIC * Only Metastore Owners can create catalogs
+-- MAGIC * Assign a group as Owner in your Metastore configuration
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## Delta Sharing
+-- MAGIC
+-- MAGIC * [Delta sharing](https://delta.io/sharing/) lets you share your data with external organizations
+-- MAGIC * An open sharing standard, integrated with Databricks Unity Catalog
 
 -- COMMAND ----------
 
@@ -462,7 +501,7 @@ REVOKE ALL PRIVILEGES ON demo_catalog.demo_schema.names FROM `account users`;
 
 -- COMMAND ----------
 
--- MAGIC %md # The Unity Catalog object model
+-- MAGIC %md # The Unity Catalog Object Model
 -- MAGIC
 -- MAGIC [The Unity Catalog object model](https://docs.gcp.databricks.com/data-governance/unity-catalog/index.html#the-unity-catalog-object-model)
 -- MAGIC
