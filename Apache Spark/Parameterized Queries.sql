@@ -2,7 +2,7 @@
 -- MAGIC %md
 -- MAGIC # Parameterized Queries
 -- MAGIC
--- MAGIC [The Internals of Spark SQL](http://localhost:8000/spark-sql-internals/parameterized-queries/)
+-- MAGIC [The Internals of Spark SQL](https://books.japila.pl/spark-sql-internals/parameterized-queries/)
 
 -- COMMAND ----------
 
