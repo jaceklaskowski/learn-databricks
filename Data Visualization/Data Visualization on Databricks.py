@@ -168,3 +168,28 @@ pandas_dataframe['id'].hist()
 # MAGIC [seaborn: statistical data visualization](https://seaborn.pydata.org/):
 # MAGIC
 # MAGIC > **Seaborn** is a Python data visualization library based on [matplotlib](https://matplotlib.org/). It provides a high-level interface for drawing attractive and informative statistical graphics.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
+# MAGIC ## Visualizations in Databricks notebooks
+# MAGIC
+# MAGIC Based on Databricks' [Visualizations in Databricks notebooks](https://docs.databricks.com/en/visualizations/index.html):
+# MAGIC
+# MAGIC * Databricks has built-in support for charts and visualizations in both Databricks SQL and in notebooks
+# MAGIC * To create a visualization, click `+` above the result and select Visualization
+# MAGIC * If you hover over the top right of a chart in the visualization editor, a Plotly toolbar appears with operations such as select, zoom, and pan
+# MAGIC * Click the downward pointing arrow at the right of the tab name for the following operations on a visualization:
+# MAGIC     * Download
+# MAGIC     * Remove
+# MAGIC     * Duplicate
+# MAGIC     * Rename
+# MAGIC     * Add to dashboard
+# MAGIC * You can change the name of a visualization by clicking directly and editing the name in place
+# MAGIC * You can edit a visualization
+
+# COMMAND ----------
+
+bikes = spark.read.csv("/databricks-datasets/bikeSharing/data-001/day.csv", header="true", inferSchema="true")
+display(bikes)
