@@ -4,7 +4,7 @@
 -- COMMAND ----------
 
 -- MAGIC %python
--- MAGIC 
+-- MAGIC
 -- MAGIC # Creates a text input widget with a given name and default value.
 -- MAGIC # Notebook Widgets are only for Run all (when executed outside a job)
 -- MAGIC dbutils.widgets.removeAll()

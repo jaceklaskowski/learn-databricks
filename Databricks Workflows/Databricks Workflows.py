@@ -1,7 +1,22 @@
 # Databricks notebook source
-# MAGIC %md # Databricks Jobs
+# MAGIC %md # Databricks Workflows
 # MAGIC
-# MAGIC Following on the naming convention in [Create, run, and manage Databricks Jobs](https://docs.databricks.com/workflows/jobs/jobs.html), this notebook uses **Databricks Jobs** as the name of the Databricks Workflows feature to be discussed.
+# MAGIC **Databricks Workflows** is the name of the product to orchestrate data processing, machine learning, and analytics pipelines (_Databricks jobs_) on the Databricks Data Intelligence Platform.
+# MAGIC
+# MAGIC There are two Databricks pipeline-oriented solutions:
+# MAGIC
+# MAGIC 1. [Databricks Jobs](https://docs.databricks.com/workflows/jobs/jobs.html) (with **Databricks jobs**)
+# MAGIC 1. [Delta Live Tables](https://docs.databricks.com/en/delta-live-tables/index.html) (with **Delta Live Tables pipelines**)
+
+# COMMAND ----------
+
+# MAGIC %md ## Naming Conventions
+# MAGIC
+# MAGIC From [Jan van der Vegt](https://www.linkedin.com/in/jan-van-der-vegt/), a former PM working on Databricks Workflows:
+# MAGIC
+# MAGIC > the product itself is now called **Databricks Workflows** and the DAGs are the **jobs**
+# MAGIC
+# MAGIC > For referencing an instance we just use "Job". When talking about the product we say "Databricks Workflows".
 
 # COMMAND ----------
 
@@ -49,16 +64,6 @@
 
 # COMMAND ----------
 
-# MAGIC %md ## Naming Conventions
-# MAGIC
-# MAGIC From [Jan van der Vegt](https://www.linkedin.com/in/jan-van-der-vegt/), a PM working on Databricks Workflows:
-# MAGIC
-# MAGIC > the product itself is now called **Databricks Workflows** and the DAGs are the **jobs**
-# MAGIC
-# MAGIC > For referencing an instance we just use "Job". When talking about the product we say "Databricks Workflows".
-
-# COMMAND ----------
-
 # MAGIC %md ## Features
 # MAGIC
 # MAGIC From [Create, run, and manage Databricks Jobs](https://docs.databricks.com/workflows/jobs/jobs.html):
@@ -70,13 +75,13 @@
 
 # COMMAND ----------
 
-# MAGIC %md # Demo
+# MAGIC %md ## Databricks Asset Bundles
 # MAGIC
-# MAGIC 1. Using parameters
-# MAGIC     * Notebook Widgets
-# MAGIC     * Parameters are displayed in Run parameters column in Job runs
-# MAGIC     * `Workers: Standard_DS3_v2 · 0 workers` why 0 workers?!
+# MAGIC For demos, use <a href="$../Databricks Asset Bundles/Databricks Asset Bundles">Databricks Asset Bundles</a>.
 # MAGIC
+# MAGIC 1. Databricks Asset Bundles (DABs) is a tool for streamlining the development of complex data, analytics, and ML projects for the Databricks platform.
+# MAGIC 1. Declarative YAML syntax to manage a DAB project requirements
+# MAGIC 1. Metadata (alongside your project’s source files) to provision Databricks infrastructure and other resources
 
 # COMMAND ----------
 
@@ -99,7 +104,7 @@
 
 # MAGIC %md ### New Job split-view authoring experience
 # MAGIC
-# MAGIC Similarly to DLT UI, Jobs UI allows for editing your task while seeing your workflow.
+# MAGIC Jobs UI allows for editing your task while seeing your workflow (unlike DLT UI).
 
 # COMMAND ----------
 
@@ -233,6 +238,11 @@
 # MAGIC
 # MAGIC > In general, you cannot use widgets (...) if you use Run All or run the notebook as a job.
 # MAGIC
+# MAGIC
+# MAGIC Parameters are displayed in Run parameters column in Job runs
+# MAGIC
+# MAGIC ---
+# MAGIC
 # MAGIC Learn more:
 # MAGIC
 # MAGIC * [Databricks widgets](https://docs.databricks.com/notebooks/widgets.html)
@@ -265,7 +275,7 @@
 # MAGIC
 # MAGIC By using the new 'Run Job' task in your job, you can orchestrate other jobs. This allows you to reuse generic jobs with parameters, as well as split up large jobs into smaller, modular pieces.
 # MAGIC
-# MAGIC ![Run Job Task](workflows-run-job-task.png)
+# MAGIC ![Run Job Task](https://raw.githubusercontent.com/jaceklaskowski/learn-databricks/383adf3d28a950f2bcd40794569e7d7b5e762a70/Workflow%20Jobs/workflows-run-job-task.png)
 
 # COMMAND ----------
 
