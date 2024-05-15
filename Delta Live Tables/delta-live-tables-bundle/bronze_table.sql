@@ -1,0 +1,2 @@
+CREATE MATERIALIZED VIEW bronze_table
+AS SELECT * FROM range(5)

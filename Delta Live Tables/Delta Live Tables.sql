@@ -1,7 +1,7 @@
 -- Databricks notebook source
 -- MAGIC %md
 -- MAGIC
--- MAGIC # Delta Live Tables
+-- MAGIC # Delta Live Tables » Introduction
 
 -- COMMAND ----------
 
