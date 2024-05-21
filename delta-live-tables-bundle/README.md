@@ -53,3 +53,7 @@ Use [Databricks CLI](https://docs.databricks.com/en/dev-tools/cli/index.html) to
 6. Optionally, install developer tools such as the Databricks extension for Visual Studio Code from https://docs.databricks.com/dev-tools/vscode-ext.html.
 
     Don't forget to activate the JSON schema from the Databricks extension while working with the DAB config file.
+
+## Resources
+
+1. [Getting Started with Delta Live Tables](https://www.databricks.com/discover/pages/getting-started-with-delta-live-tables)

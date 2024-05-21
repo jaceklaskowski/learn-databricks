@@ -5,5 +5,5 @@
 
 -- COMMAND ----------
 
-INSERT OVERWRITE students
-VALUES ('Ashua Hill', '456 Erica Ct, Cupertino', 111111)
+-- INSERT OVERWRITE students
+-- VALUES ('Ashua Hill', '456 Erica Ct, Cupertino', 111111)

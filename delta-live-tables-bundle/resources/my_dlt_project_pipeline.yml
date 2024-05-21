@@ -1,4 +1,5 @@
 # The main pipeline
+# See https://json.schemastore.org/databricks-asset-bundles.json
 resources:
   pipelines:
     my_dlt_pipeline:
@@ -11,8 +12,10 @@ resources:
             path: ../src/dlt_pipeline.ipynb
         - notebook:
             path: ../src/five_record_table.py
-        - file:
+        - notebook:
             path: ../src/gold_table.sql
+      clusters:
+        - policy_id: 00136EB116D5A816
 
       configuration:
         bundle.sourcePath: /Workspace/${workspace.file_path}/src
