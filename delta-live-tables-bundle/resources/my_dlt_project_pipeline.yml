@@ -1,0 +1,18 @@
+# The main pipeline
+resources:
+  pipelines:
+    my_dlt_pipeline:
+      name: my_dlt_pipeline
+      target: my_dlt_pipeline_${bundle.environment}
+      libraries:
+        - file:
+            path: ../src/bronze_table.sql
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
+        - notebook:
+            path: ../src/five_record_table.py
+        - file:
+            path: ../src/gold_table.sql
+
+      configuration:
+        bundle.sourcePath: /Workspace/${workspace.file_path}/src
