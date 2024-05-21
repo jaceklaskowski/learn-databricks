@@ -17,6 +17,7 @@
 -- MAGIC | 5 | [Full Refresh]($./Full Refresh) |
 -- MAGIC | 6 | [Deep Dive into DLTs]($./Deep Dive into DLTs) |
 -- MAGIC | 7 | [CLI]($./Delta Live Tables CLI) |
+-- MAGIC | x | [Tables, Views and Materialized Views in Databricks]($./Tables, Views and Materialized Views in Databricks) |
 -- MAGIC | 8 | [Auto Loader and Streaming DLTs]($./Auto Loader and Streaming DLTs) |
 
 -- COMMAND ----------
