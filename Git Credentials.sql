@@ -2,9 +2,25 @@
 -- MAGIC %md
 -- MAGIC
 -- MAGIC # Git Credentials
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC [Set up Databricks Git folders (Repos)](https://docs.databricks.com/en/repos/repos-setup.html):
+-- MAGIC
+-- MAGIC * You can clone public remote repositories without Git credentials (a personal access token and a username). 
+-- MAGIC * To modify a public remote repository or to clone or modify a private remote repository, you must have a Git provider username and PAT with **Write** (or greater) permissions for the remote repository.
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC Learn/explore more:
 -- MAGIC
 -- MAGIC * [REST API reference](https://docs.databricks.com/api/workspace/gitcredentials)
 -- MAGIC * [Configure Git credentials & connect a remote repo to Databricks](https://docs.databricks.com/en/repos/get-access-tokens-from-git-provider.html)
+-- MAGIC * [CI/CD techniques with Git and Databricks Git folders (Repos)](https://docs.databricks.com/en/repos/ci-cd-techniques-with-repos.html)
 
 -- COMMAND ----------
 
@@ -41,9 +57,9 @@
 
 -- MAGIC %md
 -- MAGIC
--- MAGIC > ⚠️ **Note:**
+-- MAGIC > ⚠️ **Important!**
 -- MAGIC >
--- MAGIC > **Only one** Git credential per user is supported
+-- MAGIC > **Only one** git credential per user, per workspace is supported
 -- MAGIC >
 -- MAGIC > * any attempts to create credentials if an entry already exists will fail
 -- MAGIC > * Use the PATCH endpoint to update existing credentials, or the DELETE endpoint to delete existing credentials
