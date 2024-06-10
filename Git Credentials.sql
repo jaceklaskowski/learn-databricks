@@ -16,17 +16,6 @@
 
 -- MAGIC %md
 -- MAGIC
--- MAGIC > ⚠️ **Note:**
--- MAGIC >
--- MAGIC > **Only one** Git credential per user is supported
--- MAGIC >
--- MAGIC > * any attempts to create credentials if an entry already exists will fail
--- MAGIC > * Use the PATCH endpoint to update existing credentials, or the DELETE endpoint to delete existing credentials
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC
 -- MAGIC ```console
 -- MAGIC $ databricks git-credentials
 -- MAGIC Registers personal access token for Databricks to do operations on behalf of
@@ -47,6 +36,17 @@
 -- MAGIC   update      Update a credential.
 -- MAGIC ...
 -- MAGIC ```
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC > ⚠️ **Note:**
+-- MAGIC >
+-- MAGIC > **Only one** Git credential per user is supported
+-- MAGIC >
+-- MAGIC > * any attempts to create credentials if an entry already exists will fail
+-- MAGIC > * Use the PATCH endpoint to update existing credentials, or the DELETE endpoint to delete existing credentials
 
 -- COMMAND ----------
 
@@ -110,7 +110,7 @@
 -- MAGIC   {
 -- MAGIC     "credential_id": 961393256420754,
 -- MAGIC     "git_provider": "gitHub",
--- MAGIC     "git_username": "jaceklaskowski"
+-- MAGIC     "git_username": "jacek@japila.pl"
 -- MAGIC   }
 -- MAGIC ]
 -- MAGIC ```
