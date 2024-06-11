@@ -71,7 +71,7 @@ display(simple)
 
 # MAGIC %md
 # MAGIC
-# MAGIC ## 💡 Mapping File
+# MAGIC ## 💡 The Idea: Mapping File
 # MAGIC
 # MAGIC A dict of column names and the expressions to generate values for.
 
@@ -84,7 +84,7 @@ def exprs_for_mapping_rules(mapping_rules):
 
 # COMMAND ----------
 
-# MAGIC %md ## Example 1
+# MAGIC %md ## Example 1. Simple Mapping
 
 # COMMAND ----------
 
@@ -105,9 +105,9 @@ simple.select(simple_exprs).display()
 
 # MAGIC %md
 # MAGIC
-# MAGIC ### highly nested data
+# MAGIC ## Example 2. Highly Nested Data
 # MAGIC
-# MAGIC [highly nested data](https://docs.databricks.com/en/optimizations/semi-structured.html#create-a-table-with-highly-nested-data)
+# MAGIC [Highly Nested Data](https://docs.databricks.com/en/optimizations/semi-structured.html#create-a-table-with-highly-nested-data)
 
 # COMMAND ----------
 
