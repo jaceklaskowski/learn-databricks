@@ -179,12 +179,15 @@ simple.select(simple_exprs).display()
 
 from pyspark.sql.functions import udf
 
+# You should be using @pandas_udf instead
+# This function accepts no input so not a big deal
 @udf('int')
 def random_value() -> int:
     return 5
 
-# required if using a custom catalog and schema
+# It could be required if using a custom catalog and schema
 # e.g. hive_metastore.jacek_laskowski
+# But it could also be me missing some configuration 😜
 spark.udf.register('some_random_value_fn', random_value)
 
 # COMMAND ----------
