@@ -10,7 +10,20 @@
 
 -- MAGIC %md
 -- MAGIC
--- MAGIC **Generative AI** (GenAI) is...FIXME
+-- MAGIC There are four [Generative AI Architecture Patterns](https://www.databricks.com/product/machine-learning/build-generative-ai) to consider when building a large language model–based solution:
+-- MAGIC
+-- MAGIC 1. [Prompt Engineering]($./Prompt Engineering)
+-- MAGIC 1. [Retrieval Augmented Generation (RAG)]($./Retrieval Augmented Generation)
+-- MAGIC 1. Fine-tuning
+-- MAGIC 1. Pretraining
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## Mosaic AI Agent Framework and Agent Evaluation
+-- MAGIC
+-- MAGIC RAG applications and Agents are the most popular GenAI applications on Databricks (built using [Mosaic AI Agent Framework and Agent Evaluation](https://www.databricks.com/blog/announcing-mosaic-ai-agent-framework-and-agent-evaluation))
 
 -- COMMAND ----------
 
@@ -18,12 +31,6 @@
 -- MAGIC
 -- MAGIC * Doc Q&A
 -- MAGIC * Chatbots
-
--- COMMAND ----------
-
--- MAGIC %md
--- MAGIC
--- MAGIC **Large Language Models** (LLMs) is...FIXME
 
 -- COMMAND ----------
 
@@ -76,34 +83,6 @@
 -- MAGIC ## Databricks Generative AI Fundamentals Learning Plan
 -- MAGIC
 -- MAGIC [Generative AI Fundamentals](https://www.databricks.com/resources/learn/training/generative-ai-fundamentals)
-
--- COMMAND ----------
-
--- MAGIC %md ## Databricks + MosaicML
--- MAGIC
--- MAGIC [Databricks + MosaicML](https://www.databricks.com/blog/databricks-mosaicml)
--- MAGIC
--- MAGIC * Databricks acquired MosaicML
--- MAGIC * A leading platform for creating and customizing generative AI models for enterprises
--- MAGIC * They keep using the term so I'm gonna repeat the full sentence: _"Democratize data and AI for every enterprise"_
--- MAGIC * to provide the best-in-class experience for training, customizing, and deploying generative AI applications
--- MAGIC * The three most important developments required to move generative AI into the mainstream for enterprises
--- MAGIC     * models are widely available to every company
--- MAGIC     * reduce the price of training and customizing large language models
--- MAGIC     * training and serving costs
--- MAGIC     * Open LLMs: popular [MPT-7B](https://huggingface.co/mosaicml/mpt-7b) and [MPT-30B](https://huggingface.co/mosaicml/mpt-30b) base LLMs
--- MAGIC     * AI applications with reasoning abilities and language-based interfaces
--- MAGIC     * incorporate the large volumes of custom data: information about business processes, customers, accounts, orders, or other aspects of their business
--- MAGIC     * Data privacy and safety
--- MAGIC     * little tolerance for hallucinations or incorrect responses
--- MAGIC     * deploy safe, secure, and effective AI applications
--- MAGIC     * Unifying the AI and data stack
--- MAGIC     * model development life cycle
--- MAGIC     * Databricks to continue to put data at the center of the AI journey
--- MAGIC     * upstream data preparation like cleaning, featurization, and embedding of data for use in models
--- MAGIC     * the data and models must be jointly curated
--- MAGIC * efficiently build large AI models on their own data and business processes
--- MAGIC * MosaicML within the Lakehouse AI Platform
 
 -- COMMAND ----------
 
