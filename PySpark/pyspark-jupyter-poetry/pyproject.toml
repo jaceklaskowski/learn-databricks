@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "jupyter-spark"
+version = "0.1.0"
+description = ""
+authors = ["Jacek Laskowski <jacek@japila.pl>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pyspark = { version = "^3.5.2", extras = [ "connect,sql,ml" ] } 
+# Required for Python 3.12
+# Nothing to do with PySpark
+# https://stackoverflow.com/q/77233855/1305344
+setuptools = "^74.1.2"
+jupyterlab = "^4.2.5"
+faker = "^28.4.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
