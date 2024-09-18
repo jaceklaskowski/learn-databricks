@@ -14,6 +14,8 @@ pyspark = { version = "^3.5.2", extras = [ "connect,sql,ml" ] }
 setuptools = "^74.1.2"
 jupyterlab = "^4.2.5"
 faker = "^28.4.1"
+pandas = "^2.2.2"
+pyarrow = "^17.0.0"
 
 [build-system]
 requires = ["poetry-core"]
