@@ -11,6 +11,27 @@
 
 # MAGIC %md
 # MAGIC
+# MAGIC This is your DataFrame:
+# MAGIC
+# MAGIC Partition | Values | # counters | Partial Results
+# MAGIC -|-|-|-
+# MAGIC Partition1 | a a a b | 2 | (a, 3), (b, 1)
+# MAGIC Partition2 | b b b | 1 | (b, 3)
+# MAGIC
+# MAGIC A sample query: `data.groupBy('letter').count()`
+# MAGIC
+# MAGIC You execute `count()` on the dataset with the two partitions
+# MAGIC
+# MAGIC count() -> up to `2n` counters per every partition and `n` number of distinct values
+# MAGIC * 1 for the first partition
+# MAGIC * 2 for the second partition
+# MAGIC
+# MAGIC `groupBy('letter)`
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
 # MAGIC > Can we remove the last day (Structured Streaming), and possibly run the 4 days worth of content as a 5 day training to leave more space for labs / questions / discussions.
 
 # COMMAND ----------
@@ -66,8 +87,6 @@
 # MAGIC 1. [Standard Functions](https://jaceklaskowski.github.io/spark-workshop/slides/spark-sql-standard-functions-udfs.html#/home)
 # MAGIC 1. User-Defined Functions
 # MAGIC 1. Basic Aggregation
-# MAGIC 1. Windowed Aggregation
-# MAGIC 1. Joins
 # MAGIC 1. Structured Query Execution
 # MAGIC     1. Logical and Physical Optimizations
 # MAGIC     1. Adaptive Query Execution
@@ -78,7 +97,41 @@
 
 # MAGIC %md
 # MAGIC
-# MAGIC ## Day 3. Delta Lake
+# MAGIC ### Question
+# MAGIC
+# MAGIC Why did we end up with 3 parquet files for `spark.range(2).write.saveAsTable('a')`?
+# MAGIC
+# MAGIC 1. Every DataFrame is a collection of partitions (indexed from 0 and on)
+# MAGIC
+# MAGIC ```
+# MAGIC >>> spark.range(2).explain()
+# MAGIC == Physical Plan ==
+# MAGIC *(1) Range (0, 2, step=1, splits=12)
+# MAGIC ```
+# MAGIC
+# MAGIC splits are a HDFS thing
+# MAGIC
+# MAGIC In HDFS, files are **split** into data splits (data chunks)
+# MAGIC
+# MAGIC splits (HDFS) = partition (Spark)
+# MAGIC
+# MAGIC 2 elements should be in 12 partitions
+# MAGIC
+# MAGIC What partitioning strategy would you choose to...
+# MAGIC
+# MAGIC Round robin
+# MAGIC
+# MAGIC Hash Partitioning
+# MAGIC
+# MAGIC Range partitioning
+# MAGIC
+# MAGIC
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
+# MAGIC ### Day 3. Delta Lake
 # MAGIC
 # MAGIC 1. Anatomy of Delta Lake
 # MAGIC 1. Commands (MERGE, UPDATE, DELETE, etc.)
@@ -103,6 +156,8 @@
 # MAGIC
 # MAGIC ### Day 4. Advanced PySpark SQL
 # MAGIC
+# MAGIC 1. Joins
+# MAGIC 1. Windowed Aggregation
 # MAGIC 1. Multi-Dimensional Aggregation
 # MAGIC 1. Monitoring
 # MAGIC     1. Web UI
