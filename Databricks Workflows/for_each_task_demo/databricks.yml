@@ -1,0 +1,16 @@
+# This is a Databricks asset bundle definition for for_each_task_demo.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: for_each_task_demo
+
+include:
+  - resources/*.yml
+
+variables:
+  cluster_id:
+    default: 0401-114149-an94vdde
+
+targets:
+  dev:
+    mode: development
+    default: true

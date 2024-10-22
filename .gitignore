@@ -7,3 +7,4 @@ __pycache__/
 scratch/**
 !scratch/README.md
 .ipynb_checkpoints/
+.vscode/
