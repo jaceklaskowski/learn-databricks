@@ -70,6 +70,77 @@
 
 # MAGIC %md
 # MAGIC
+# MAGIC ## Include Resolved Values
+# MAGIC
+# MAGIC You may want to [get the metadata of a single job run](https://docs.databricks.com/api/workspace/jobs/getrun).
+# MAGIC
+# MAGIC What you may find quite surprising is that the parameter values are not resolved by default.
+# MAGIC
+# MAGIC This is what the [include_resolved_values](https://docs.databricks.com/api/workspace/jobs/getrun#include_resolved_values) query parameter of [Get a single job run](https://docs.databricks.com/api/workspace/jobs/getrun) is for:
+# MAGIC
+# MAGIC > **include_resolved_values** (boolean)
+# MAGIC >
+# MAGIC > Default: false
+# MAGIC >
+# MAGIC > Whether to include resolved parameter values in the response.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
+# MAGIC Databricks CLI comes with `--include-resolved-values` option.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
+# MAGIC ```text
+# MAGIC $ databricks jobs get-run --help
+# MAGIC Get a single job run.
+# MAGIC
+# MAGIC   Retrieve the metadata of a run.
+# MAGIC
+# MAGIC   Arguments:
+# MAGIC     RUN_ID: The canonical identifier of the run for which to retrieve the metadata.
+# MAGIC       This field is required.
+# MAGIC
+# MAGIC Usage:
+# MAGIC   databricks jobs get-run RUN_ID [flags]
+# MAGIC
+# MAGIC Flags:
+# MAGIC   -h, --help                      help for get-run
+# MAGIC       --include-history           Whether to include the repair history in the response.
+# MAGIC       --include-resolved-values   Whether to include resolved parameter values in the response.
+# MAGIC       --no-wait                   do not wait to reach TERMINATED or SKIPPED state
+# MAGIC       --page-token string         To list the next page or the previous page of job tasks, set this field to the value of the next_page_token or prev_page_token returned in the GetJob response.
+# MAGIC       --timeout duration          maximum amount of time to reach TERMINATED or SKIPPED state (default 20m0s)
+# MAGIC
+# MAGIC Global Flags:
+# MAGIC       --debug            enable debug logging
+# MAGIC   -o, --output type      output type: text or json (default text)
+# MAGIC   -p, --profile string   ~/.databrickscfg profile
+# MAGIC   -t, --target string    bundle target to use (if applicable)
+# MAGIC ```
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
+# MAGIC ```text
+# MAGIC $ databricks jobs get-run --include-resolved-values 1091695459372120 | jq ".tasks.[].resolved_values"
+# MAGIC {
+# MAGIC   "notebook_task": {
+# MAGIC     "base_parameters": {
+# MAGIC       "single_csv_line": "{\"google_spreadsheet\":\"Non-logistics - Energy\",\"use_cols\":\"[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]\",\"skip_rows\":\"[1]\"}"
+# MAGIC     }
+# MAGIC   }
+# MAGIC }
+# MAGIC ```
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
 # MAGIC ## Learn More
 # MAGIC
 # MAGIC 1. [Streamlining repetitive tasks in Databricks Workflows](https://www.databricks.com/blog/streamlining-repetitive-tasks-databricks-workflows)
