@@ -4,7 +4,7 @@ bundle:
   name: for_each_task_demo
 
 include:
-  - resources/*.yml
+  - resources/for_each_task_job.yml
 
 variables:
   cluster_id:

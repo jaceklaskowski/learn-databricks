@@ -16,7 +16,7 @@ resources:
             task:
               task_key: for_each_task_iteration
               notebook_task:
-                notebook_path: ../src/For each Task Demo Nested Task.py
+                notebook_path: ../src/Nested_Task.py
                 base_parameters:
                   single_csv_line: "{{input}}"
               existing_cluster_id: ${var.cluster_id}
