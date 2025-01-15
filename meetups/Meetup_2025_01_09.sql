@@ -1,5 +1,5 @@
 -- Databricks notebook source
--- MAGIC %md # Meetup 2024.01.09
+-- MAGIC %md # Meetup 2025.01.09
 -- MAGIC
 -- MAGIC ➡️ [Deploying Databricks Workflows with uv and Databricks Asset Bundles](https://www.meetup.com/warsaw-data-engineering/events/305473028/)
 -- MAGIC
