@@ -15,6 +15,18 @@
 
 -- COMMAND ----------
 
+-- MAGIC %md
+-- MAGIC
+-- MAGIC ## 🌟 Praise Quote 🌟
+-- MAGIC
+-- MAGIC > Co zainteresowało Cię w Warsaw Data Engineering Meetup, że zdecydowałaś/-eś się przyłączyć?
+-- MAGIC
+-- MAGIC > I love studying everything in detail.
+-- MAGIC > I'd like to learn more about Apache Spark.
+-- MAGIC > I read a lot of articles by Jacek Laskowski and have started reading books on Spark internals.
+
+-- COMMAND ----------
+
 -- MAGIC %md # 📢 News
 
 -- COMMAND ----------
@@ -25,6 +37,7 @@
 -- MAGIC
 -- MAGIC * [uv 0.5.25](https://github.com/astral-sh/uv/releases/tag/0.5.25)
 -- MAGIC * [Databricks CLI 0.240.0](https://github.com/databricks/cli/releases/tag/v0.240.0)
+-- MAGIC * [awscli 2.23.9](https://github.com/aws/aws-cli/releases/tag/2.23.9)
 
 -- COMMAND ----------
 
@@ -50,16 +63,20 @@
 
 -- MAGIC %md
 -- MAGIC
--- MAGIC ## Create DAB
+-- MAGIC ## Create Databricks Project
+-- MAGIC
+-- MAGIC Databricks Asset Bundles (DAB) enters the scene 🎬
 -- MAGIC
 -- MAGIC `databricks bundle init`
 -- MAGIC
--- MAGIC * `demo/uv_workflows`
--- MAGIC * Based on `default-python` template
+-- MAGIC * `demo/pydantic_workflow`
+-- MAGIC * Based on the `default-python` template
+-- MAGIC * Python included
 -- MAGIC
 -- MAGIC IDEA: Create a new template with `uv` (based on `default-python` template). Sounds interesting? Anyone?
 -- MAGIC
 -- MAGIC Review:
+-- MAGIC
 -- MAGIC 1. `databricks.yml`
 
 -- COMMAND ----------
