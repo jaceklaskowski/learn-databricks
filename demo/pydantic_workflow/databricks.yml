@@ -1,0 +1,24 @@
+# This is a Databricks asset bundle definition for pydantic_workflow.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: pydantic_workflow
+
+include:
+  - resources/*.yml
+
+artifacts:
+  pydantic_workflow_wheel:
+    type: whl
+    build: uv build --wheel
+    path: .
+
+workspace:
+  host: https://curriculum-dev.cloud.databricks.com
+
+targets:
+  dev:
+    # The default target uses 'mode: development' to create a development copy.
+    # - Deployed resources get prefixed with '[dev my_user_name]'
+    # - Any job schedules and triggers are paused by default.
+    # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
+    mode: development
