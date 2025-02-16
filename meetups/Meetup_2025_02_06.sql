@@ -17,26 +17,6 @@
 
 -- COMMAND ----------
 
--- MAGIC %md
--- MAGIC
--- MAGIC ## Event Question
--- MAGIC
--- MAGIC O czym chciał(a)byś usłyszeć podczas meetupu? Rzuć ciekawym pomysłem na kolejne edycje 🙏
--- MAGIC
--- MAGIC 1. staram się nadarzyć za tym co Jacek mówi i czegoś się dowiedzieć
--- MAGIC 1. framework w Python - best practices
--- MAGIC 1. DAB
--- MAGIC 1. continue exploring quality with dqx or dlt publish to different schemas as good standard for medalion
--- MAGIC 1. Plan rozwoju, doświadczenia zawodowe wymiataczy technologicznych
--- MAGIC 1. Jakieś zaawansowane data quality w DBR; może jakaś analiza wykorzystania narzędzi typu Polars/DuckDB dla jedno-node’owych klastrów?
--- MAGIC 1. Jeżeli uda mi się dołączyć, to będzie fajnie posłuchać dalszej cześci poprzedniego meetup'u :)
--- MAGIC 1. Podłączenie Master data w transformacjach Databricks
--- MAGIC 1. Pydantic
--- MAGIC 1. everything about databricks
--- MAGIC 1. Chcę rozwijać swoje umiejętności w databricks a ta seria spotkań to coś czego szukałem
-
--- COMMAND ----------
-
 -- MAGIC %md # 📢 News
 
 -- COMMAND ----------
