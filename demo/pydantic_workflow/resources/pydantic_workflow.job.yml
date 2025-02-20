@@ -2,22 +2,10 @@ resources:
   jobs:
     pydantic_workflow_job:
       name: pydantic_workflow_job
-
       tasks:
-        - task_key: notebook_task
+        - task_key: taxi_qc
           existing_cluster_id: 1128-165651-khbd6ndl
           notebook_task:
-            notebook_path: ../src/notebook.ipynb
-
-        - task_key: main_task
-          depends_on:
-            - task_key: notebook_task
-          existing_cluster_id: 1128-165651-khbd6ndl
-          python_wheel_task:
-            package_name: pydantic_workflow
-            entry_point: main
+            notebook_path: ../src/taxi_qc.ipynb
           libraries:
-            # By default we just include the .whl file generated for the pydantic_workflow package.
-            # See https://docs.databricks.com/dev-tools/bundles/library-dependencies.html
-            # for more information on how to add other libraries.
             - whl: ../dist/*.whl

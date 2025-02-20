@@ -3,11 +3,21 @@ name = "pydantic-workflow"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
+# Databricks Runtime 16.2
+# https://docs.databricks.com/aws/en/release-notes/runtime/16.2#system-environment
+requires-python = "==3.12.3"
 dependencies = [
     "pydantic>=2.10.6",
 ]
 
+# A command definition (entry point)
+# uv run pydantic_workflow
+# https://docs.astral.sh/uv/concepts/projects/init/#packaged-applications
+[project.scripts]
+pydantic_workflow = "pydantic_workflow.main:main"
+
+# uv run --dev ...
+# https://docs.astral.sh/uv/concepts/projects/dependencies/#dependency-groups
 [dependency-groups]
 dev = [
     "pyspark>=3.5.4",
