@@ -6,7 +6,6 @@ from datetime import datetime
 
 
 class Trip(BaseModel):
-    id: int
     tpep_pickup_datetime: datetime = datetime.now()
     tpep_dropoff_datetime: datetime = datetime.now()
     trip_distance: float = -1.0
