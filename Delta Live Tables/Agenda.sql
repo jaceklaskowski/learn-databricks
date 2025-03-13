@@ -9,7 +9,7 @@
 -- MAGIC | --- | --- |
 -- MAGIC | 0 | [Introduction]($./Delta Live Tables) |
 -- MAGIC | 1 | [Delta Live Tables SQL]($./Building Delta Live Tables pipelines with SQL) |
--- MAGIC | 2 | [Delta Live Tables Python API]($./Delta Live Tables Python) |
+-- MAGIC | 2 | 👍 [Delta Live Tables Python API]($./Delta Live Tables Python) |
 -- MAGIC | x | [Pipeline settings]($./Pipeline settings) |
 -- MAGIC | 2L | [DLT Lab]($./DLT Lab) |
 -- MAGIC | 3 | [Expectations]($./Expectations) |
