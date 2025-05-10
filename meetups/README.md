@@ -5,6 +5,7 @@ This directory contains the "agenda" notebooks of the past **Databricks Talks** 
 The meetup group uses [lu.ma](https://lu.ma/warsaw-data-engineering) for meetup announcements.
 
 1. [Meetup next](./Meetup_next.ipynb)
+1. [2025_05_08](./Meetup_2025_05_08.ipynb) MLflow on Databricks
 1. [2025_04_10](./Meetup_2025_04_10.ipynb) Learn MLflow from `mlflow/models/docker_utils.py`
 1. [2025_03_27](./Meetup_2025_03_27.ipynb) MLflow (Local) Serving
 1. [2025_03_13](./2025_03_13.ipynb) Intro to Delta Live Tables (DLT)
