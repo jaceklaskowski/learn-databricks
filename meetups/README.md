@@ -5,6 +5,7 @@ This directory contains the "agenda" notebooks of the past **Databricks Talks** 
 The meetup group uses [lu.ma](https://lu.ma/warsaw-data-engineering) for meetup announcements.
 
 1. [Meetup next](./Meetup_next.ipynb)
+1. [2025_05_29](./Meetup_2025_05_29.ipynb) Model Lifecycle in Databricks Machine Learning
 1. [2025_05_22](./Meetup_2025_05_22.ipynb) Databricks Machine Learning and MLflow Client API
 1. [2025_05_15](./Meetup_2025_05_15.ipynb) Managed MLflow and Databricks Machine Learning
 1. [2025_05_08](./Meetup_2025_05_08.ipynb) MLflow on Databricks
