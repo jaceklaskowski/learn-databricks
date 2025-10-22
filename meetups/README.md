@@ -5,6 +5,7 @@ This directory contains the "agenda" notebooks of the past **Databricks Talks** 
 The meetup group uses [lu.ma](https://lu.ma/warsaw-data-engineering) for meetup announcements.
 
 1. [Meetup next](./Meetup_next.ipynb)
+1. [2025_10_16](./Meetup_2025_10_16.ipynb) Building Model Context Protocol (MCP) servers in Python
 1. [2025_08_21](./Meetup_2025_08_21.ipynb) Learn Python through functools module (and OpenAI's Python API)
 1. [2025_06_26](./Meetup_2025_06_26.ipynb) MLflow 3.1 and Classic ML Models on Lakeflow Declarative Pipelines
 1. [2025_06_12](./Meetup_2025_06_12.ipynb) Deploy and Query Models in Databricks
