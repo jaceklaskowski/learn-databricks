@@ -5,6 +5,7 @@ This directory contains the "agenda" notebooks of the past **Databricks Talks** 
 The meetup group uses [lu.ma](https://lu.ma/warsaw-data-engineering) for meetup announcements.
 
 1. [Meetup next](./Meetup_next.ipynb)
+1. [2025_12_11](./Meetup_2025_12_18.ipynb) Build AI Agents with DSPy and MLflow on Databricks
 1. [2025_12_11](./Meetup_2025_12_11.ipynb) Developing AI Agents with DSPy and MLflow in Databricks
 1. [2025_10_30](./Meetup_2025_10_30.ipynb) Developing AI Programs with DSPy
 1. [2025_10_23](./Meetup_2025_10_23.ipynb) Building Model Context Protocol (MCP) servers in Python cntd.
