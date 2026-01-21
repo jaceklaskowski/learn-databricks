@@ -509,7 +509,7 @@ REVOKE ALL PRIVILEGES ON demo_catalog.demo_schema.names FROM `account users`;
 -- MAGIC     * [Metastore](https://docs.gcp.databricks.com/data-governance/unity-catalog/index.html#metastores): the top-level container of objects in Unity Catalog
 -- MAGIC     * Catalog
 -- MAGIC     * Schema (_databases_)
--- MAGIC     * Table (tables and views)
+-- MAGIC     * Table (tables, views, volumes, models, and functions)
 -- MAGIC * reference all data in Unity Catalog using a [three-level namespace](https://docs.gcp.databricks.com/data-governance/unity-catalog/queries.html#three-level-namespace-notation)
 
 -- COMMAND ----------
@@ -518,19 +518,54 @@ REVOKE ALL PRIVILEGES ON demo_catalog.demo_schema.names FROM `account users`;
 -- MAGIC
 -- MAGIC A **metastore** is the top-level container for data in Unity Catalog.
 -- MAGIC
+-- MAGIC A metastore manages data assets:
+-- MAGIC
+-- MAGIC * tables
+-- MAGIC * views
+-- MAGIC * volumes
+-- MAGIC * models
+-- MAGIC * functions
+-- MAGIC
 -- MAGIC Within a metastore, Unity Catalog provides a 3-level namespace for organizing data:
 -- MAGIC
 -- MAGIC * catalogs
 -- MAGIC * schemas (_databases_)
 -- MAGIC * tables and views
 -- MAGIC
+-- MAGIC One metastore per region
+-- MAGIC
+-- MAGIC A metastore is assigned (_attached_) to one or more workspaces in the same region.
+-- MAGIC
 -- MAGIC Learn more [here](https://docs.gcp.databricks.com/data-governance/unity-catalog/index.html#metastores).
 
 -- COMMAND ----------
 
--- MAGIC %md # Privileges
+-- MAGIC %md
+-- MAGIC ## Catalogs
+-- MAGIC
+-- MAGIC A primary unit of data isolation
+-- MAGIC
+-- MAGIC Catalogs can be assigned (_bound_) to specific workspaces.
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC # Data Security Model
+-- MAGIC
+-- MAGIC Access Control Lists (ACLs) control who can access what and how.
+-- MAGIC
+-- MAGIC * `WHO` is a principal
+-- MAGIC * `WHAT` is a securable object
+-- MAGIC * `HOW` is a privilege
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC ## Privileges
 -- MAGIC
 -- MAGIC A **privilege** is a right granted to a **principal** to operate on a **securable object** in a metastore.
+-- MAGIC
+-- MAGIC A privilege describes what can be done with securable objects (explained next).
 -- MAGIC
 -- MAGIC Securable objects in Unity Catalog are hierarchical, and privileges are inherited downward.
 -- MAGIC * `GRANT`ing a privilege on a catalog automatically grants the privilege to all the current and future schemas in the catalog
@@ -538,7 +573,8 @@ REVOKE ALL PRIVILEGES ON demo_catalog.demo_schema.names FROM `account users`;
 
 -- COMMAND ----------
 
--- MAGIC %md ## Securable objects
+-- MAGIC %md
+-- MAGIC ## Securable objects
 -- MAGIC
 -- MAGIC A [securable object](https://docs.databricks.com/sql/language-manual/sql-ref-privileges.html#securable-objects) is an object in a Unity Catalog metastore on which privileges can be `GRANT`ed to or `REVOKE`d from a principal.
 -- MAGIC
@@ -554,7 +590,8 @@ REVOKE ALL PRIVILEGES ON demo_catalog.demo_schema.names FROM `account users`;
 
 -- COMMAND ----------
 
--- MAGIC %md ## Principals
+-- MAGIC %md
+-- MAGIC ## Principals
 -- MAGIC
 -- MAGIC [Principals](https://docs.databricks.com/sql/language-manual/sql-ref-principal.html):
 -- MAGIC
