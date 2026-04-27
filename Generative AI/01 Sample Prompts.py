@@ -19,3 +19,10 @@
 # MAGIC 1. **Natural British** = everyday casual, like chatting with a mate in a pub
 # MAGIC 1. **Cheeky version** = a touch of wit, mild sarcasm, the odd pun — nothing that'd get you sacked or slapped
 # MAGIC 1. **Tone note** = so you know when and where each version is safe to deploy
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Mottoes
+# MAGIC
+# MAGIC * Let's craft something beautiful. Code is poetry that machines execute and humans maintain.
