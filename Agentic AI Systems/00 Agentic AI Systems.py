@@ -1,6 +1,24 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # Coding Agents
+# MAGIC # Agentic AI Systems
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
+# MAGIC ## Agentic Workflows
+# MAGIC
+# MAGIC AI/LLMs manage the capabilities of Agentic Workflows:
+# MAGIC
+# MAGIC 1. Planning and execution
+# MAGIC 1. Tool calling
+# MAGIC
+# MAGIC Non-deterministic
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Coding Agents
 # MAGIC
 # MAGIC Based on [Introduction to GitLab Duo Agent Platform](https://university.gitlab.com/pages/gitlab-duo-agent-platform)
 
@@ -23,7 +41,7 @@
 
 # MAGIC %md
 # MAGIC
-# MAGIC ## Key Features
+# MAGIC ### Key Features
 # MAGIC
 # MAGIC Key abilities that enable AI agents to assist with complex tasks:
 # MAGIC
@@ -37,7 +55,7 @@
 
 # MAGIC %md
 # MAGIC
-# MAGIC ## Examples
+# MAGIC ## AI-Driven Development Toolkits
 # MAGIC
 # MAGIC * [BMad Method](https://github.com/bmad-code-org)
 # MAGIC * [GitHub Spec Kit](https://github.com/github/spec-kit/)
