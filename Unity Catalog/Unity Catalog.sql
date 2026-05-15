@@ -43,7 +43,7 @@
 
 -- MAGIC %md # Introduction to Unity Catalog
 -- MAGIC
--- MAGIC * **Unity Catalog** is a unified governance solution for data, analytics and AI on the lakehouse
+-- MAGIC * **Unity Catalog** is a unified governance solution for data, analytics and AI assets on Databricks
 -- MAGIC * An enterprise-wide **data catalog** for data & governance teams
 -- MAGIC * A centralized **metadata layer** to catalog data assets across your lakehouse
 -- MAGIC * A single interface to manage permissions, centralize auditing, and share data across platforms, clouds and regions
@@ -60,6 +60,22 @@
 -- MAGIC * Setting up Unity Catalog
 -- MAGIC     1. Create a metastore
 -- MAGIC     1. Add users and groups
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC
+-- MAGIC # /Volumes (Unity Catalog volume)
+-- MAGIC
+-- MAGIC Databricks recommends saving data to Unity Catalog as it provides a unified data governance solution.
+-- MAGIC
+-- MAGIC You can use Unity Catalog volumes to store and access files in any format, including structured, semi-structured, and unstructured data. Saving your dataset to a volume allows you to persist your data in a governed way in Databricks. Volumes can also be shared with other users and accessed across clusters.
+-- MAGIC
+-- MAGIC `/Volumes` is backed by object storage.
+-- MAGIC
+-- MAGIC Example: If you create a volume with the path, `/Volumes/main/default/cache`, and save a dataset to this location, then you can access it even after the cluster gets terminated or from another cluster. Other users who have access to the volume can also access the dataset.
+-- MAGIC
+-- MAGIC **Caveat**: The speed of reading from Unity Catalog (such as loading saved datasets or models) can be slower than the previous 2 options because of network overhead.
 
 -- COMMAND ----------
 
