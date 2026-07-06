@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # AI Playground
+# MAGIC # Databricks AI Playground
 
 # COMMAND ----------
 
