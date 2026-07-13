@@ -6,19 +6,15 @@
 
 # MAGIC %md
 # MAGIC
-# MAGIC A simple, open format for giving agents new capabilities and expertise.
-# MAGIC
-# MAGIC Bundle prompts, tool access, permissions, and workflows that extend the agent's capabilities.
-# MAGIC
-# MAGIC Agent Skills are folders of instructions, scripts, and resources that agents can discover and use to do things more accurately and efficiently.
-# MAGIC
-# MAGIC Skills are self-contained units of functionality that you can teach to the agents.
-# MAGIC
-# MAGIC A reusable package that can be invoked by either the agent or the human operator.
-# MAGIC
-# MAGIC Think of skills as expert knowledge you give the agent.
-# MAGIC
-# MAGIC [agentskills.io](https://agentskills.io)
+# MAGIC 1. [Agent Skills](https://agentskills.io) is an open standard for extending AI agents with specialized capabilities and expertise (e.g., domain-specific knowledge).
+# MAGIC 1. Bundles prompts, tool access, permissions, and workflows that extend the agent's capabilities.
+# MAGIC 1. Folders of instructions, scripts, custom commands, and resources that agents can discover and apply to do things more accurately and efficiently.
+# MAGIC 1. Portable, reusable and version-controlled
+# MAGIC 1. Self-contained units of functionality that you can teach to the agents.
+# MAGIC 1. Invoked by either the agent or the human operator (using the slash command).
+# MAGIC 1. Expert knowledge you give the agent.
+# MAGIC 1. Better for dynamic context discovery and procedural "how-to" instructions. 
+# MAGIC 1. Define skills in `SKILL.md` files ([Cursor](https://cursor.com/docs/skills)).
 
 # COMMAND ----------
 
