@@ -1,6 +1,30 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # Foundation Models
+# MAGIC # Language Models
+# MAGIC
+# MAGIC Language Models (LMs) can be small, medium or large.
+# MAGIC
+# MAGIC Large Language Models are known as LLMs.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Base Models
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Instruction-Tuned Language Models
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Chat-tuned Language Models
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Foundation Models
 
 # COMMAND ----------
 

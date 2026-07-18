@@ -8,6 +8,23 @@
 
 # MAGIC %md
 # MAGIC
+# MAGIC ## ✅ Course Completed
+# MAGIC
+# MAGIC Congratulations!
+# MAGIC
+# MAGIC You've completed the **AI Agents Fundamentals** course.
+# MAGIC
+# MAGIC By now, you should be able to:
+# MAGIC
+# MAGIC * Explain the role of Generative AI and LLMs in enterprise applications and how they relate to AI agents.
+# MAGIC * Understand what AI agents are and common uses for them across key industries.
+# MAGIC * Know the core components of AI agents and differentiate between simple, agentic, and multi-agent systems within modern AI applications.
+# MAGIC * Recognize the capabilities of Databricks' Mosaic AI platform and Agent Bricks for building and deploying AI agents.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
 # MAGIC ## 👨‍💻 Prompting Techniques
 # MAGIC
 # MAGIC Aka _Prompt Engineering Techniques_
@@ -31,16 +48,28 @@
 # COMMAND ----------
 
 # MAGIC %md
+# MAGIC ## Chat basics
 # MAGIC
-# MAGIC ## ✅ Course Completed
+# MAGIC [Chat basics](https://huggingface.co/docs/transformers/main/conversations)
 # MAGIC
-# MAGIC Congratulations!
+# MAGIC Chat models are conversational models you can send a message to and receive a response. Most language models from mid-2023 onwards are chat models and may be referred to as “instruct” or “instruction-tuned” models. Models that do not support chat are often referred to as “base” or “pretrained” models.
+
+# COMMAND ----------
+
+# MAGIC %md
 # MAGIC
-# MAGIC You've completed the **AI Agents Fundamentals** course.
+# MAGIC ## Mistral-7B-Instruct-v0.3
 # MAGIC
-# MAGIC By now, you should be able to:
+# MAGIC [Model Card for Mistral-7B-Instruct-v0.3](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3)
 # MAGIC
-# MAGIC * Explain the role of Generative AI and LLMs in enterprise applications and how they relate to AI agents.
-# MAGIC * Understand what AI agents are and common uses for them across key industries.
-# MAGIC * Know the core components of AI agents and differentiate between simple, agentic, and multi-agent systems within modern AI applications.
-# MAGIC * Recognize the capabilities of Databricks' Mosaic AI platform and Agent Bricks for building and deploying AI agents.
+# MAGIC The Mistral-7B-Instruct-v0.3 Large Language Model (LLM) is an instruct fine-tuned version of the Mistral-7B-v0.3.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
+# MAGIC ## Mistral's Quickstarts
+# MAGIC
+# MAGIC Mistral develops [open-weight and commercial large language models](https://docs.mistral.ai/models/overview).
+# MAGIC
+# MAGIC [Self-contained walkthroughs grouped by product and role](https://docs.mistral.ai/#quickstarts)
