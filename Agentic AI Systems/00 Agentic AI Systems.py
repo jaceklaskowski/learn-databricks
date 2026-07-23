@@ -8,6 +8,10 @@
 # MAGIC
 # MAGIC ## Agentic Workflows
 # MAGIC
+# MAGIC **Agentic AI** is about systems that can plan steps, call tools, interact with applications, and carry out complex tasks autonomously.
+# MAGIC
+# MAGIC **Agent** is an LLM with an agent harness.
+# MAGIC
 # MAGIC AI/LLMs manage the capabilities of Agentic Workflows:
 # MAGIC
 # MAGIC 1. Planning and execution
