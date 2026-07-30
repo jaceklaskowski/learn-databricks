@@ -5,7 +5,7 @@
 # ///
 # MAGIC %md
 # MAGIC
-# MAGIC # WIP MLflow and CrewAI
+# MAGIC # MLflow and CrewAI
 # MAGIC
 # MAGIC [GitHub](https://github.com/crewAIInc/crewAI)
 
@@ -37,7 +37,7 @@
 # COMMAND ----------
 
 # DBTITLE 1,Install Dependencies
-# MAGIC %pip install -qU "mlflow-skinny[databricks]>=3.14.0" "databricks-agents>=1.11.0" "crewai[tools]>=1.15.8"
+# MAGIC %pip install -qU "mlflow-skinny[databricks]>=3.14.0" "databricks-agents>=1.11.0" "crewai[tools]>=1.15.9"
 # MAGIC %restart_python
 
 # COMMAND ----------
@@ -89,7 +89,7 @@ displayHTML(f"MLflow version: <b>{mlflow.__version__}</b>")
 # MAGIC %md
 # MAGIC # Databricks Integration
 # MAGIC
-# MAGIC [Databricks Integration](https://docs.crewai.com/v1.15.8/en/enterprise/integrations/databricks)
+# MAGIC [Databricks Integration](https://docs-platform.crewai.com/platform/en/integrations/databricks)
 # MAGIC
 # MAGIC Connect CrewAI agents to Databricks Genie, SQL, Unity Catalog Functions, and Vector Search through Databricks managed MCP servers.
 # MAGIC
@@ -179,7 +179,7 @@ databricks_llm = LLM(
 
 # COMMAND ----------
 
-from crewai import Agent, Crew, Task
+from crewai import Agent, Crew, Task, Flow
 
 # COMMAND ----------
 
