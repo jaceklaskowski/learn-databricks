@@ -42,10 +42,12 @@
 
 # COMMAND ----------
 
+# DBTITLE 1,crewai
 # MAGIC %pip show crewai
 
 # COMMAND ----------
 
+# DBTITLE 1,crewai-tools
 # MAGIC %pip show crewai-tools
 
 # COMMAND ----------
@@ -67,19 +69,17 @@
 # MAGIC   "databricks-agents>=1.2.0,<2.0",
 # MAGIC ]
 # MAGIC ```
-
-# COMMAND ----------
-
-# MAGIC %md
 # MAGIC
 # MAGIC Among the optional dependencies is `databricks-agents` that we explicitly upgraded to the [latest version](https://pypi.org/project/databricks-agents/).
 
 # COMMAND ----------
 
+# DBTITLE 1,databricks-agents
 # MAGIC %pip show databricks-agents
 
 # COMMAND ----------
 
+# DBTITLE 1,MLflow version
 import mlflow
 
 displayHTML(f"MLflow version: <b>{mlflow.__version__}</b>")
@@ -103,6 +103,34 @@ displayHTML(f"MLflow version: <b>{mlflow.__version__}</b>")
 # MAGIC * Retrieve documents with Vector Search
 # MAGIC
 # MAGIC All without writing or hosting any connector code, and with Unity Catalog permissions enforced on every call.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC # DatabricksQueryTool
+# MAGIC
+# MAGIC [DatabricksQueryTool](https://docs.crewai.com/v1.15.8/en/tools/search-research/databricks-query-tool) - a built-in tool for querying Databricks workspace tables using SQL.
+
+# COMMAND ----------
+
+context = dbutils.notebook.entry_point.getDbutils().notebook().getContext()
+
+hostname = context.apiUrl().get()
+token = context.apiToken().get()
+
+import os
+
+os.environ["DATABRICKS_HOST"] = hostname
+os.environ["DATABRICKS_TOKEN"] = token
+
+# COMMAND ----------
+
+from crewai_tools import DatabricksQueryTool
+
+tool = DatabricksQueryTool()
+results = tool.run(query="SELECT * FROM RANGE(5) LIMIT 10", warehouse_id="6d9331f989a6418b")
+
+print(results)
 
 # COMMAND ----------
 
@@ -180,39 +208,7 @@ from crewai_tools import SerperDevTool, WebsiteSearchTool
 # MAGIC
 # MAGIC ## WebsiteSearchTool
 # MAGIC
-# MAGIC `WebsiteSearchTool` lives in the crewai-tools package.
-# MAGIC
-# MAGIC `WebsiteSearchTool` performs semantic (RAG) search over website content by scraping a URL, indexing it, and querying the vector store.
-# MAGIC
-# MAGIC `WebsiteSearchTool` extends `RagTool`, which extends `BaseTool`. Most configuration comes from `RagTool`.
-# MAGIC
-# MAGIC * **Implementation**: `lib/crewai-tools/src/crewai_tools/tools/website_search/website_search_tool.py`
-# MAGIC * **Export**: `from crewai_tools import WebsiteSearchTool`
-# MAGIC * **Docs**: `docs/edge/en/tools/search-research/websitesearchtool.mdx` (note: config examples there are outdated)
-
-# COMMAND ----------
-
-# DBTITLE 1,search_tool
-# MAGIC %skip
-# MAGIC
-# MAGIC # FIXME: Set up WebsiteSearchTool as an agent tool
-# MAGIC
-# MAGIC # 🚨 Outdated docs:
-# MAGIC # WebsiteSearchTool README and edge docs show config with llm and embedder.
-# MAGIC # The actual RagTool API uses embedding_model and vectordb — there is no llm config on this tool.
-# MAGIC
-# MAGIC search_tool = WebsiteSearchTool(
-# MAGIC     config=dict(
-# MAGIC         llm=dict(
-# MAGIC             provider="custom",
-# MAGIC             config=dict(model="deepseek-r1:14b"),
-# MAGIC         ),
-# MAGIC         embedder=dict(
-# MAGIC             provider="custom",
-# MAGIC             config=dict(model="models/embedding-001"),
-# MAGIC         ),
-# MAGIC     ),
-# MAGIC )
+# MAGIC Learn more in the [WebsiteSearchTool]($./WebsiteSearchTool) notebook.
 
 # COMMAND ----------
 
@@ -233,25 +229,39 @@ nest_asyncio.apply()
 
 # COMMAND ----------
 
-from textwrap import dedent
+# DBTITLE 1,Create a crew agent
+from crewai import Agent, BaseLLM
+from crewai.project import agent
 
+@agent
+def my_city_selection_agent(llm: str | BaseLLM) -> Agent:
+    return Agent(
+        role="City Selection Expert",
+        goal="Select the best city based on weather, season, and prices",
+        backstory="An expert in analyzing travel data to pick ideal destinations",
+        llm=llm,
+        verbose=True,
+        allow_delegation=False,
+        # tools=[
+        #     search_tool,
+        # ],
+    )
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Crew
+# MAGIC
+# MAGIC Represents a group of agents, defining how they should collaborate and the tasks they should perform.
+# MAGIC
+
+# COMMAND ----------
+
+from textwrap import dedent
 
 class TripAgents:
     def __init__(self, llm):
         self.llm = llm
-
-    def city_selection_agent(self):
-        return Agent(
-            role="City Selection Expert",
-            goal="Select the best city based on weather, season, and prices",
-            backstory="An expert in analyzing travel data to pick ideal destinations",
-            # tools=[
-            #     search_tool,
-            # ],
-            llm=self.llm,   # Use Databricks LLM
-            verbose=True,
-            allow_delegation=False,
-        )
 
     def local_expert(self):
         return Agent(
@@ -329,10 +339,10 @@ class TripTasks:
 from crewai.rag.embeddings.providers.custom.embedding_callable import CustomEmbeddingFunction
 from crewai.rag.core.types import Documents, Embeddings
 
-
 class MyCustomEmbeddingFunction(CustomEmbeddingFunction):
     # Embeddings = list[Embedding]
     def __call__(self, input: Documents) -> Embeddings:
+        print(f"MyCustomEmbeddingFunction({input})")
         return []
 
 # COMMAND ----------
@@ -358,10 +368,11 @@ class TripCrew:
         self.llm = llm
 
     async def run(self):
-        agents = TripAgents(self.llm)
         tasks = TripTasks()
 
-        city_selector_agent = agents.city_selection_agent()
+        city_selector_agent = my_city_selection_agent(llm=databricks_llm)
+
+        agents = TripAgents(self.llm)
         local_expert_agent = agents.local_expert()
 
         identify_task = tasks.identify_task(
@@ -386,9 +397,8 @@ class TripCrew:
             embedder=embedder_config,
         )
 
-        # WORKS
-        # result = await crew.kickoff_async()
-        result = crew.kickoff()
+        result = await crew.kickoff_async()
+        # result = crew.kickoff()
         return result
 
 
@@ -397,6 +407,8 @@ trip_crew = TripCrew(
     cities="Tokyo, Japan",
     date_range="Dec 12 - Dec 20, 2025",
     interests="sports, technology, and local cuisine",
-    llm=databricks_llm,     # Use the configured Databricks LLM
+    llm=databricks_llm,
 )
-result = await trip_crew.run()
+
+import asyncio
+asyncio.run(trip_crew.run())
