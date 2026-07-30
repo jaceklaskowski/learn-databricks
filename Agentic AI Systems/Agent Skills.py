@@ -7,6 +7,7 @@
 # MAGIC %md
 # MAGIC
 # MAGIC 1. [Agent Skills](https://agentskills.io) is an open standard for extending AI agents with specialized capabilities and expertise (e.g., domain-specific knowledge).
+# MAGIC 1. crewaiinc/skills
 # MAGIC 1. Bundles prompts, tool access, permissions, and workflows that extend the agent's capabilities.
 # MAGIC 1. Folders of instructions, scripts, custom commands, and resources that agents can discover and apply to do things more accurately and efficiently.
 # MAGIC 1. Portable, reusable and version-controlled
@@ -43,6 +44,61 @@
 # COMMAND ----------
 
 # MAGIC %md
+# MAGIC ## File Format — YAML
+# MAGIC
+# MAGIC A skill is a folder with a `SKILL.md` with minimal frontmatter:
+# MAGIC
+# MAGIC <br>
+# MAGIC
+# MAGIC ```yaml
+# MAGIC ---
+# MAGIC name: my-skill
+# MAGIC description: One-line description of what it does and when to use it — agentic harnesses read this to decide relevance.
+# MAGIC ---
+# MAGIC
+# MAGIC Instructions for what the skill should do go here...
+# MAGIC ```
+# MAGIC
+# MAGIC The whole spec is just `name` and `description`.
+# MAGIC
+# MAGIC The folder can also have files (e.g., scripts, references) that the skill's instructions point to.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Installing Skills
+# MAGIC
+# MAGIC Skills can be scoped to a single project or shared across all projects.
+# MAGIC
+# MAGIC In Claude Code:
+# MAGIC 1. **Personal / Global skills** (available across all your projects):
+# MAGIC `~/.claude/skills/<skill-name>/SKILL.md`
+# MAGIC 2. **Project skills** (shared with your team via git):
+# MAGIC `.claude/skills/<skill-name>/SKILL.md`
+# MAGIC 3. **Plugin skills** — installed automatically when you enable a plugin
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
+# MAGIC <br>
+# MAGIC
+# MAGIC ```shell
+# MAGIC pnpx skills add crewaiinc/skills
+# MAGIC ```
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## How to Check Installed Skills
+# MAGIC
+# MAGIC Run `/skills` to list all the discovered skills (personal, project, and plugin-provided).
+# MAGIC
+# MAGIC No install step or restart is needed for personal/project skills — drop the file in the right directory and it's live.
+
+# COMMAND ----------
+
+# MAGIC %md
 # MAGIC
 # MAGIC ## Examples
 # MAGIC
@@ -63,21 +119,16 @@
 # MAGIC ## Skill Triggers
 # MAGIC
 # MAGIC [Skill Triggers](https://docs.devin.ai/cli/extensibility/skills/overview#skill-triggers):
-# MAGIC * By users using a slash command (/skill-name).
+# MAGIC * By users using a slash command (`/[skill-name]`).
 # MAGIC * By agents autonomously when relevant.
 # MAGIC * Set `triggers: [user]` to prevent the agent from invoking a skill on its own.
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Where Skills Live
+# MAGIC ## WIP Evaluating skill output quality
 # MAGIC
-# MAGIC [Where Skills Live](https://docs.devin.ai/cli/extensibility/skills/overview#where-skills-live):
-# MAGIC * Skills can be scoped to a single project or shared across all projects
-# MAGIC     * `.agents/skills/<name>/SKILL.md` for a project-specific skill 
-# MAGIC     * `~/.agents/skills/<name>/SKILL.md` for global skills
-# MAGIC * **Project skills** are committed to version control, making them shareable with your team
-# MAGIC * **Global skills** are available in every project on this machine.
+# MAGIC Read it 👉 [Evaluating skill output quality](https://agentskills.io/skill-creation/evaluating-skills)
 
 # COMMAND ----------
 
